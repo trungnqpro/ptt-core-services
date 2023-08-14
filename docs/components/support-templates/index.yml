@@ -1,0 +1,63 @@
+get: # /support-templates
+  tags:
+    - support template
+  summary: Get all support template
+  description: ''
+  security:
+    - BearerAuth: []
+  responses:
+    '200':
+      description: successful operation
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: array
+                items:
+                  $ref: './schemas.yml#/model'
+    '401':      
+      $ref: '../../schemas/response-error.yml#/401'
+    '403':
+      $ref: '../../schemas/response-error.yml#/403'
+    '404':
+      $ref: '../../schemas/response-error.yml#/404'
+    '412':
+      $ref: '../../schemas/response-error.yml#/412'
+    '500':
+      $ref: '../../schemas/response-error.yml#/500'
+
+post: # /support-templates
+  tags:
+    - support template
+  summary: Create support template
+  description: ''
+  security:
+    - BearerAuth: []
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: './schemas.yml#/createSupportTemplate'
+  responses:
+    '200':
+      description: successful operation
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                $ref: './schemas.yml#/model'
+    '401':      
+      $ref: '../../schemas/response-error.yml#/401'
+    '403':
+      $ref: '../../schemas/response-error.yml#/403'
+    '404':
+      $ref: '../../schemas/response-error.yml#/404'
+    '412':
+      $ref: '../../schemas/response-error.yml#/412'
+    '500':
+      $ref: '../../schemas/response-error.yml#/500'

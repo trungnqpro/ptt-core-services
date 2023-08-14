@@ -1,0 +1,68 @@
+model:
+  type: object
+  properties:
+    id:
+      $ref: '#/fields/id'
+    question:
+      $ref: '#/fields/question'
+    answer:
+      $ref: '#/fields/answer'
+    totalView:
+      $ref: '#/fields/totalView'
+    totalLike:
+      $ref: '#/fields/totalLike'
+    totalDislike:
+      $ref: '#/fields/totalDislike'
+    like:
+      $ref: '#/fields/like'
+
+onlyQuestionModel:
+  type: object
+  properties:
+    id:
+      $ref: '#/fields/id'
+    question:
+      $ref: '#/fields/question'
+
+updateFaq:
+  type: object
+  properties:
+    question:
+      $ref: '#/fields/question'
+    answer:
+      $ref: '#/fields/answer'
+
+createFaq:
+  type: object
+  required:
+    - question
+    - answer
+  properties:
+    question:
+      $ref: '#/fields/question'
+    answer:
+      $ref: '#/fields/answer'
+
+fields:
+  id:
+    type: string
+    description: faq id
+  question:
+    type: string
+  answer:
+    type: string
+  totalView:
+    type: number
+  totalLike:
+    type: number
+  totalDislike:
+    type: number
+  like:
+    type: boolean
+    description: 'true is like | false is dislike | null/undefined is not reacted'
+  createdAt:
+    type: string
+    format: date-time
+  updatedAt:
+    type: string
+    format: date-time

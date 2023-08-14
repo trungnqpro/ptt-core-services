@@ -1,0 +1,67 @@
+get:
+  tags:
+    - quiz
+  summary: get Student Quizzes
+  description: ''
+  security:
+    - BearerAuth: []
+  parameters:
+    - in: path
+      name: subjectUnitId
+      description: Subject Unit Id
+      required: true
+  responses:
+    '200':
+      description: successful operation
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                $ref: './schemas.yml#/populatedModel'
+    '401':
+      $ref: '../../schemas/response-error.yml#/401'
+    '403':
+      $ref: '../../schemas/response-error.yml#/403'
+    '404':
+      $ref: '../../schemas/response-error.yml#/404'
+    '412':
+      $ref: '../../schemas/response-error.yml#/412'
+    '500':
+      $ref: '../../schemas/response-error.yml#/500'
+
+put: # /quiz/{id}
+  tags:
+    - quiz
+  summary: Doing the quiz by student
+  description: ''
+  security:
+    - BearerAuth: []
+  parameters:
+    - in: path
+      name: quizId
+      description: quiz id
+      required: true
+  responses:
+    '200':
+      description: successful operation
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: array
+                items:
+                  $ref: './schemas.yml#/model'
+    '401':
+      $ref: '../../schemas/response-error.yml#/401'
+    '403':
+      $ref: '../../schemas/response-error.yml#/403'
+    '404':
+      $ref: '../../schemas/response-error.yml#/404'
+    '412':
+      $ref: '../../schemas/response-error.yml#/412'
+    '500':
+      $ref: '../../schemas/response-error.yml#/500'

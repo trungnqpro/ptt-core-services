@@ -1,0 +1,42 @@
+model:
+  type: object
+  properties:
+    id:
+      $ref: '#/fields/id'
+    type:
+      $ref: '#/fields/type'
+    title:
+      $ref: '#/fields/title'
+    description:
+      $ref: '#/fields/description'
+    isRead:
+      $ref: '#/fields/isRead'
+    createdAt:
+      $ref: '#/fields/createdAt'
+    updatedAt:
+      $ref: '#/fields/updatedAt'
+
+fields:
+  id:
+    type: string
+    description: id of notification
+  type:
+    type: string
+    description: type of notification
+    enum:
+      - system
+  title:
+    type: string
+    description: notification title
+  description:
+    type: string
+    description: notification content
+  isRead:
+    type: string
+    description: flag "notification is read"
+  createdAt:
+    type: string
+    format: date-time
+  updatedAt:
+    type: string
+    format: date-time

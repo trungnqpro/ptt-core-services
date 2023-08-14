@@ -1,0 +1,62 @@
+get: # /profile
+  tags:
+    - profile
+  summary: Get profile of current user
+  description: ''
+  security:
+    - BearerAuth: []
+  responses:
+    '200':
+      description: successful operation
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                $ref: '../users/schemas.yml#/model'
+    '401':
+      $ref: '../../schemas/response-error.yml#/401'
+    '403':
+      $ref: '../../schemas/response-error.yml#/403'
+    '404':
+      $ref: '../../schemas/response-error.yml#/404'
+    '412':
+      $ref: '../../schemas/response-error.yml#/412'
+    '500':
+      $ref: '../../schemas/response-error.yml#/500'
+
+      
+put: # /profile
+  tags:
+    - profile
+  summary: Update profile info by id
+  description: ''
+  security:
+    - BearerAuth: []
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: '../users/schemas.yml#/updateProfileBody'
+  responses:
+    '200':
+      description: successful operation
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                $ref: '../users/schemas.yml#/model'
+    '401':
+      $ref: '../../schemas/response-error.yml#/401'
+    '403':
+      $ref: '../../schemas/response-error.yml#/403'
+    '404':
+      $ref: '../../schemas/response-error.yml#/404'
+    '412':
+      $ref: '../../schemas/response-error.yml#/412'
+    '500':
+      $ref: '../../schemas/response-error.yml#/500'

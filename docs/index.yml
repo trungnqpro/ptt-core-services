@@ -1,0 +1,275 @@
+openapi: '3.0.3'
+info:
+  description: 'This is a sample server SAPP LMS. For this sample, you can use the api key to test the authorization.'
+  version: 1.0.0
+  title: Learning Management System - SAPP
+  contact:
+    website: https://sapp.edu.vn
+servers:
+  - url: https://stg-api-sapplms.famtechvn.com/school
+    description: Sandbox server (uses test data)
+  - url: http://localhost:8501
+    description: Localhost server (dev in localhost)
+  # - url: https://api.example.com/v1
+  #   description: Production server (uses live data)
+tags:
+  - name: authentication
+    description: Access to admin dashboard
+  - name: announcement
+    description: Operations about announcement
+  - name: curriculum
+    description: Operations about Curriculum
+  - name: classes
+    description: Operations about classes
+  - name: faq group
+    description: Operation about Faq Group
+  - name: faq
+    description: Operation about Faq
+  - name: faq react
+    description: Operation about view/like/dislike Faq
+  - name: media
+    description: Operation upload media
+  - name: member
+    description: Operation about Member
+  - name: my
+    description: Operation on resources of (/assigned to) current user
+  - name: notification
+    description: Operation on Notification
+  - name: profile
+    description: Operations about Profile of current User
+  - name: question bank
+    description: question in bank
+  - name: retention ticket
+    description: Operations about Retention Request
+  - name: role
+    description: Operations about Role
+  - name: student
+    description: Operation about Student
+  - name: study registration
+    description: Operations about Study Registration
+  - name: subject
+    description: Operations about Subject
+  - name: subject extension
+    description: Operations about Subject Extension request
+  - name: subject unit
+    description: Operations about Subject Unit
+  - name: support template
+    description: Operations about Support Template
+  - name: support ticket
+    description: Operations about Support Ticket
+  - name: user
+    description: Operations about User
+  - name: words of specialization dictionary
+    description: Operations about words of specialization dictionary
+  - name: quiz
+    description: Operations about quiz
+  - name: note
+    description: Operations about note
+  - name: test
+    description: Operations about test
+  - name: discussion
+    description: Operations about discussion
+  - name: live-class
+    description: Operations about live class
+  - name: quiz-configurations
+    description: Operations about quiz configurations
+paths:
+  /auth/login:
+    $ref: './components/auth/index.yml#/login'
+  /auth/access-token:
+    $ref: './components/auth/index.yml#/renewAccessToken'
+  /auth/forgot-password:
+    $ref: './components/auth/index.yml#/forgotPassword'
+  /auth/set-password:
+    $ref: './components/auth/index.yml#/setPassword'
+  /profile:
+    $ref: './components/profile/index.yml'
+  /profile/password:
+    $ref: './components/profile/other.yml#/setNewPassword'
+  /users:
+    $ref: './components/users/index.yml'
+  /users/{id}:
+    $ref: './components/users/id.yml'
+  /users/{id}/password:
+    $ref: './components/users/other.yml#/resetPassword'
+  /roles:
+    $ref: './components/roles/index.yml'
+  /roles/{id}:
+    $ref: './components/roles/id.yml'
+  /permissions:
+    $ref: './components/roles/other.yml#/getAllPermissions'
+  /media:
+    $ref: './components/media/index.yml'
+  /curriculums:
+    $ref: './components/curriculums/index.yml'
+  /curriculums/{id}:
+    $ref: './components/curriculums/id.yml'
+  /support-templates:
+    $ref: './components/support-templates/index.yml'
+  /support-templates/{id}:
+    $ref: './components/support-templates/id.yml'
+  /support-tickets:
+    $ref: './components/support-tickets/index.yml'
+  /support-tickets/{id}:
+    $ref: './components/support-tickets/id.yml'
+  /support-tickets/{id}/status:
+    $ref: './components/support-tickets/other.yml#/updateStatus'
+  /dictionaries/specialization/words:
+    $ref: './components/words-of-specialization-dictionary/index.yml'
+  /dictionaries/specialization/words/{id}:
+    $ref: './components/words-of-specialization-dictionary/id.yml'
+  /dictionaries/specialization/words/excel:
+    $ref: './components/words-of-specialization-dictionary/other.yml#/importExcel'
+  /dictionaries/specialization/words/audio:
+    $ref: './components/words-of-specialization-dictionary/other.yml#/audio'
+  /faq-groups:
+    $ref: './components/faq-groups/index.yml'
+  /faq-groups/{id}:
+    $ref: './components/faq-groups/id.yml'
+  /faq-groups/{groupId}/faqs:
+    $ref: './components/faq-groups/faqs/index.yml'
+  /faqs:
+    $ref: './components/faqs/index.yml'
+  /faq-groups/{groupId}/faqs/{id}:
+    $ref: './components/faq-groups/faqs/id.yml'
+  /faq-groups/{groupId}/faqs/{id}/view:
+    $ref: './components/faq-groups/faqs/react.yml#/view'
+  /faq-groups/{groupId}/faqs/{id}/like:
+    $ref: './components/faq-groups/faqs/react.yml#/like'
+  /faq-groups/{groupId}/faqs/{id}/dislike:
+    $ref: './components/faq-groups/faqs/react.yml#/dislike'
+  /subjects:
+    $ref: './components/subjects/index.yml'
+  /subjects/{id}:
+    $ref: './components/subjects/id.yml'
+  /subjects/{subjectId}/sections:
+    $ref: './components/subjects/sections/index.yml'
+  /subjects/{subjectId}/sections/{id}:
+    $ref: './components/subjects/sections/id.yml'
+  /subjects/{subjectId}/sections/{sectionId}/lessons:
+    $ref: './components/subjects/sections/lessons/index.yml'
+  /subjects/{subjectId}/sections/{sectionId}/lessons/{id}:
+    $ref: './components/subjects/sections/lessons/id.yml'
+  /subjects/{subjectId}/lessons/{id}:
+    $ref: './components/subjects/lessons/id.yml'
+  /students:
+    $ref: './components/students/index.yml'
+  /students/excel:
+    $ref: './components/students/other.yml#/importExcel'
+  /students/{id}:
+    $ref: './components/students/id.yml'
+  /students/{id}/password:
+    $ref: './components/students/other.yml#/resetPassword'
+  /students/{id}/subjects:
+    $ref: './components/students/other.yml#/listSubjects'
+  /members:
+    $ref: './components/members/index.yml'
+  /members/{id}:
+    $ref: './components/members/id.yml'
+  /members/{id}/password:
+    $ref: './components/members/other.yml#/resetPassword'
+  /bank/questions:
+    $ref: './components/bank/questions/index.yml'
+  /bank/questions/{id}:
+    $ref: './components/bank/questions/id.yml'
+  /bank/questions/excel:
+    $ref: './components/bank/questions/other.yml#/importExcel'
+  /subject-units:
+    $ref: './components/subject-units/index.yml'
+  /subject-units/{id}:
+    $ref: './components/subject-units/id.yml'
+  /students/{{studentId}}/study-registrations:
+    $ref: './components/students/study-registrations/index.yml'
+  /subject-extensions:
+    $ref: './components/subject-extensions/index.yml'
+  /subject-extensions/{id}/approve:
+    $ref: './components/subject-extensions/other.yml#/approve'
+  /retention-tickets:
+    $ref: './components/retention-tickets/index.yml'
+  /retention-tickets/{id}/approve:
+    $ref: './components/retention-tickets/other.yml#/approve'
+  /my/subjects:
+    $ref: './components/my/subjects/index.yml'
+  /my/subjects/{subjectId}/learning-progress:
+    $ref: './components/my/subjects/other.yml#/updateLearningProgress'
+  /my/notifications:
+    $ref: './components/my/notifications/index.yml'
+  /my/notifications/read:
+    $ref: './components/my/notifications/other.yml#/read'
+  /my/notifications/{id}/read:
+    $ref: './components/my/notifications/other.yml#/idRead'
+  /my/notifications/total-unread:
+    $ref: './components/my/notifications/other.yml#/totalUnread'
+  /my/retention-tickets:
+    $ref: './components/my/retention-tickets/index.yml'
+  /my/retention-tickets/{id}/close:
+    $ref: './components/my/retention-tickets/other.yml#/close'
+  /announcements:
+    $ref: './components/announcement/index.yml'
+  /announcements/{id}:
+    $ref: './components/announcement/id.yml'
+  /subject-units/{subjectUnitId}/note:
+    $ref: './components/note/subjectUnitId.yml'
+  /notes/{id}:
+    $ref: './components/note/id.yml'
+  /subjects/{subjectId}/resources:
+    $ref: './components/subjects/resources/index.yml'
+  /subjects/{subjectId}/resources/{resourceId}:
+    $ref: './components/subjects/resources/id.yml'
+  /subjects/{subjectId}/test-unit:
+    $ref: './components/test/createTestUnit.yml'
+  /subjects/{subjectId}/test-unit/{id}:
+    $ref: './components/test/getTestUnitById.yml'
+  /subjects/{subjectId}/tests:
+    $ref: './components/test/index.yml'
+  /subjects/{subjectId}/tests/{testId}/start:
+    $ref: './components/test/startStudentTest.yml'
+  /subjects/{subjectId}/tests/{testId}:
+    $ref: './components/test/getTestById.yml'
+  /subjects/{subjectId}/tests/{testId}/submit:
+    $ref: './components/test/submitTestAnswer.yml'
+  /test-configuration:
+    $ref: './components/test-configuration/index.yml'
+  /subjectUnit/{subjectUnitId}/quiz:
+    $ref: './components/quiz/index.yml'
+  /subjectUnit/{subjectUnitId}/quiz/{quizId}/start:
+    $ref: './components/quiz/startQuiz.yml'
+  /subjectUnit/{subjectUnitId}/quiz/{quizId}:
+    $ref: './components/quiz/getQuizById.yml'
+  /subjectUnit/{subjectUnitId}/quiz/{quizId}/submit:
+    $ref: './components/quiz/submitQuizAnswer.yml'
+  /subjectUnit/{subjectUnitId}/quiz/{quizId}/complete:
+    $ref: './components/quiz/completeQuiz.yml'
+  /subjectUnit/{subjectUnitId}/quiz/{quizId}/judge:
+    $ref: './components/quiz/judgeTheQuiz.yml'
+  /subject-units/{subjectUnitId}/activities:
+    $ref: './components/subject-units/activities/index.yml'
+  /subject-units/{subjectUnitId}/discussions:
+    $ref: './components/discussion/index.yml'
+  /subject-units/{subjectUnitId}/discussions/{discussionId}:
+    $ref: './components/discussion/id.yml'
+  /subject-units/{subjectUnitId}/discussions/{discussionId}/view:
+    $ref: './components/discussion/react.yml#/view'
+  /subject-units/{subjectUnitId}/discussions/{discussionId}/like:
+    $ref: './components/discussion/react.yml#/like'
+  /subject-units/{subjectUnitId}/discussions/{discussionId}/dislike:
+    $ref: './components/discussion/react.yml#/dislike'
+  /live-classes/:
+    $ref: './components/live-classes/index.yml'
+  /live-classes/{liveClassId}:
+    $ref: './components/live-classes/id.yml'
+  /classes/:
+    $ref: './components/classes/index.yml'
+  /classes/{classId}:
+    $ref: './components/classes/id.yml'
+  /quiz-configurations:
+    $ref: './components/quiz-configurations/index.yml'
+  /quiz-configurations/{id}:
+    $ref: './components/quiz-configurations/id.yml'
+
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

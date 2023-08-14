@@ -1,0 +1,105 @@
+get:
+  tags:
+    - live-class
+  summary: Get live class details by id
+  description: ''
+  security:
+    - BearerAuth: []
+  parameters:
+    - in: path
+      name: liveClassId
+      description: live class id
+      required: true
+  responses:
+    '200':
+      description: successful operation
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                $ref: './schemas.yml#/model'
+    '401':
+      $ref: '../../schemas/response-error.yml#/401'
+    '403':
+      $ref: '../../schemas/response-error.yml#/403'
+    '404':
+      $ref: '../../schemas/response-error.yml#/404'
+    '412':
+      $ref: '../../schemas/response-error.yml#/412'
+    '500':
+      $ref: '../../schemas/response-error.yml#/500'
+
+put:
+  tags:
+    - live-class
+  summary: Update live class by id
+  description: ''
+  security:
+    - BearerAuth: []
+  parameters:
+    - in: path
+      name: liveClassId
+      description: live class id
+      required: true
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: './schemas.yml#/updateBody'
+  responses:
+    '200':
+      description: successful operation
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                $ref: './schemas.yml#/model'
+    '401':
+      $ref: '../../schemas/response-error.yml#/401'
+    '403':
+      $ref: '../../schemas/response-error.yml#/403'
+    '404':
+      $ref: '../../schemas/response-error.yml#/404'
+    '412':
+      $ref: '../../schemas/response-error.yml#/412'
+    '500':
+      $ref: '../../schemas/response-error.yml#/500'
+
+delete:
+  tags:
+    - live-class
+  summary: Delete a live class by id
+  description: ''
+  security:
+    - BearerAuth: []
+  parameters:
+    - in: path
+      name: liveClassId
+      description: live class id
+      required: true
+  responses:
+    '200':
+      description: successful operation
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: string
+                example: 'success'
+    '401':
+      $ref: '../../schemas/response-error.yml#/401'
+    '403':
+      $ref: '../../schemas/response-error.yml#/403'
+    '404':
+      $ref: '../../schemas/response-error.yml#/404'
+    '412':
+      $ref: '../../schemas/response-error.yml#/412'
+    '500':
+      $ref: '../../schemas/response-error.yml#/500'

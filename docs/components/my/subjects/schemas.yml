@@ -1,0 +1,33 @@
+model:
+  type: object
+  properties:
+    subject:
+      $ref: '#/fields/subject'
+    learningProgress:
+      $ref: '#/fields/learningProgress'
+
+fields:
+  subject:
+    type: object
+    properties:
+      id:
+        $ref: '../../subjects/schemas.yml#/fields/id'
+      code:
+        $ref: '../../subjects/schemas.yml#/fields/code'
+      name:
+        $ref: '../../subjects/schemas.yml#/fields/name'
+      avatarUrl:
+        $ref: '../../subjects/schemas.yml#/fields/avatarUrl'
+  learningProgress:
+    type: object
+    properties:
+      status:
+        $ref: '../../learning-progresses/schemas.yml#/fields/status'
+      startDate:
+        $ref: '../../learning-progresses/schemas.yml#/fields/startDate'
+      finishedDate:
+        $ref: '../../learning-progresses/schemas.yml#/fields/finishedDate'
+      expirationDate:
+        $ref: '../../learning-progresses/schemas.yml#/fields/expirationDate'
+      progressPercentage:
+        $ref: '../../learning-progresses/schemas.yml#/fields/progressPercentage'

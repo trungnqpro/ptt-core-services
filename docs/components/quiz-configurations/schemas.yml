@@ -1,0 +1,188 @@
+createBody:
+  type: object
+  required:
+    - quizConfig
+    - name
+  properties:
+    parentId:
+      $ref: '#/fields/parentId'
+    quizConfig:
+      $ref: '#/fields/quizConfig'
+    questionIds:
+      $ref: '#/fields/questionIds'
+    name:
+      $ref: '#/fields/name'
+    no:
+      $ref: '#/fields/no'
+    code:
+      $ref: '#/fields/code'
+    description:
+      $ref: '#/fields/description'
+    duration:
+      $ref: '#/fields/duration'
+    totalLikes:
+      $ref: '#/fields/totalLikes'
+    totalDislikes:
+      $ref: '#/fields/totalDislikes'
+    type:
+      $ref: '#/fields/type'
+
+updateBody:
+  type: object
+  required:
+    - quizConfig
+    - name
+  properties:
+    quizConfig:
+      $ref: '#/fields/quizConfig'
+    questionIds:
+      $ref: '#/fields/questionIds'
+    name:
+      $ref: '#/fields/name'
+    no:
+      $ref: '#/fields/no'
+    code:
+      $ref: '#/fields/code'
+    description:
+      $ref: '#/fields/description'
+
+model:
+  type: object
+  properties:
+    id:
+      $ref: '#/fields/id'
+    name:
+      $ref: '#/fields/name'
+    quizConfig:
+      $ref: '#/fields/quizConfig'
+    questions:
+      $ref: '#/fields/questions'
+
+fields:
+  id:
+    type: string
+    description: id words of subject
+  parentId:
+    type: string
+    description: id words of subject
+  name:
+    type: string
+    description: name words of subject
+  duration:
+    type: number
+    description: duration
+  quizConfig:
+    type: object
+    properties:
+      passPoint:
+        type: number
+        description: passPoint
+      attempt:
+        type: number
+        description: attempt
+      gradedActivity:
+        type: boolean
+        description: gradedActivity
+  questions:
+    type: array
+    description: return information of the Instructor person
+    items:
+      type: object
+      properties:
+        id:
+          type: string
+          description: id of question in bank
+        code:
+          type: number
+          description: id of question in bank
+        lessonId:
+          type: string
+          description: id of question in bank
+        type:
+          type: string
+          description: type of question
+        question:
+          type: string
+          description: question
+        difficultLevel:
+          type: number
+          description: difficultLevel (number)
+        hint:
+          type: string
+          description: hint answer
+        explanation:
+          type: string
+          description: explanation
+          format: string
+        status:
+          type: string
+          description: status (published, draft, deleted)
+          format: string
+        options:
+          type: array
+          description: Returns the answer if the question is not match
+          items:
+            type: object
+            properties:
+              code:
+                type: number
+                description: code
+              value:
+                type: string
+                description: code
+        leftOptions:
+          type: array
+          description: Returns the answer if the question is match
+          items:
+            type: object
+            properties:
+              code:
+                type: number
+                description: code
+              value:
+                type: string
+                description: code
+        rightOptions:
+          type: array
+          description: Returns the answer if the question is match
+          items:
+            type: object
+            properties:
+              code:
+                type: number
+                description: code
+              value:
+                type: string
+                description: code
+  createdAt:
+    type: string
+    description: createdAt
+    format: date-time
+  updatedAt:
+    type: string
+    description: updatedAt
+    format: date-time
+  questionIds:
+    type: array
+    description: questions Ids of quiz
+    items:
+      type: string
+      description: questions
+  no:
+    type: number
+    description: no of subject unit
+  code:
+    type: string
+    description: code of subject unit
+  description:
+    type: string
+    description: description of subject unit
+  totalLikes:
+    type: number
+    description: description of subject unit
+  totalDislikes:
+    type: number
+    description: description of subject unit
+  type:
+    type: string
+    description: description of subject unit

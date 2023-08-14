@@ -1,0 +1,163 @@
+createBody:
+  type: object
+  required:
+    - name
+    - code
+  properties:
+    parentId:
+      $ref: '#/fields/parentId'
+    type:
+      $ref: '#/fields/type'
+    no:
+      $ref: '#/fields/no'
+    code:
+      $ref: '#/fields/code'
+    name:
+      $ref: '#/fields/name'
+    description:
+      $ref: '#/fields/description'
+    sectionType:
+      $ref: '#/fields/sectionType'
+
+updateBody:
+  type: object
+  properties:
+    parentId:
+      $ref: '#/fields/parentId'
+    type:
+      $ref: '#/fields/type'
+    no:
+      $ref: '#/fields/no'
+    code:
+      $ref: '#/fields/code'
+    name:
+      $ref: '#/fields/name'
+    description:
+      $ref: '#/fields/description'
+    sectionType:
+      $ref: '#/fields/sectionType'
+
+model:
+  type: object
+  properties:
+    id:
+      $ref: '#/fields/id'
+    subjectId:
+      $ref: '#/fields/subjectId'
+    parentId:
+      $ref: '#/fields/parentId'
+    type:
+      $ref: '#/fields/type'
+    no:
+      $ref: '#/fields/no'
+    code:
+      $ref: '#/fields/code'
+    name:
+      $ref: '#/fields/name'
+    description:
+      $ref: '#/fields/description'
+
+fields:
+  id:
+    type: string
+    description: id words of subject
+  subjectId:
+    type: string
+    description: subject id
+  parentId:
+    type: string
+    description: parent id, it's a subject unit id
+  type:
+    type: string
+    description: subject unit can be module (subject, chapter, reading, module, unit), or unit (quiz, test, lesson)
+    enum:
+      - section
+      - lession
+      - test
+      - quiz
+  sectionType:
+    type: string
+    description: section type (group type)
+    enum:
+      - section
+      - sub-section
+      - unit
+      - learning-outcome
+  no:
+    type: number
+    description: this number is used to order
+  code:
+    type: string
+  name:
+    type: string
+    description: words of subject
+  duration:
+    type: number
+    description: duration of subject
+  description:
+    type: string
+    description: description about subject unit
+  questionIds:
+    type: array
+    description: array of instructor
+    items:
+      type: string
+      description: instructor
+  createdById:
+    type: string
+    description: createdById
+  totalLikes:
+    type: number
+    description: total number of likes
+  totalDislikes:
+    type: string
+    description: total number of dislikes
+  isDeleted:
+    type: boolean
+    description: deleted status flag
+  createdAt:
+    type: string
+    description: createdAt
+    format: date-time
+  updatedAt:
+    type: string
+    description: updatedAt
+    format: date-time
+  document:
+    type: object
+    description: document
+    properties:
+      type:
+        type: string
+        description: document type
+      url:
+        type: string
+        description: document url
+      sections:
+        type: array
+        description: document sections of lesson
+        items:
+          type: object
+          properties:
+            no:
+              type: string
+              description: section's number
+            title:
+              type: string
+              description: section's title
+            content:
+              type: string
+              description: section's content
+  resources:
+    type: array
+    description: lesson's resources
+    items:
+      type: object
+      description: lesson's resource entity
+      properties:
+        name:
+          type: string
+          description: resource's name
+        url:
+          type: string
+          description: resource's url

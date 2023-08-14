@@ -1,0 +1,34 @@
+close:
+  put:
+    tags:
+      - my
+      - retention ticket
+    summary: Close retention ticket by id to continue learning
+    description: ''
+    security:
+      - BearerAuth: []
+    parameters:
+      - in: path
+        name: id
+        description: retention ticket id
+        required: true
+    responses:
+      '200':
+        description: successful operation
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                data:
+                  $ref: '../../retention-tickets/schemas.yml#/model'
+      '401':
+        $ref: '../../../schemas/response-error.yml#/401'
+      '403':
+        $ref: '../../../schemas/response-error.yml#/403'
+      '404':
+        $ref: '../../../schemas/response-error.yml#/404'
+      '412':
+        $ref: '../../../schemas/response-error.yml#/412'
+      '500':
+        $ref: '../../../schemas/response-error.yml#/500'

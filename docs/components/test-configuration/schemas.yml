@@ -1,0 +1,263 @@
+createBody:
+  type: object
+  required:
+    - subjectId
+    - name
+    - code
+  properties:
+    subjectId:
+      $ref: '#/fields/subjectId'
+    parentId:
+      $ref: '#/fields/parentId'
+    type:
+      $ref: '#/fields/type'
+    no:
+      $ref: '#/fields/no'
+    code:
+      $ref: '#/fields/code'
+    name:
+      $ref: '#/fields/name'
+    duration:
+      $ref: '#/fields/duration'
+    description:
+      $ref: '#/fields/description'
+    peerReviewOption:
+      $ref: '#/fields/peerReviewOption'
+    questionIds:
+      $ref: '#/fields/questionIds'
+    resources:
+      $ref: '#/fields/resources'
+    quizConfig:
+      $ref: '#/fields/quizConfig'
+    learningOutcome:
+      $ref: '#/fields/learningOutcome'
+
+updateBody:
+  type: object
+  properties:
+    parentId:
+      $ref: '#/fields/parentId'
+    type:
+      $ref: '#/fields/type'
+    no:
+      $ref: '#/fields/no'
+    code:
+      $ref: '#/fields/code'
+    name:
+      $ref: '#/fields/name'
+    duration:
+      $ref: '#/fields/duration'
+    description:
+      $ref: '#/fields/description'
+    questionIds:
+      $ref: '#/fields/questionIds'
+    document:
+      $ref: '#/fields/document'
+    peerReviewOption:
+      $ref: '#/fields/peerReviewOption'
+    resources:
+      $ref: '#/fields/resources'
+    quizConfig:
+      $ref: '#/fields/quizConfig'
+    learningOutcome:
+      $ref: '#/fields/learningOutcome'
+
+model:
+  type: object
+  properties:
+    testConfiguration:
+      type: object
+      properties:
+        id:
+          $ref: '#/fields/id'
+        subjectId:
+          $ref: '#/fields/subjectId'
+        parentId:
+          $ref: '#/fields/parentId'
+        type:
+          $ref: '#/fields/type'
+        no:
+          $ref: '#/fields/no'
+        code:
+          $ref: '#/fields/code'
+        name:
+          $ref: '#/fields/name'
+        duration:
+          $ref: '#/fields/duration'
+        description:
+          $ref: '#/fields/description'
+        questionIds:
+          $ref: '#/fields/questionIds'
+        document:
+          $ref: '#/fields/document'
+        peerReviewOption:
+          $ref: '#/fields/peerReviewOption'
+        resources:
+          $ref: '#/fields/resources'
+        quizConfig:
+          $ref: '#/fields/quizConfig'
+    questions:
+      type: array
+      items:
+        $ref: '../bank/questions/schemas.yml#/model'
+
+fields:
+  id:
+    type: string
+    description: id words of subject
+  subjectId:
+    type: string
+    description: subject id
+  parentId:
+    type: string
+    description: parent id, it's a subject unit id
+  type:
+    type: string
+    description: subject unit can be module (subject, chapter, reading, module, unit), or unit (quiz, test, lesson)
+    enum:
+      - section
+      - lession
+      - test
+      - quiz
+  sectionType:
+    type: string
+    description: section type (group type)
+    enum:
+      - section
+      - sub-section
+      - unit
+      - learning-outcome
+  no:
+    type: number
+    description: this number is used to order
+  code:
+    type: code
+    description: subject unit code
+  name:
+    type: string
+    description: words of subject
+  duration:
+    type: number
+    description: duration of subject
+  description:
+    type: string
+    description: description about subject unit
+  questionIds:
+    type: array
+    description: array of instructor
+    items:
+      type: string
+      description: instructor
+  createdById:
+    type: string
+    description: createdById
+  totalLikes:
+    type: number
+    description: total number of likes
+  totalDislikes:
+    type: string
+    description: total number of dislikes
+  isDeleted:
+    type: boolean
+    description: deleted status flag
+  createdAt:
+    type: string
+    description: createdAt
+    format: date-time
+  updatedAt:
+    type: string
+    description: updatedAt
+    format: date-time
+  document:
+    type: object
+    description: document
+    properties:
+      type:
+        type: string
+        description: document type
+      url:
+        type: string
+        description: document url
+      sections:
+        type: array
+        description: document sections of lesson
+        items:
+          type: object
+          properties:
+            no:
+              type: string
+              description: section's number
+            title:
+              type: string
+              description: section's title
+            content:
+              type: string
+              description: section's content
+  peerReviewOption:
+    type: object
+    description: peer review options of lesson
+    properties:
+      enabled:
+        type: boolean
+        description: whether peer review is enabled or not
+      numberOfReviewers:
+        type: number
+        description: number of peer reviewer(s) of this lesson
+      duration:
+        type: number
+        description: duration of peer review process, in seconds
+  resources:
+    type: array
+    description: lesson's resources
+    items:
+      type: object
+      description: lesson's resource entity
+      properties:
+        name:
+          type: string
+          description: resource's name
+        url:
+          type: string
+          description: resource's url
+  quizConfig:
+    type: object
+    description: config for quiz/test activity
+    properties:
+      duration:
+        type: number
+        description: quiz/test duration
+      passMark:
+        type: number
+        description: minimum mark to pass quiz/test
+      attempt:
+        type: number
+        description: number of attempts to do quiz/test
+      gradedActivity:
+        type: boolean
+        description: whether this activity is graded or not
+      scoring:
+        type: object
+        description: scoring option of this quiz/test
+        properties:
+          scoringType:
+            type: string
+            description: auto scoring or manual scoring
+            enum:
+              - auto
+              - manual
+          choiceTotalScore:
+            type: number
+            description: total point of choice-question in case of manual scoring
+          constructedTotalScore:
+            type: number
+            description: total point of constructed-question in case of manual scoring
+  learningOutcome:
+    type: array
+    description: lesson's learning outcome
+    items:
+      type: object
+      description: lesson's learning outcome entry
+      properties:
+        content:
+          type: string
+          description: learning outcome content

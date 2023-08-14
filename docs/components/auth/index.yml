@@ -1,0 +1,266 @@
+login: # /auth/login
+  post:
+    tags:
+      - authentication
+    summary: Logs user into the system
+    description: ''
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+              - username
+              - password
+            properties:
+              username:
+                type: string
+                description: username can be username or email
+                example: one.test
+              password:
+                type: string
+                example: '123123'
+    responses:
+      '200':
+        description: successful operation
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                data:
+                  type: object
+                  properties:
+                    accessToken:
+                      type: string
+                      description: access token
+                    refreshToken:
+                      type: string
+                      description: refresh token
+                    isStudent:
+                      type: boolean
+                      description: define user is a student or not
+                    profile:
+                      $ref: '../users/schemas.yml#/shortProfile'
+                    permissions:
+                      type: array
+                      items:
+                        type: string
+                        description: permission
+                      example: ['createUser', 'updateUser', 'listUser']
+                      description: array of permissions
+      '401':
+        $ref: '../../schemas/response-error.yml#/401'
+      '403':
+        $ref: '../../schemas/response-error.yml#/403'
+      '404':
+        $ref: '../../schemas/response-error.yml#/404'
+      '412':
+        $ref: '../../schemas/response-error.yml#/412'
+      '500':
+        $ref: '../../schemas/response-error.yml#/500'
+
+renewAccessToken: # /auth/access-token
+  get:
+    tags:
+      - authentication
+    summary: Renew accessToken by refreshToken
+    description: '200'
+    parameters:
+      - name: refreshToken
+        in: query
+        required: true
+        type: string
+    responses:
+      '200':
+        description: successful operation
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                data:
+                  type: object
+                  properties:
+                    accessToken:
+                      type: string
+                      description: access token
+      '401':
+        $ref: '../../schemas/response-error.yml#/401'
+      '403':
+        $ref: '../../schemas/response-error.yml#/403'
+      '404':
+        $ref: '../../schemas/response-error.yml#/404'
+      '412':
+        $ref: '../../schemas/response-error.yml#/412'
+      '500':
+        $ref: '../../schemas/response-error.yml#/500'
+
+register: # /auth/sign-up
+  post:
+    tags:
+      - authentication
+    summary: Register as a member
+    description: 'Register new account'
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+              - email
+              - password
+            properties:
+              email:
+                type: string
+                format: email
+              password:
+                type: string
+              fullname:
+                type: string
+    responses:
+      '200':
+        description: successful operation
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                data:
+                  type: object
+                  properties:
+                    accessToken:
+                      type: string
+                      description: access token
+      '401':
+        $ref: '../../schemas/response-error.yml#/401'
+      '403':
+        $ref: '../../schemas/response-error.yml#/403'
+      '404':
+        $ref: '../../schemas/response-error.yml#/404'
+      '412':
+        $ref: '../../schemas/response-error.yml#/412'
+      '500':
+        $ref: '../../schemas/response-error.yml#/500'
+
+verifyEmail: # /auth/verify-email
+  get:
+    tags:
+      - authentication
+    summary: Verify registered email
+    description: 'Verify email, which is used in registering an account'
+    parameters:
+      - in: query
+        required: true
+        schema:
+          type: object
+          required:
+            - token
+          properties:
+            token:
+              type: string
+    responses:
+      '200':
+        description: return a page contains successful or fail message.
+
+resendVerifyingEmail: # /auth/resend-verifying-email
+  get:
+    tags:
+      - authentication
+    summary: Logs user into the system
+    description: 'Register new account'
+    parameters:
+      - in: query
+        name: email
+        required: true
+        type: string
+        format: email
+    responses:
+      '200':
+        description: successful operation
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                data:
+                  type: object
+                  properties:
+                    accessToken:
+                      type: string
+                      description: access token
+      '401':
+        $ref: '../../schemas/response-error.yml#/401'
+      '403':
+        $ref: '../../schemas/response-error.yml#/403'
+      '404':
+        $ref: '../../schemas/response-error.yml#/404'
+      '412':
+        $ref: '../../schemas/response-error.yml#/412'
+      '500':
+        $ref: '../../schemas/response-error.yml#/500'
+
+forgotPassword: # /auth/forgot-password
+  get:
+    tags:
+      - authentication
+    summary: Forget password
+    description: 'Send email to confirm reset password when user forget it'
+    parameters:
+      - in: query
+        name: email
+        required: true
+        type: string
+        format: email
+        example: test@email.com
+        description: email of user has been used to register account
+      - in: query
+        name: callbackUrl
+        required: true
+        type: string
+        format: uri
+        description: url direct to UI setting new password
+        example: https://domain/set-new-password
+    responses:
+      '200':
+        description: return a page contains successful or fail message.
+
+setPassword: # /auth/set-password
+  put:
+    tags:
+      - authentication
+    summary: Set password
+    description: 'Reset new password when user forget it'
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+              - password
+              - token
+            properties:
+              password:
+                $ref: '../users/schemas.yml#/fields/password'
+              token:
+                type: string
+    responses:
+      '200':
+        description: successful operation
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                data:
+                  type: string
+                  example: 'success'
+      '404':
+        $ref: '../../schemas/response-error.yml#/404'
+      '412':
+        $ref: '../../schemas/response-error.yml#/412'
+      '500':
+        $ref: '../../schemas/response-error.yml#/500'

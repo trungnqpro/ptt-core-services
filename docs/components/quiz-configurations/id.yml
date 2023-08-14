@@ -1,0 +1,105 @@
+put: # /quiz-configurations/:id
+  tags:
+    - quiz-configurations
+  summary: Update quiz-configurations by id
+  description: ''
+  security:
+    - BearerAuth: []
+  parameters:
+    - in: path
+      name: id
+      description: Id
+      required: true
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: './schemas.yml#/updateBody'
+  responses:
+    '200':
+      description: successful operation
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                $ref: './schemas.yml#/model'
+    '401':
+      $ref: '../../schemas/response-error.yml#/401'
+    '403':
+      $ref: '../../schemas/response-error.yml#/403'
+    '404':
+      $ref: '../../schemas/response-error.yml#/404'
+    '412':
+      $ref: '../../schemas/response-error.yml#/412'
+    '500':
+      $ref: '../../schemas/response-error.yml#/500'
+
+delete: # /quiz-configurations/:id
+  tags:
+    - quiz-configurations
+  summary: Delete quiz-configurations by id
+  description: ''
+  security:
+    - BearerAuth: []
+  parameters:
+    - in: path
+      name: id
+      description: id
+      required: true
+  responses:
+    '200':
+      description: successful operation
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: string
+                example: 'success'
+    '401':
+      $ref: '../../schemas/response-error.yml#/401'
+    '403':
+      $ref: '../../schemas/response-error.yml#/403'
+    '404':
+      $ref: '../../schemas/response-error.yml#/404'
+    '412':
+      $ref: '../../schemas/response-error.yml#/412'
+    '500':
+      $ref: '../../schemas/response-error.yml#/500'
+
+get:
+  tags:
+    - quiz-configurations
+  summary: Get quiz-configurations by id
+  description: ''
+  security:
+    - BearerAuth: []
+  parameters:
+    - in: path
+      name: id
+      description: Id
+      required: true
+  responses:
+    '200':
+      description: successful operation
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                $ref: './schemas.yml#/model'
+    '401':
+      $ref: '../../schemas/response-error.yml#/401'
+    '403':
+      $ref: '../../schemas/response-error.yml#/403'
+    '404':
+      $ref: '../../schemas/response-error.yml#/404'
+    '412':
+      $ref: '../../schemas/response-error.yml#/412'
+    '500':
+      $ref: '../../schemas/response-error.yml#/500'

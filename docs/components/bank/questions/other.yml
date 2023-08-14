@@ -1,0 +1,37 @@
+importExcel:
+  post: # /bank/questions/excel
+    tags:
+      - question bank
+    summary: create questions in file xlxs
+    description: ''
+    security:
+      - BearerAuth: []
+    requestBody:
+      content:
+        multipart/form-data:
+          schema:
+            type: object
+            properties:
+              file:
+                type: string
+                format: binary
+    responses:
+      '200':
+        description: successful operation
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                data:
+                  $ref: './schemas.yml#/model'
+      '401':
+        $ref: '../../../schemas/response-error.yml#/401'
+      '403':
+        $ref: '../../../schemas/response-error.yml#/403'
+      '404':
+        $ref: '../../../schemas/response-error.yml#/404'
+      '412':
+        $ref: '../../../schemas/response-error.yml#/412'
+      '500':
+        $ref: '../../../schemas/response-error.yml#/500'

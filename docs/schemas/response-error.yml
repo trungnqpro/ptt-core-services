@@ -1,0 +1,30 @@
+'401':
+  description: authentication error
+  content:
+    application/json:
+      schema:
+        $ref: '../schemas/error.yml#/Error401'
+'403':
+  description: invalid permission
+  content:
+    application/json:
+      schema:
+        $ref: '../schemas/error.yml#/Error403'
+'404':
+  description: not found
+  content:
+    application/json:
+      schema:
+        $ref: '../schemas/error.yml#/Error404'
+'412':
+  description: invalid parameter
+  content:
+    application/json:
+      schema:
+        $ref: '../schemas/error.yml#/Error412'
+'500':
+  description: error operation
+  content:
+    application/json:
+      schema:
+        $ref: '../schemas/error.yml#/Error500'

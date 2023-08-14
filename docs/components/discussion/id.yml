@@ -1,0 +1,123 @@
+put: # /discussion/{id}
+  tags:
+    - discussion
+  summary: Update discussion of by id
+  description: ''
+  security:
+    - BearerAuth: []
+  parameters:
+    - in: path
+      name: subjectUnitId
+      description: subject Unit Id
+      required: true
+    - in: path
+      name: discussionId
+      description: discussion Id
+      required: true
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: './schemas.yml#/updateModel'
+  responses:
+    '200':
+      description: successful operation
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                $ref: './schemas.yml#/model'
+    '401':
+      $ref: '../../schemas/response-error.yml#/401'
+    '403':
+      $ref: '../../schemas/response-error.yml#/403'
+    '404':
+      $ref: '../../schemas/response-error.yml#/404'
+    '412':
+      $ref: '../../schemas/response-error.yml#/412'
+    '500':
+      $ref: '../../schemas/response-error.yml#/500'
+
+post: # /discussion/{id}
+  tags:
+    - discussion
+  summary: Reply discussion of by discussion id
+  description: ''
+  security:
+    - BearerAuth: []
+  parameters:
+    - in: path
+      name: subjectUnitId
+      description: subject Unit Id
+      required: true
+    - in: path
+      name: discussionId
+      description: discussion Id
+      required: true
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: './schemas.yml#/data'
+  responses:
+    '200':
+      description: successful operation
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                $ref: './schemas.yml#/model'
+    '401':
+      $ref: '../../schemas/response-error.yml#/401'
+    '403':
+      $ref: '../../schemas/response-error.yml#/403'
+    '404':
+      $ref: '../../schemas/response-error.yml#/404'
+    '412':
+      $ref: '../../schemas/response-error.yml#/412'
+    '500':
+      $ref: '../../schemas/response-error.yml#/500'
+
+delete: # /discussion/:id
+  tags:
+    - discussion
+  summary: Delete a discussion by id
+  description: ''
+  security:
+    - BearerAuth: []
+  parameters:
+    - in: path
+      name: subjectUnitId
+      description: subject Unit Id
+      required: true
+    - in: path
+      name: discussionId
+      description: discussion Id
+      required: true
+  responses:
+    '200':
+      description: successful operation
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: string
+                example: 'success'
+    '401':
+      $ref: '../../schemas/response-error.yml#/401'
+    '403':
+      $ref: '../../schemas/response-error.yml#/403'
+    '404':
+      $ref: '../../schemas/response-error.yml#/404'
+    '412':
+      $ref: '../../schemas/response-error.yml#/412'
+    '500':
+      $ref: '../../schemas/response-error.yml#/500'

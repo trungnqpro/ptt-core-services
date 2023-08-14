@@ -1,0 +1,119 @@
+model:
+  type: object
+  properties:
+    id:
+      $ref: '../users/schemas.yml#/fields/id'
+    email:
+      $ref: '../users/schemas.yml#/fields/email'
+    username:
+      $ref: '../users/schemas.yml#/fields/username'
+    gender:
+      $ref: '../users/schemas.yml#/fields/gender'
+    firstName:
+      $ref: '../users/schemas.yml#/fields/firstName'
+    roleId:
+      $ref: '../users/schemas.yml#/fields/roleId'
+    lastName:
+      $ref: '../users/schemas.yml#/fields/lastName'
+    birthday:
+      $ref: '../users/schemas.yml#/fields/birthday'
+    avatarUrl:
+      $ref: '../users/schemas.yml#/fields/avatarUrl'
+    fullAddress:
+      $ref: '../users/schemas.yml#/fields/fullAddress'
+    phoneNumber:
+      $ref: '../users/schemas.yml#/fields/phoneNumber'
+    intro:
+      $ref: '../users/schemas.yml#/fields/intro'
+    status:
+      $ref: '../users/schemas.yml#/fields/status'
+    imgFrontIdentityCardUrl:
+      $ref: '../users/schemas.yml#/fields/imgFrontIdentityCardUrl'
+    imgBackIdentityCardUrl:
+      $ref: '../users/schemas.yml#/fields/imgBackIdentityCardUrl'
+    createdAt:
+      $ref: '../users/schemas.yml#/fields/createdAt'
+    updatedAt:
+      $ref: '../users/schemas.yml#/fields/updatedAt'
+
+updateProfileBody:
+  type: object
+  properties:
+    email:
+      $ref: '../users/schemas.yml#/fields/email'
+    username:
+      $ref: '../users/schemas.yml#/fields/username'
+    firstName:
+      $ref: '../users/schemas.yml#/fields/firstName'
+    lastName:
+      $ref: '../users/schemas.yml#/fields/lastName'
+    gender:
+      $ref: '../users/schemas.yml#/fields/gender'
+    phoneNumber:
+      $ref: '../users/schemas.yml#/fields/phoneNumber'
+    avatarUrl:
+      $ref: '../users/schemas.yml#/fields/avatarUrl'
+    fullAddress:
+      $ref: '../users/schemas.yml#/fields/fullAddress'
+    birthday:
+      $ref: '../users/schemas.yml#/fields/birthday'
+    intro:
+      $ref: '../users/schemas.yml#/fields/intro'
+    status:
+      $ref: '../users/schemas.yml#/fields/status'
+    imgFrontIdentityCardUrl:
+      $ref: '../users/schemas.yml#/fields/imgFrontIdentityCardUrl'
+    imgBackIdentityCardUrl:
+      $ref: '../users/schemas.yml#/fields/imgBackIdentityCardUrl'
+
+createUserBody:
+  type: object
+  required:
+    - email
+    - username
+    - password
+  properties:
+    email:
+      $ref: '../users/schemas.yml#/fields/email'
+    username:
+      $ref: '../users/schemas.yml#/fields/username'
+    password:
+      $ref: '../users/schemas.yml#/fields/password'
+    firstName:
+      $ref: '../users/schemas.yml#/fields/firstName'
+    lastName:
+      $ref: '../users/schemas.yml#/fields/lastName'
+    gender:
+      $ref: '../users/schemas.yml#/fields/gender'
+    phoneNumber:
+      $ref: '../users/schemas.yml#/fields/phoneNumber'
+    avatarUrl:
+      $ref: '../users/schemas.yml#/fields/avatarUrl'
+    fullAddress:
+      $ref: '../users/schemas.yml#/fields/fullAddress'
+    birthday:
+      $ref: '../users/schemas.yml#/fields/birthday'
+    intro:
+      $ref: '../users/schemas.yml#/fields/intro'
+    status:
+      $ref: '../users/schemas.yml#/fields/status'
+    imgFrontIdentityCardUrl:
+      $ref: '../users/schemas.yml#/fields/imgFrontIdentityCardUrl'
+    imgBackIdentityCardUrl:
+      $ref: '../users/schemas.yml#/fields/imgBackIdentityCardUrl'
+
+shortProfile:
+  type: object
+  properties:
+    id:
+      $ref: '../users/schemas.yml#/fields/id'
+    roleId:
+      $ref: '../users/schemas.yml#/fields/roleId'
+    firstName:
+      $ref: '../users/schemas.yml#/fields/firstName'
+    lastName:
+      $ref: '../users/schemas.yml#/fields/lastName'
+    avatarUrl:
+      $ref: '../users/schemas.yml#/fields/avatarUrl'
+    intro:
+      $ref: '../users/schemas.yml#/fields/intro'

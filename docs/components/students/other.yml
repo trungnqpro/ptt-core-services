@@ -1,0 +1,142 @@
+resetPassword:
+  put: # /students/{id}/password
+    tags:
+      - student
+    summary: Reset password of a student by id
+    description: ''
+    security:
+      - BearerAuth: []
+    parameters:
+      - in: path
+        name: id
+        description: student id
+        required: true
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              value:
+                type: string
+                example: pw1234
+    responses:
+      '200':
+        description: successful operation
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                data:
+                  type: string
+                  example: 'success'
+      '401':
+        $ref: '../../schemas/response-error.yml#/401'
+      '403':
+        $ref: '../../schemas/response-error.yml#/403'
+      '404':
+        $ref: '../../schemas/response-error.yml#/404'
+      '412':
+        $ref: '../../schemas/response-error.yml#/412'
+      '500':
+        $ref: '../../schemas/response-error.yml#/500'
+
+listSubjects:
+  get: # /students/{id}/subjects
+    tags:
+      - student
+    summary: List subjects of student
+    description: ''
+    security:
+      - BearerAuth: []
+    parameters:
+      - in: path
+        name: id
+        description: student id
+        required: true
+    responses:
+      '200':
+        description: successful operation
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                data:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      subject:
+                        id:
+                          $ref: '../subjects/schemas.yml#/fields/id'
+                        code:
+                          $ref: '../subjects/schemas.yml#/fields/code'
+                        name:
+                          $ref: '../subjects/schemas.yml#/fields/name'
+                        curriculumId:
+                          $ref: '../subjects/schemas.yml#/fields/curriculumId'
+                      learningProgress:
+                        id:
+                          $ref: '../learning-progresses/schemas.yml#/fields/id'
+                        status:
+                          $ref: '../learning-progresses/schemas.yml#/fields/status'
+                        startDate:
+                          $ref: '../learning-progresses/schemas.yml#/fields/startDate'
+                        finishedDate:
+                          $ref: '../learning-progresses/schemas.yml#/fields/finishedDate'
+                        expirationDate:
+                          $ref: '../learning-progresses/schemas.yml#/fields/expirationDate'
+                        progressPercentage:
+                          $ref: '../learning-progresses/schemas.yml#/fields/progressPercentage'
+      '401':
+        $ref: '../../schemas/response-error.yml#/401'
+      '403':
+        $ref: '../../schemas/response-error.yml#/403'
+      '404':
+        $ref: '../../schemas/response-error.yml#/404'
+      '412':
+        $ref: '../../schemas/response-error.yml#/412'
+      '500':
+        $ref: '../../schemas/response-error.yml#/500'
+
+importExcel:
+  post: # /students/excel
+    tags:
+      - student
+    summary: Import students from excel file
+    description: ''
+    security:
+      - BearerAuth: []
+    requestBody:
+      content:
+        multipart/form-data:
+          schema:
+            type: object
+            properties:
+              file:
+                type: string
+                format: binary
+    responses:
+      '200':
+        description: successful operation
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                data:
+                  type: string
+                  example: 'success'
+      '401':
+        $ref: '../../schemas/response-error.yml#/401'
+      '403':
+        $ref: '../../schemas/response-error.yml#/403'
+      '404':
+        $ref: '../../schemas/response-error.yml#/404'
+      '412':
+        $ref: '../../schemas/response-error.yml#/412'
+      '500':
+        $ref: '../../schemas/response-error.yml#/500'

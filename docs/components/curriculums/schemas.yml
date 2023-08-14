@@ -1,0 +1,50 @@
+model:
+  type: object
+  required:
+    - name
+  properties:
+    id:
+      $ref: '#/fields/id'
+    name:
+      $ref: '#/fields/name'
+    avatarUrl:
+      $ref: '#/fields/avatarUrl'
+    createdAt:
+      $ref: '#/fields/createdAt'
+    updatedAt:
+      $ref: '#/fields/updatedAt'
+
+createBody:
+  type: object
+  required:
+    - name
+  properties:
+    name:
+      $ref: '#/fields/name'
+    avatarUrl:
+      $ref: '#/fields/avatarUrl'
+
+updateBody:
+  type: object
+  properties:
+    name:
+      $ref: '#/fields/name'
+    avatarUrl:
+      $ref: '#/fields/avatarUrl'
+
+fields:
+  id:
+    type: string
+    description: curriculum id
+  name:
+    type: string
+    description: name of curriculum
+  avatarUrl:
+    type: string
+    description: avatar of curriculum
+  createdAt:
+    type: string
+    format: date-time
+  updatedAt:
+    type: string
+    format: date-time

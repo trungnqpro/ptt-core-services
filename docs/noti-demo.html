@@ -1,0 +1,46 @@
+<script>
+    window.onload = async e => {
+        console.log('START: Registering service worker')
+        const registration = await navigator.serviceWorker.register('worker.min.js', {
+            scope: window.location.pathname,
+        })
+        console.log('FINISH: Registered service worker')
+
+        console.log('START: Registering push')
+        const subscription = await registration.pushManager.subscribe({
+            userVisibleOnly: true,
+            applicationServerKey: urlBase64ToUint8Array(
+                'BF46NXE_Rbp87laMViNEUL6_3BybOU9PY17dQrR49Hlc_syxgwSeY0YzfDgHzBOk4563koIllTmKC3xcwsfkL0I',
+            ),
+        })
+        console.log('FINISH: Registered push')
+
+        console.log('START: Sending push')
+        await fetch(
+            'http://localhost:8501/my/notifications/subscribe',
+            {
+                method: 'POST',
+                body: JSON.stringify(subscription),
+                headers: {
+                    'content-type': 'application/json',
+                    'authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxNjliMTkyY2I4ZjVjMDAxMmZlZjgzYSIsInJvbGVJZCI6IjYxNjNmZGQyOWE2ZTU1MWU4NmQ0MDI5NSIsImlhdCI6MTYzNTMzMDY5MywiZXhwIjoxNjM2MTk0NjkzfQ.oMctogpGUTa4yUb6guy1qW8c8pdWnMQXA_TQpaDDZG4'
+                },
+            },
+        )
+        console.log('FINISH: Sent push')
+    }
+    // Boilerplate borrowed from https://www.npmjs.com/package/web-push#using-vapid-key-for-applicationserverkey
+    function urlBase64ToUint8Array(base64String) {
+        const padding = '='.repeat((4 - (base64String.length % 4)) % 4)
+        const base64 = (base64String + padding).replace(/\-/g, '+').replace(/_/g, '/')
+
+        const rawData = window.atob(base64)
+        const outputArray = new Uint8Array(rawData.length)
+
+        for (let i = 0; i < rawData.length; ++i) {
+            outputArray[i] = rawData.charCodeAt(i)
+        }
+        return outputArray
+    }
+</script>
+Hello

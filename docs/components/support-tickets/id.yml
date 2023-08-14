@@ -1,0 +1,67 @@
+get: # /support-templates/{id}
+  tags:
+    - support ticket
+  summary: Get details of a support ticket by id
+  description: ''
+  security:
+    - BearerAuth: []
+  parameters:
+    - in: path
+      name: id
+      description: support ticket id
+      required: true 
+  responses:
+    '200':
+      description: successful operation
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                $ref: './schemas.yml#/populatedModel'
+    '401':
+      $ref: '../../schemas/response-error.yml#/401'
+    '403':
+      $ref: '../../schemas/response-error.yml#/403'
+    '404':
+      $ref: '../../schemas/response-error.yml#/404'
+    '412':
+      $ref: '../../schemas/response-error.yml#/412'
+    '500':
+      $ref: '../../schemas/response-error.yml#/500'
+
+delete: # /support-templates/{id}
+  tags:
+    - support ticket
+  summary: Delete a support ticket by id
+  description: ''
+  security:
+    - BearerAuth: []
+  parameters:
+    - in: path
+      name: id
+      description: support ticket id
+      required: true
+  responses:
+    '200':
+      description: successful operation
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: string
+                example: 'success'
+    '401':
+      $ref: '../../schemas/response-error.yml#/401'
+    '403':
+      $ref: '../../schemas/response-error.yml#/403'
+    '404':
+      $ref: '../../schemas/response-error.yml#/404'
+    '412':
+      $ref: '../../schemas/response-error.yml#/412'
+    '500':
+      $ref: '../../schemas/response-error.yml#/500'
+

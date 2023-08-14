@@ -1,0 +1,52 @@
+createBody:
+  type: object
+  required:
+    - subjectId
+    - name
+  properties:
+    description:
+      $ref: '#/fields/description'
+
+updateBody:
+  type: object
+  properties:
+    description:
+      $ref: '#/fields/description'
+
+model:
+  type: object
+  properties:
+    id:
+      $ref: '#/fields/id'
+    description:
+      $ref: '#/fields/description'
+    subjectId:
+      $ref: '#/fields/subjectId'
+    createdById:
+      $ref: '#/fields/createdById'
+    createdAt:
+      $ref: '#/fields/createdById'
+    updatedAt:
+      $ref: '#/fields/createdById'
+
+fields:
+  id:
+    type: string
+    description: id words of subject
+  subjectId:
+    type: string
+    description: subject id
+  createdById:
+    type: string
+    description: user id
+  description:
+    type: string
+    description: description of note
+  createdAt:
+    type: string
+    description: createdAt
+    format: date-time
+  updatedAt:
+    type: string
+    description: updatedAt
+    format: date-time

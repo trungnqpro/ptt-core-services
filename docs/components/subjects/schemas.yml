@@ -1,0 +1,201 @@
+createBody:
+  type: object
+  required:
+    - name
+    - code
+    - curriculumId
+    - duration
+    - description
+  properties:
+    curriculumId:
+      $ref: '#/fields/curriculumId'
+    code:
+      $ref: '#/fields/code'
+    name:
+      $ref: '#/fields/name'
+    duration:
+      $ref: '#/fields/duration'
+    status:
+      $ref: '#/fields/status'
+    description:
+      $ref: '#/fields/description'
+    avatarUrl:
+      $ref: '#/fields/avatarUrl'
+    instructorId:
+      $ref: '#/fields/instructorId'
+    supporterIds:
+      type: array
+      description: array of instructor
+      items:
+        type: string
+        description: instructor
+
+updateBody:
+  type: object
+  properties:
+    curriculumId:
+      $ref: '#/fields/curriculumId'
+    code:
+      $ref: '#/fields/code'
+    name:
+      $ref: '#/fields/name'
+    duration:
+      $ref: '#/fields/duration'
+    status:
+      $ref: '#/fields/status'
+    description:
+      $ref: '#/fields/description'
+    avatarUrl:
+      $ref: '#/fields/avatarUrl'
+    instructorId:
+      $ref: '#/fields/instructorId'
+    supporterIds:
+      type: array
+      description: array of instructor
+      items:
+        type: string
+        description: instructor
+    instructorInfo:
+      $ref: '#/fields/instructorInfo'
+    
+
+model:
+  type: object
+  properties:
+    id:
+      $ref: '#/fields/id'
+    name:
+      $ref: '#/fields/name'
+    code:
+      $ref: '#/fields/code'
+    curriculum:
+      $ref: '#/fields/curriculum'
+    duration:
+      $ref: '#/fields/duration'
+    createdAt:
+      $ref: '#/fields/createdAt'
+    updatedAt:
+      $ref: '#/fields/updatedAt'
+    status:
+      $ref: '#/fields/status'
+    avatarUrl:
+      $ref: '#/fields/avatarUrl'
+    instructorInfo:
+      $ref: '#/fields/instructorInfo'
+    supporterIds:
+      $ref: '#/fields/supporterIds'
+
+baseInfos:
+  type: object
+  properties:
+    id:
+      $ref: '#/fields/id'
+    name:
+      $ref: '#/fields/name'
+    code:
+      $ref: '#/fields/code'
+    avatarUrl:
+      $ref: '#/fields/avatarUrl'
+
+baseDetails:
+  type: object
+  properties:
+    id:
+      $ref: '#/fields/id'
+    name:
+      $ref: '#/fields/name'
+    code:
+      $ref: '#/fields/code'
+    avatarUrl:
+      $ref: '#/fields/avatarUrl'
+    curriculum:
+      $ref: '#/fields/curriculum'
+
+fields:
+  id:
+    type: string
+    description: subject id
+  curriculumId:
+    type: string
+    description: curriculum id
+  curriculum:
+    type: object
+    properties:
+      id:
+        $ref: '../curriculums/schemas.yml#/fields/id'
+      name:
+        $ref: '../curriculums/schemas.yml#/fields/name'
+  code:
+    type: string
+    description: code of subject
+  name:
+    type: string
+    description: words of subject
+  duration:
+    type: number
+    description: duration of subject
+  createdAt:
+    type: string
+    description: createdAt
+    format: date-time
+  updatedAt:
+    type: string
+    description: updatedAt
+    format: date-time
+  createdById:
+    type: string
+    description: createdById
+  status:
+    type: string
+    description: status
+    enum:
+      - pending
+      - published
+      - deleted
+  description:
+    type: string
+    description: description about subject
+  avatarUrl:
+    type: string
+    description: image url of subject
+  instructorId:
+    type: array
+    description: array of instructor
+    items:
+      type: string
+      description: instructor
+  instructorInfo:
+    type: object
+    description: return information of the Instructor person
+    properties:
+      avatarUrl:
+        type: string
+        description: avatarUrl of instructor
+      firstName:
+        type: string
+        description: firstName of instructor
+      lastName:
+        type: string
+        description: lastName of instructor
+      intro:
+        type: string
+        description: intro of instructor
+  supporterIds:
+    type: array
+    description: return information of the Instructor person
+    items:
+      type: object
+      properties:
+        avatarUrl:
+          type: string
+          description: avatarUrl of instructor
+        firstName:
+          type: string
+          description: firstName of instructor
+        lastName:
+          type: string
+          description: lastName of instructor
+        id:
+          type: string
+          description: id of instructor
+

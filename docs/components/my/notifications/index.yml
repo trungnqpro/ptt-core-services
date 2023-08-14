@@ -1,0 +1,44 @@
+get: # /my/notifications
+  tags:
+    - my
+    - notification
+  summary: Get my notification
+  description: ''
+  security:
+    - BearerAuth: []
+  parameters:
+    - in: query
+      name: limit
+      description: limit number of notifications. 20 is default.
+      example: 20
+    - in: query
+      name: nextFrom
+      type: string
+      description: get notification newer than the notification id
+    - in: query
+      name: prevFrom
+      description: get notifications older than the notification id
+  responses:
+    '200':
+      description: successful operation
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: array
+                items:
+                  $ref: './schemas.yml#/model'
+              paging:
+                $ref: '../../../schemas/paging.yml#/relativePaging'
+    '401':
+      $ref: '../../../schemas/response-error.yml#/401'
+    '403':
+      $ref: '../../../schemas/response-error.yml#/403'
+    '404':
+      $ref: '../../../schemas/response-error.yml#/404'
+    '412':
+      $ref: '../../../schemas/response-error.yml#/412'
+    '500':
+      $ref: '../../../schemas/response-error.yml#/500'

@@ -1,0 +1,85 @@
+model:
+  type: object
+  properties:
+    id:
+      $ref: '#/fields/id'
+    name:
+      $ref: '#/fields/name'
+    iconUrl:
+      $ref: '#/fields/iconUrl'
+    subjectTitle:
+      $ref: '#/fields/subjectTitle'
+    subjectOptions:
+      $ref: '#/fields/subjectOptions'
+    status:
+      $ref: '#/fields/status'
+    createdAt:
+      $ref: '#/fields/createdAt'
+    updatedAt:
+      $ref: '#/fields/updatedAt'
+    createdBy:
+      $ref: '#/fields/createdBy'
+    updatedBy:
+      $ref: '#/fields/updatedBy'
+
+createSupportTemplate:
+  type: object
+  required:
+    - name
+    - subjectTitle
+    - subjectOptions
+  properties:
+    name:
+      $ref: '#/fields/name'
+    iconUrl:
+      $ref: '#/fields/iconUrl'
+    subjectTitle:
+      $ref: '#/fields/subjectTitle'
+    subjectOptions:
+      $ref: '#/fields/subjectOptions'
+
+updateSupportTemplate:
+  type: object
+  properties:
+    name:
+      $ref: '#/fields/name'
+    iconUrl:
+      $ref: '#/fields/iconUrl'
+    subjectTitle:
+      $ref: '#/fields/subjectTitle'
+    subjectOptions:
+      $ref: '#/fields/subjectOptions'
+
+fields:
+  id:
+    type: string
+    description: id of support template
+  name:
+    type: string
+    description: name of support template
+  iconUrl:
+    type: string
+    description: url of support template
+  subjectTitle:
+    type: string
+    description: subject title of support template
+  subjectOptions:
+    type: array
+    description: subject option of support template
+    items:
+      type: string
+  status:
+    type: string
+    enum:
+      - active
+      - deleted
+  createdAt:
+    type: string
+    format: date-time
+  updatedAt:
+    type: string
+    format: date-time
+  createdBy:
+    type: string
+  updatedBy:
+    type: string

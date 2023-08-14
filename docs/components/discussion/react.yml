@@ -1,0 +1,211 @@
+view:
+  post: # /subject-units/:subjectUnitId/view
+    tags:
+      - discussion
+    summary: Increase total view discussion
+    description: ''
+    security:
+      - BearerAuth: []
+    parameters:
+      - in: path
+        name: subjectUnitId
+        description: subject Unit Id
+        required: true
+      - in: path
+        name: discussionId
+        description: discussion Id
+        required: true
+    responses:
+      '200':
+        description: successful operation
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                data:
+                  type: object
+                  properties:
+                    totalView:
+                      type: number
+                      description: new total view after updating
+      '401':
+        $ref: '../../schemas/response-error.yml#/401'
+      '403':
+        $ref: '../../schemas/response-error.yml#/403'
+      '404':
+        $ref: '../../schemas/response-error.yml#/404'
+      '412':
+        $ref: '../../schemas/response-error.yml#/412'
+      '500':
+        $ref: '../../schemas/response-error.yml#/500'
+
+like:
+  post: # /subject-units/:subjectUnitId/like
+    tags:
+      - discussion
+    summary: Like a discussion
+    description: ''
+    security:
+      - BearerAuth: []
+    parameters:
+      - in: path
+        name: subjectUnitId
+        description: subject Unit Id
+        required: true
+      - in: path
+        name: discussionId
+        description: discussion Id
+        required: true
+    responses:
+      '200':
+        description: successful operation
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                data:
+                  type: object
+                  properties:
+                    totalLike:
+                      type: number
+                      description: new total like after updating
+                    totalDislike:
+                      type: number
+                      description: new total dislike after updating
+      '401':
+        $ref: '../../schemas/response-error.yml#/401'
+      '403':
+        $ref: '../../schemas/response-error.yml#/403'
+      '404':
+        $ref: '../../schemas/response-error.yml#/404'
+      '412':
+        $ref: '../../schemas/response-error.yml#/412'
+      '500':
+        $ref: '../../schemas/response-error.yml#/500'
+  delete: # /subject-units/:subjectUnitId/like
+    tags:
+      - discussion
+    summary: Remove action like to discussion
+    description: ''
+    security:
+      - BearerAuth: []
+    parameters:
+      - in: path
+        name: subjectUnitId
+        description: subject Unit Id
+        required: true
+      - in: path
+        name: discussionId
+        description: discussion Id
+        required: true
+    responses:
+      '200':
+        description: successful operation
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                data:
+                  type: object
+                  properties:
+                    totalLike:
+                      type: number
+                      description: new total like after updating
+      '401':
+        $ref: '../../schemas/response-error.yml#/401'
+      '403':
+        $ref: '../../schemas/response-error.yml#/403'
+      '404':
+        $ref: '../../schemas/response-error.yml#/404'
+      '412':
+        $ref: '../../schemas/response-error.yml#/412'
+      '500':
+        $ref: '../../schemas/response-error.yml#/500'
+
+dislike:
+  post: # /subject-units/:subjectUnitId/dislike
+    tags:
+      - discussion
+    summary: Dislike a discussion
+    description: ''
+    security:
+      - BearerAuth: []
+    parameters:
+      - in: path
+        name: subjectUnitId
+        description: subject Unit Id
+        required: true
+      - in: path
+        name: discussionId
+        description: discussion Id
+        required: true
+    responses:
+      '200':
+        description: successful operation
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                data:
+                  type: object
+                  properties:
+                    totalLike:
+                      type: number
+                      description: new total like after updating
+                    totalDislike:
+                      type: number
+                      description: new total dislike after updating
+      '401':
+        $ref: '../../schemas/response-error.yml#/401'
+      '403':
+        $ref: '../../schemas/response-error.yml#/403'
+      '404':
+        $ref: '../../schemas/response-error.yml#/404'
+      '412':
+        $ref: '../../schemas/response-error.yml#/412'
+      '500':
+        $ref: '../../schemas/response-error.yml#/500'
+  delete: # /subject-units/:subjectUnitId/like
+    tags:
+      - discussion
+    summary: Remove action like to discussion
+    description: ''
+    security:
+      - BearerAuth: []
+    parameters:
+      - in: path
+        name: subjectUnitId
+        description: subject Unit Id
+        required: true
+      - in: path
+        name: discussionId
+        description: discussion Id
+        required: true
+    responses:
+      '200':
+        description: successful operation
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                data:
+                  type: object
+                  properties:
+                    totalDislike:
+                      type: number
+                      description: new total dislike after updating
+      '401':
+        $ref: '../../schemas/response-error.yml#/401'
+      '403':
+        $ref: '../../schemas/response-error.yml#/403'
+      '404':
+        $ref: '../../schemas/response-error.yml#/404'
+      '412':
+        $ref: '../../schemas/response-error.yml#/412'
+      '500':
+        $ref: '../../schemas/response-error.yml#/500'

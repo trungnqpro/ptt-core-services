@@ -1,0 +1,114 @@
+createBody:
+  type: object
+  required:
+    - subjectId
+    - request
+  properties:
+    subjectId:
+      $ref: '#/fields/subjectId'
+    request:
+      $ref: '#/fields/request'
+
+updateBody:
+  type: object
+  required:
+    - status
+    - result
+  properties:
+    status:
+      type: string
+      description: status
+      enum:
+        - accepted
+        - rejected
+    result:
+      $ref: '#/fields/result'
+
+model:
+  type: object
+  properties:
+    id:
+      $ref: '#/fields/id'
+    request:
+      $ref: '#/fields/request'
+    result:
+      $ref: '#/fields/result'
+    subjectId:
+      $ref: '#/fields/subjectId'
+    studentId:
+      $ref: '#/fields/studentId'
+    createdAt:
+      $ref: '#/fields/createdAt'
+    updatedAt:
+      $ref: '#/fields/updatedAt'
+    status:
+      $ref: '#/fields/status'
+
+list:
+  type: object
+  properties:
+    id:
+      $ref: '#/fields/id'
+    request:
+      $ref: '#/fields/request'
+    result:
+      $ref: '#/fields/result'
+    subject:
+      $ref: '#/fields/subject'
+    student:
+      $ref: '#/fields/student'
+    createdAt:
+      $ref: '#/fields/createdAt'
+    updatedAt:
+      $ref: '#/fields/updatedAt'
+    status:
+      $ref: '#/fields/status'
+
+fields:
+  id:
+    type: string
+    description: id retention ticket
+  subjectId:
+    $ref: '../subjects/schemas.yml#/fields/id'
+  subject:
+    $ref: '../subjects/schemas.yml#/baseDetails'
+  request:
+    type: object
+    properties:
+      expirationDate:
+        type: string
+        format: date
+        description: request retention to date. format YYYY-MM-DD
+      note:
+        type: string
+        description: reason for expiration
+  result:
+    type: object
+    properties:
+      expirationDate:
+        type: string
+        format: date
+        description: admin input new date. format YYYY-MM-DD
+      note:
+        type: string
+        description: reason for rejection (or just describe details)
+  status:
+    type: string
+    description: status
+    enum:
+      - pending
+      - accepted
+      - rejected
+  studentId:
+    type: string
+    description: student id
+  student:
+    $ref: '../users/schemas.yml#/shortProfile'
+  createdAt:
+    type: string
+    description: createdAt
+    format: date-time
+  updatedAt:
+    type: string
+    description: updatedAt
+    format: date-time

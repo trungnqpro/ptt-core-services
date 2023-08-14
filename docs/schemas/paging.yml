@@ -1,0 +1,38 @@
+absolutePaging:
+  type: object
+  properties:
+    currentPage:
+      type: number
+      example: 1
+    totalPage:
+      type: number
+      example: 10
+    limit:
+      type: number
+      example: 20
+
+absolutePaging2:
+  type: object
+  properties:
+    currentPage:
+      type: number
+      example: 1
+    totalPage:
+      type: number
+      example: 10
+    limit:
+      type: number
+      example: 20
+    totalItems:
+      type: number
+      example: 567
+
+relativePaging:
+  type: object
+  properties:
+    nextFrom:
+      type: string
+      description: go to top from object id
+    prevFrom:
+      type: string
+      description: go to bottom from object id

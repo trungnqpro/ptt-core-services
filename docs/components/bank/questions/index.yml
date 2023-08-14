@@ -1,0 +1,123 @@
+get: # /bank/questions
+  tags:
+    - question bank
+  summary: Get list question in bank
+  description: ''
+  security:
+    - BearerAuth: []
+  parameters:
+    - in: query
+      name: skipPage
+      type: number
+      min: 0
+      description: skipPage
+    - in: query
+      name: limit
+      min: 1
+      type: number
+      description: Limit row in one page
+    - in: query
+      name: sectionId
+      min: 1
+      type: string
+      description: Search section by lesson id
+    - in: query
+      name: subsectionId
+      min: 1
+      type: string
+      description: Search subsection by lesson id
+    - in: query
+      name: unitId
+      min: 1
+      type: string
+      description: Search unit by lesson id
+    - in: query
+      name: activityId
+      min: 1
+      type: string
+      description: Search activity by lesson id
+    - in: query
+      name: subjectId
+      min: 1
+      type: string
+      description: Search subject by lesson id
+    - in: query
+      name: question
+      min: 1
+      type: string
+      description: Search name by question
+    - in: query
+      name: type
+      min: 1
+      type: string
+      description: Search type by type
+    - in: query
+      name: sort.question
+      description: Sort by question. 1 = asc, -1 = desc
+      enum:
+        - 1
+        - -1
+    - in: query
+      name: sort.id
+      description: Sort by id ( = sort created time). 1 = asc, -1 = desc
+      enum:
+        - 1
+        - -1
+  responses:
+    '200':
+      description: successful operation
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: array
+                items:
+                  $ref: './schemas.yml#/model'
+              paging:
+                $ref: '../../../schemas/paging.yml#/absolutePaging'
+    '401':
+      $ref: '../../../schemas/response-error.yml#/401'
+    '403':
+      $ref: '../../../schemas/response-error.yml#/403'
+    '404':
+      $ref: '../../../schemas/response-error.yml#/404'
+    '412':
+      $ref: '../../../schemas/response-error.yml#/412'
+    '500':
+      $ref: '../../../schemas/response-error.yml#/500'
+
+post: # /bank/questions
+  tags:
+    - question bank
+  summary: Create an question in bank
+  description: ''
+  security:
+    - BearerAuth: []
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: './schemas.yml#/updateBody'
+  responses:
+    '200':
+      description: successful operation
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                $ref: './schemas.yml#/model'
+    '401':
+      $ref: '../../../schemas/response-error.yml#/401'
+    '403':
+      $ref: '../../../schemas/response-error.yml#/403'
+    '404':
+      $ref: '../../../schemas/response-error.yml#/404'
+    '412':
+      $ref: '../../../schemas/response-error.yml#/412'
+    '500':
+      $ref: '../../../schemas/response-error.yml#/500'

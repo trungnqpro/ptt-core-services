@@ -1,0 +1,32 @@
+put: # /quiz/completeTheQuiz/{id}
+  tags:
+    - quiz
+  summary: Complete the quiz and mark the quiz by student
+  description: ''
+  security:
+    - BearerAuth: []
+  parameters:
+    - in: path
+      name: id
+      description: quiz id
+      required: true
+  responses:
+    '200':
+      description: successful operation
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                $ref: './schemas.yml#/completeTheQuiz'
+    '401':
+      $ref: '../../schemas/response-error.yml#/401'
+    '403':
+      $ref: '../../schemas/response-error.yml#/403'
+    '404':
+      $ref: '../../schemas/response-error.yml#/404'
+    '412':
+      $ref: '../../schemas/response-error.yml#/412'
+    '500':
+      $ref: '../../schemas/response-error.yml#/500'

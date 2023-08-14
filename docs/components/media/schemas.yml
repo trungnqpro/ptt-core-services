@@ -1,0 +1,43 @@
+model:
+  type: object
+  schema:
+    name:
+      $ref: '#/fields/name'
+    type:
+      $ref: '#/fields/type'
+    size:
+      $ref: '#/fields/size'
+    width:
+      $ref: '#/fields/width'
+    height:
+      $ref: '#/fields/height'
+    path:
+      $ref: '#/fields/path'
+
+fields:
+  name:
+    type: string
+    description: file name
+  type:
+    type: string
+    description: file type
+    enum:
+      - image
+      - video
+      - audio
+      - file
+  size:
+    type: number
+    description: file size in bytes
+  width:
+    type: string
+    description: media width
+    example: 600
+  height:
+    type: string
+    description: media height
+    example: 400
+  path:
+    type: string
+    description: media paths
+    example: '/imgs/a9asd8f0a9s8df0.jpg'

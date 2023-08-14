@@ -1,0 +1,34 @@
+get:
+  tags:
+    - quiz
+  summary: Get Quiz Unit
+  description: ''
+  security:
+    - BearerAuth: []
+  parameters:
+    - in: path
+      name: subjectUnitId
+      description: Subject Unit Id
+      required: true
+  responses:
+    '200':
+      description: successful operation
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: array
+                items:
+                  $ref: './schemas.yml#/quizConfig'
+    '401':
+      $ref: '../../schemas/response-error.yml#/401'
+    '403':
+      $ref: '../../schemas/response-error.yml#/403'
+    '404':
+      $ref: '../../schemas/response-error.yml#/404'
+    '412':
+      $ref: '../../schemas/response-error.yml#/412'
+    '500':
+      $ref: '../../schemas/response-error.yml#/500'

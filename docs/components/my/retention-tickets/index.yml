@@ -1,0 +1,63 @@
+get: # /my/retention-tickets
+  tags:
+    - my
+    - retention ticket
+  summary: Get all retention tickets of current user
+  description: ''
+  security:
+    - BearerAuth: []
+  responses:
+    '200':
+      description: successful operation
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                $ref: './schemas.yml#/list'
+    '401':
+      $ref: '../../../schemas/response-error.yml#/401'
+    '403':
+      $ref: '../../../schemas/response-error.yml#/403'
+    '404':
+      $ref: '../../../schemas/response-error.yml#/404'
+    '412':
+      $ref: '../../../schemas/response-error.yml#/412'
+    '500':
+      $ref: '../../../schemas/response-error.yml#/500'
+
+post: # /my/retention-tickets
+  tags:
+    - my
+    - retention ticket
+  summary: Create new retention tickets for current user
+  description: ''
+  security:
+    - BearerAuth: []
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: './schemas.yml#/createBody'
+  responses:
+    '200':
+      description: successful operation
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                $ref: '../../retention-tickets/schemas.yml#/model'
+    '401':
+      $ref: '../../../schemas/response-error.yml#/401'
+    '403':
+      $ref: '../../../schemas/response-error.yml#/403'
+    '404':
+      $ref: '../../../schemas/response-error.yml#/404'
+    '412':
+      $ref: '../../../schemas/response-error.yml#/412'
+    '500':
+      $ref: '../../../schemas/response-error.yml#/500'

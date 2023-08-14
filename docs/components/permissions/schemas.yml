@@ -1,0 +1,143 @@
+model:
+  type: object
+  properties:
+    id:
+      $ref: '#/fields/id'
+    roleId:
+      $ref: '#/fields/roleId'
+    email:
+      $ref: '#/fields/email'
+    username:
+      $ref: '#/fields/username'
+    gender:
+      $ref: '#/fields/gender'
+    firstName:
+      $ref: '#/fields/firstName'
+    lastName:
+      $ref: '#/fields/lastName'
+    birthday:
+      $ref: '#/fields/birthday'
+    avatarUrl:
+      $ref: '#/fields/avatarUrl'
+    fullAddress:
+      $ref: '#/fields/fullAddress'
+    phoneNumber:
+      $ref: '#/fields/phoneNumber'
+    intro:
+      $ref: '#/fields/intro'
+    status:
+      $ref: '#/fields/status'
+    imgFrontIdentityCardUrl:
+      $ref: '#/fields/imgFrontIdentityCardUrl'
+    imgBackIdentityCardUrl:
+      $ref: '#/fields/imgBackIdentityCardUrl'
+    createdAt:
+      $ref: '#/fields/createdAt'
+    updatedAt:
+      $ref: '#/fields/updatedAt'
+
+updateProfileBody:  
+  type: object
+  properties:
+    firstName:
+      $ref: '#/fields/firstName'
+    lastName:
+      $ref: '#/fields/lastName'
+    gender:
+      $ref: '#/fields/gender'
+    birthday:
+      $ref: '#/fields/birthday'
+    fullAddress:
+      $ref: '#/fields/fullAddress'
+    phoneNumber:
+      $ref: '#/fields/phoneNumber'
+    avatarUrl:
+      $ref: '#/fields/avatarUrl'
+    intro:
+      $ref: '#/fields/intro'
+    imgFrontIdentityCardUrl:
+      $ref: '#/fields/imgFrontIdentityCardUrl'
+    imgBackIdentityCardUrl:
+      $ref: '#/fields/imgBackIdentityCardUrl'
+    roleId:
+      $ref: '#/fields/roleId'
+
+createUserBody:  
+  type: object
+  properties:
+    email:
+      $ref: '#/fields/email'
+    username:
+      $ref: '#/fields/username'
+    password:
+      $ref: '#/fields/password'
+    roleId:
+      $ref: '#/fields/roleId'
+
+fields:
+  id:
+    type: string
+    description: user id
+  roleId:
+    type: string
+    description: user role id
+  email:
+    type: string
+    description: email of user
+    format: email
+  username:
+    type: string
+    description: username
+  password:
+    type: string
+    description: password of user
+    min: 6
+    max: 256
+  firstName:
+    type: string
+    description: first name
+  lastName:
+    type: string
+    description: last name
+  gender:
+    type: string
+    description: gender of user
+    enum:
+      - male
+      - female
+      - unisex
+  birthday:
+    type: string
+    description: birthday of user in format (YYYY-MM-DD).
+    example: '2010-10-21'
+  avatarUrl:
+    type: string
+    description: link avatar image
+    format: uri
+  intro:
+    type: string
+    description: introduction about user
+  phoneNumber:
+    type: string
+  fullAddress:
+    type: string
+  status:
+    type: string
+    enum:
+      - active
+      - inactive
+      - deleted
+      # - blocked
+      # - pending
+  imgFrontIdentityCardUrl:
+    type: string
+    format: uri
+  imgBackIdentityCardUrl:
+    type: string
+    format: uri
+  createdAt:
+    type: string
+    format: date-time
+  updatedAt:
+    type: string
+    format: date-time

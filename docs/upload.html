@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    </head>
+    <body>
+        <h1>S3</h1>
+
+        <h3>Multiple upload</h3>
+        <form id="form-upload">
+            <label for="myfile">Select a file:</label>
+            <input type="file" id="myfile" name="myfile" /><br /><br />
+            <input type="submit" />
+        </form>
+
+        <p id="log"></p>
+    </body>
+
+    <script type="text/javascript">
+        const API_URL = 'http://localhost:8501'
+        // const API_URL = 'https://stg-api-sapplms.famtechvn.com/school'
+        const FILE_CHUNK_SIZE = 200*1000*1000 // 200MB
+        let selectedFile
+        let fileName
+        let fileSize
+        let totalPart
+
+        const token =
+            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxNWE3NTI3YzJkNjM1MDBkNDllNmQ4OCIsInJvbGVJZCI6IjYxNTU2YmM5ZjRiMDQ5MjhhNmM1NTQ4MiIsImZpcnN0TmFtZSI6IlN5c3RlbSIsImxhc3ROYW1lIjoiQWRtaW5pc3RyYXRvciIsImF2YXRhclVybCI6Imh0dHBzOi8vY2RuLXNhcHAudGVjaGNpdHkud2Vic2l0ZS9zYXBwLWxtcy9zaGFyZWQvaW1hZ2VzL2YzYzQwMDZlNWVmN2FjZGUxMjMxOWU5NTgxNDk5ZWE1LnBuZyIsImlhdCI6MTY0ODE4NjQwMiwiZXhwIjoxNjQ5MDUwNDAyfQ.IQnSCqhFeNiMPfiNRLEhiH-vTCPJXfzt8muIPRgMqvI'
+        const auth = `Bearer ${token}`
+
+        function logSubmit(event) {
+            log.textContent = `Form Submitted! Time stamp: ${event.timeStamp}`
+            event.preventDefault()
+
+            const myfile = document.getElementById('myfile')
+            selectedFile = myfile.files[0]
+            fileName = selectedFile.name
+            fileSize = selectedFile.size // bytes
+            totalPart = Math.floor(fileSize / FILE_CHUNK_SIZE) + 1
+
+            startUpload().catch(err => console.error(err))
+        }
+
+        const form = document.getElementById('form-upload')
+        const log = document.getElementById('log')
+        form.addEventListener('submit', logSubmit)
+
+        async function startUpload() {
+            try {
+                let resp = await axios.get(`${API_URL}/media/multipart/signed-url`, {
+                    headers: {
+                        Authorization: auth,
+                        'Content-Type': 'application/json',
+                    },
+                    params: {
+                        fileName,
+                        totalPart,
+                    },
+                })
+
+                return this.uploadMultipartFile(resp.data.data)
+            } catch (err) {
+                console.log(err)
+            }
+        }
+
+        async function uploadMultipartFile(resp) {
+            try {
+                console.log(resp)
+                let promisesArray = []
+                let start, end, blob
+
+                for (let index = 1; index < totalPart + 1; index++) {
+                    start = (index - 1) * FILE_CHUNK_SIZE
+                    end = index * FILE_CHUNK_SIZE
+                    blob =
+                        index < totalPart
+                            ? selectedFile.slice(start, end)
+                            : selectedFile.slice(start)
+
+                    // Generate presigned URL for each part
+
+                    let { signedUrls, acl } = resp
+                    // Puts each file part into the storage server
+
+                    let uploadResp = axios.put(signedUrls[index - 1], blob, {
+                        headers: {
+                            'content-type': blob.type, // quan trọng
+                        },
+                    })
+                    promisesArray.push(uploadResp)
+                }
+
+                let resolvedArray = await Promise.all(promisesArray)
+
+                let uploadPartsArray = []
+                resolvedArray.forEach((resolvedPromise, index) => {
+                    debugger
+                    uploadPartsArray.push({
+                        eTag: resolvedPromise.headers.etag.replace(/\"/g, ""),
+                        partNumber: index + 1,
+                    })
+                })
+
+                // Calls the CompleteMultipartUpload endpoint in the backend server
+                let completeUploadResp = await axios.post(
+                    `${API_URL}/media/multipart/complete-upload`,
+                    {
+                        path: resp.path,
+                        parts: uploadPartsArray,
+                        uploadId: resp.uploadId,
+                    },
+                    {
+                        headers: {
+                            Authorization: auth,
+                            'Content-Type': 'application/json',
+                        },
+                    },
+                )
+            } catch (err) {
+                console.log(err)
+            }
+        }
+    </script>
+</html>
