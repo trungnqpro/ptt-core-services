@@ -59,12 +59,12 @@ const listResources = [
     'User',
     'Role',
     // category
-    'Leader',
-    'Department',
     'Badge',
-    'ActifactType',
+    'Department',
+    'ArtifactType',
     'Position',
     'DocumentType',
+    'Leader',
     // document
     'Btl86Post',
     'GovermentPost',

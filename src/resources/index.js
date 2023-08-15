@@ -1,5 +1,10 @@
 // order by A-Z
 exports.User = require('./user')
 exports.Badge = require('./badge')
+exports.Department = require('./department')
+exports.Position = require('./position')
+exports.ArtifactType = require('./artifact-type')
+exports.DocumentType = require('./document-type')
+exports.Leader = require('./leader')
 exports.Media = require('./media')
 exports.Role = require('./role')

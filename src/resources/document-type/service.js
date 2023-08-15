@@ -1,19 +1,19 @@
 /**
- * @fileoverview Module xử lý nghiệp vụ cho phân quyền tài khoản (Badge)
+ * @fileoverview Module xử lý nghiệp vụ cho phân quyền tài khoản (DocumentType)
  *
  * @module resources/announcement/service
  */
 
 const _ = require('lodash')
 const { errors } = require('../../libs')
-const BadgeModel = require('./model')
+const DocumentTypeModel = require('./model')
 const permissionCodes = require('../../configs/permissions').permissionCodes
 
 const { ValidationError } = errors
 
 /**
  * Lấy danh sách tất cả các role
- * @returns {Badge}
+ * @returns {DocumentType}
  */
 exports.fetch = async (skip = 0, limit = 20, filter, sort) => {
     const _filter = { ...filter }
@@ -23,47 +23,47 @@ exports.fetch = async (skip = 0, limit = 20, filter, sort) => {
         _filter.$or = [{ name: { $regex: q, $options: 'i' } }]
     }
 
-    const [badges, total] = await Promise.all([
-        BadgeModel.fetch(skip, limit, _filter, sort),
-        BadgeModel.getTotalNumber(_filter),
+    const [positions, total] = await Promise.all([
+        DocumentTypeModel.fetch(skip, limit, _filter, sort),
+        DocumentTypeModel.getTotalNumber(_filter),
     ])
 
-    return { badges, total }
+    return { positions, total }
 }
 
 /**
  * Tạo mới một role
  * @param {Object} fields
- * @returns {Badge}
+ * @returns {DocumentType}
  */
 exports.create = async fields => {
-    return await BadgeModel.create(fields)
+    return await DocumentTypeModel.create(fields)
 }
 
 /**
  * Get role by id
  * @param {String} id
- * @returns {Badge}
+ * @returns {DocumentType}
  */
 exports.getById = async id => {
-    return await BadgeModel.getById(id)
+    return await DocumentTypeModel.getById(id)
 }
 
 /**
  * Cập nhật thông tin role bởi id
  * @param {String} id
  * @param {Object} updatedFields new value of fields
- * @returns {Badge}
+ * @returns {DocumentType}
  */
 exports.updateById = async (id, updatedFields) => {
-    return await BadgeModel.updateById(id, updatedFields)
+    return await DocumentTypeModel.updateById(id, updatedFields)
 }
 
 /**
  * Xoa một role bởi id
  * @param {String} id
- * @returns {Badge}
+ * @returns {DocumentType}
  */
 exports.deleteById = async id => {
-    return await BadgeModel.deleteById(id)
+    return await DocumentTypeModel.deleteById(id)
 }

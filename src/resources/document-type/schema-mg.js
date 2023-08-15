@@ -27,4 +27,4 @@ const schema = new Schema(
     { timestamps: true },
 )
 
-module.exports = DefaultDB.model('Badge', schema, 'badges')
+module.exports = DefaultDB.model('DocumentType', schema, 'documentType')

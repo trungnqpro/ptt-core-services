@@ -1,5 +1,5 @@
 const { utils, errors } = require('../../libs')
-const { Badge } = require('../../resources')
+const { Position } = require('../../resources')
 
 const { NotFoundError } = errors
 
@@ -15,43 +15,43 @@ exports.fetch = async ctx => {
         filter.q = q
     }
 
-    const { badges = [], total } = await Badge.Service.fetch(skip, limit, filter, sort)
+    const { departments = [], total } = await Position.Service.fetch(skip, limit, filter, sort)
 
-    ctx.body = badges.map(Badge.Helper.formatList)
+    ctx.body = departments.map(Position.Helper.formatList)
     ctx.state.paging = utils.generatePaging(skipPage, limit, total)
 }
 
 exports.create = async ctx => {
     const fields = ctx.request.body
-    const record = await Badge.Service.create({
+    const record = await Position.Service.create({
         ...fields,
     })
 
-    ctx.body = Badge.Helper.protect(record)
+    ctx.body = Position.Helper.protect(record)
 }
 
 exports.get = async ctx => {
     const { id } = ctx.params
-    const record = await Badge.Service.getById(id)
+    const record = await Position.Service.getById(id)
 
     if (!record) {
         throw new NotFoundError(`Not found record by id ${id}`)
     }
 
-    ctx.body = Badge.Helper.protect(record)
+    ctx.body = Position.Helper.protect(record)
 }
 
 exports.update = async ctx => {
     const { id } = ctx.params
     const updatedFields = ctx.request.body
-    const record = await Badge.Service.updateById(id, updatedFields)
+    const record = await Position.Service.updateById(id, updatedFields)
 
-    ctx.body = Badge.Helper.protect(record)
+    ctx.body = Position.Helper.protect(record)
 }
 
 exports.delete = async ctx => {
     const { id } = ctx.params
-    await Badge.Service.deleteById(id)
+    await Position.Service.deleteById(id)
 
     ctx.body = 'success'
 }
