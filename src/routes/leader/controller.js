@@ -15,9 +15,9 @@ exports.fetch = async ctx => {
         filter.q = q
     }
 
-    const { departments = [], total } = await Leader.Service.fetch(skip, limit, filter, sort)
+    const { leaders = [], total } = await Leader.Service.fetch(skip, limit, filter, sort)
 
-    ctx.body = departments.map(Leader.Helper.formatList)
+    ctx.body = leaders.map(Leader.Helper.formatList)
     ctx.state.paging = utils.generatePaging(skipPage, limit, total)
 }
 

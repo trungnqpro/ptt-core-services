@@ -1,5 +1,5 @@
 const { utils, errors } = require('../../libs')
-const { DocumentType } = require('../../resources')
+const { ConfigHome } = require('../../resources')
 
 const { NotFoundError } = errors
 
@@ -15,43 +15,43 @@ exports.fetch = async ctx => {
         filter.q = q
     }
 
-    const { documentTypes = [], total } = await DocumentType.Service.fetch(skip, limit, filter, sort)
+    const { configBackups = [], total } = await ConfigHome.Service.fetch(skip, limit, filter, sort)
 
-    ctx.body = documentTypes.map(DocumentType.Helper.formatList)
+    ctx.body = configBackups.map(ConfigHome.Helper.formatList)
     ctx.state.paging = utils.generatePaging(skipPage, limit, total)
 }
 
 exports.create = async ctx => {
     const fields = ctx.request.body
-    const record = await DocumentType.Service.create({
+    const record = await ConfigHome.Service.create({
         ...fields,
     })
 
-    ctx.body = DocumentType.Helper.protect(record)
+    ctx.body = ConfigHome.Helper.protect(record)
 }
 
 exports.get = async ctx => {
     const { id } = ctx.params
-    const record = await DocumentType.Service.getById(id)
+    const record = await ConfigHome.Service.getById(id)
 
     if (!record) {
         throw new NotFoundError(`Not found record by id ${id}`)
     }
 
-    ctx.body = DocumentType.Helper.protect(record)
+    ctx.body = ConfigHome.Helper.protect(record)
 }
 
 exports.update = async ctx => {
     const { id } = ctx.params
     const updatedFields = ctx.request.body
-    const record = await DocumentType.Service.updateById(id, updatedFields)
+    const record = await ConfigHome.Service.updateById(id, updatedFields)
 
-    ctx.body = DocumentType.Helper.protect(record)
+    ctx.body = ConfigHome.Helper.protect(record)
 }
 
 exports.delete = async ctx => {
     const { id } = ctx.params
-    await DocumentType.Service.deleteById(id)
+    await ConfigHome.Service.deleteById(id)
 
     ctx.body = 'success'
 }

@@ -23,12 +23,12 @@ exports.fetch = async (skip = 0, limit = 20, filter, sort) => {
         _filter.$or = [{ name: { $regex: q, $options: 'i' } }]
     }
 
-    const [positions, total] = await Promise.all([
+    const [artifactTypes, total] = await Promise.all([
         ArtifactTypeModel.fetch(skip, limit, _filter, sort),
         ArtifactTypeModel.getTotalNumber(_filter),
     ])
 
-    return { positions, total }
+    return { artifactTypes, total }
 }
 
 /**

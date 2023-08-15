@@ -72,8 +72,8 @@ const listResources = [
     'Actifact',
     // system config
     'ConfigBackup',
-    'ConfigFunction',
-    'ConfigLogs',
+    'ConfigMenu',
+    'ConfigLog',
     'ConfigFolder',
     'ConfigHome',
     // statistic
