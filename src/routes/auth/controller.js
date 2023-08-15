@@ -35,7 +35,7 @@ exports.login = async ctx => {
 
     profile = {
         id: profile._id,
-        roleId: profile.roleId?._id,
+        roleId: profile.roleId,
         firstName: profile.firstName,
         lastName: profile.lastName,
         avatarUrl: profile.avatarUrl,
@@ -46,7 +46,6 @@ exports.login = async ctx => {
     ctx.body = {
         accessToken: generateAccessToken(profile),
         refreshToken: generateRefreshToken(profile),
-        isStudent: profile.roleId?._id.toString() === studentRoleId,
         profile,
         // permissions,
     }

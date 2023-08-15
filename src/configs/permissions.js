@@ -6,6 +6,8 @@
  * @module configs/permissions
  */
 const glob = require('glob')
+const debug = console
+const chalk = require('chalk')
 
 const permissions = []
 const permissionCodes = []
@@ -21,7 +23,6 @@ exports.load = async () => {
     return new Promise((resolve, reject) => {
         glob(
             `${__dirname}/../routes/*/**/permission.js`,
-            // { ignore: '**/auth/*endpoint.js' },
             async (err, matches) => {
                 if (err) {
                     reject(err)
@@ -39,6 +40,7 @@ exports.load = async () => {
 
                 permissionCodes.push(...permissions.map(e => e.code))
 
+                debug.log(chalk.blue('[permissions]:'), chalk.green(permissions.length))
                 resolve(permissions)
             },
         )
@@ -55,35 +57,33 @@ exports.permissionCodes = permissionCodes
 const listResources = [
     // user
     'User',
-    'Student',
-    'Member',
     'Role',
-    // study
-    'Curriculum',
-    'CertificateTemplate',
-    'Certificate',
-    'Subject',
-    'SubjectUnit',
-    'QuestionInBank',
-    'StudyRegistration',
-    'WordOfSpecializationDictionary',
-    'LearningProgress',
-    // support
-    'RetentionTicket',
-    'SubjectExtension',
-    'SupportTemplate',
-    'SupportTicket',
-    'EntranceTestConfiguration',
-    'MediaResource',
-    'Announcement',
-    'Quiz',
-    'Survey',
-    'Note',
-    'Class',
-    //Forum
-    'Forum',
-    'ForumTopic',
-    'ForumReply',
+    // category
+    'Leader',
+    'Department',
+    'Badge',
+    'ActifactType',
+    'Position',
+    'DocumentType',
+    // document
+    'Btl86Post',
+    'GovermentPost',
+    'Documentary',
+    'Actifact',
+    // system config
+    'ConfigBackup',
+    'ConfigFunction',
+    'ConfigLogs',
+    'ConfigFolder',
+    'ConfigHome',
+    // statistic
+    'Statistic',
+    // util
+    'Feedback',
+    'Medias',
+    'ALbum',
+    'DataImport',
+
 ]
 
 const resources = {}

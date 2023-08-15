@@ -18,7 +18,6 @@ const schema = new Schema(
         _id: mf().id().required().auto().j(),
         roleId: mf().id().ref('Role').j(),
         type: String,
-        code: mf().string().required().j(),
         email: mf().string().trim().j(),
         phoneNumber: String,
         username: mf().string().trim().j(),
