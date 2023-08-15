@@ -1,5 +1,5 @@
 const moment = require('moment')
-const { CITY, UNIVERSITY } = require('./static')
+const { CITY } = require('./static')
 
 exports.protect = user => {
     if (!user || typeof user !== 'object') {

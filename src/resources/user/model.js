@@ -181,7 +181,6 @@ exports.updateById = async (id, updatedFields) => {
         const user = await UserSchema.findByIdAndUpdate(id, updatedFields, {
             new: true,
         })
-            .populate({ path: 'universityId' })
             .lean({ getters: true })
         UserEvent.update.emit(user._id)
         return user
