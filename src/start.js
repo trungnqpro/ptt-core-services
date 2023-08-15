@@ -29,14 +29,6 @@ async function run() {
     try {
         await bootstrap.load()
         const { PORT, HOST } = process.env
-/*         const hubspot = require('./connections/hubspot')
-        console.log(await hubspot.searchObjectByFilter('contacts', [
-            {
-                "propertyName": "email",
-                "operator": "EQ",
-                "value": "minhhung290701@gmail.com"
-            }
-        ])) */
         debug = require('./libs/debug')()
         const app = require('./www/app')
         // const socket = require('./www/socket')

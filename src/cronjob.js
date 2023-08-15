@@ -14,41 +14,13 @@ async function run() {
 
         console.log('env.CRONJOB_TIME_SUPPORT_TICKET', env.CRONJOB_TIME_SUPPORT_TICKET)
 
-        new CronJob('0 0 3 * * *', jobs.clearHubSpotLog, null, true)
         // '*/5 * * * * *' => dùng để test
-        new CronJob(env.CRONJOB_TIME_COUNT_TOTAL_SUPPORT_TICKET, jobs.SumSupportTicket, null, true) // tính báo cáo ticket của ngày hôm nay bao nhiêu phi
-        new CronJob(env.CRONJOB_TIME_OPEN_ACTIVITY, jobs.openActivity, null, true)
-        new CronJob(
-            env.CRONJOB_TIME_REPORT_STATISTIC_ATTENDANCE,
-            jobs.report.statisticAttendance,
-            null,
-            true,
-        )
-        new CronJob(
-            env.CRONJOB_TIME_CALCULATE_ACADEMIC_RESULT,
-            jobs.calculateAcademicResult,
-            null,
-            true,
-        )
-        new CronJob(
-            env.CRONJOB_TIME_GRANT_CERTIFICATE,
-            jobs.grantCertificate.grantCertificateV2,
-            null,
-            true,
-        )
         new CronJob(
             env.CRONJOB_TIME_SEND_EMAIL_TO_STUDENT_INACTIVATE,
             jobs.sendToEmailToStudentInactivate,
             null,
             true,
         )
-        new CronJob(
-            env.CRONJOB_TIME_SEND_TICKET_EXPIRED_FOUNDATION,
-            jobs.ticketExpiredFoundation,
-            null,
-            true,
-        )
-
         console.log('Cronjob is started')
 
         process.on('SIGINT', () => {
