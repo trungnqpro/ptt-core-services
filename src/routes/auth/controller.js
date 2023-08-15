@@ -4,8 +4,8 @@ const { utils, errors, Debug } = require('../../libs')
 const HtmlTemplate = require('./html-template')
 const { User } = require('../../resources')
 const debug = Debug()
-const ROLE_STUDENT_ID = process.env.ROLE_STUDENT_ID
-const WEB_BASE_URL = process.env.WEB_BASE_URL
+// const ROLE_STUDENT_ID = process.env.ROLE_STUDENT_ID
+// const WEB_BASE_URL = process.env.WEB_BASE_URL
 const {
     NotFoundError,
     DataError,
@@ -16,26 +16,24 @@ const {
     ConflictError,
 } = errors
 
-const studentRoleId = process.env.ROLE_STUDENT_ID
-
 exports.login = async ctx => {
     const { username, password } = ctx.request.body
 
     let profile = await User.Service.getProfileByIdentity(username)
 
     if (!profile) {
-        throw new ValidationError('User name is not existed')
+        throw new NotFoundError('User name is not existed')
     }
 
     if (profile.status !== User.Static.STATUS.ACTIVE) {
-        throw new PermissionError('User is not active')
+        throw new ForbiddenError('User is not active')
     }
 
     const user = profile
 
     profile = {
         id: profile._id,
-        roleId: profile.roleId?._id,
+        roleId: profile.roleId,
         firstName: profile.firstName,
         lastName: profile.lastName,
         avatarUrl: profile.avatarUrl,
@@ -46,9 +44,7 @@ exports.login = async ctx => {
     ctx.body = {
         accessToken: generateAccessToken(profile),
         refreshToken: generateRefreshToken(profile),
-        isStudent: profile.roleId?._id.toString() === studentRoleId,
         profile,
-        // permissions,
     }
 }
 
@@ -68,7 +64,7 @@ exports.signup = async ctx => {
     }
 
     fields.status = 'pending'
-    fields.roleId = ROLE_STUDENT_ID
+    // fields.roleId = ROLE_STUDENT_ID
     fields.firstName = fields.fullName
     const user = await User.Service.create(fields)
 
@@ -280,19 +276,4 @@ function generateRefreshToken(user) {
             expiresIn: process.env.REFRESH_TOKEN_TTL,
         },
     )
-}
-
-function preventLoginMultiDevices(userId, devices) {
-    devices.sort((a, b) => (a.lastLoggedIn > b.lastLoggedIn ? -1 : 1)) // desc
-
-    const ableDevices = devices.splice(0, 2) // keep 2 newest devices
-    const kickedDevices = devices
-    if (kickedDevices.length) {
-        Redis.getPublisher()
-            .publish(
-                'kick-of-devices',
-                JSON.stringify({ userId, deviceIds: kickedDevices.map(e => e.deviceId) }),
-            )
-            .catch(err => debug.error(err))
-    }
 }

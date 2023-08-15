@@ -2,7 +2,7 @@ const Joi = require('joi').extend(require('@joi/date'))
 Joi.objectId = require('joi-objectid')(Joi)
 const { mediaUrl } = require('../../libs/utils')
 
-const { STATUS, GENDER, MAJOR, UNIVERSITY } = require('../../resources').User.Static
+const { STATUS, GENDER} = require('../../resources').User.Static
 
 const statuses = Object.values(STATUS)
 const arrGender = Object.values(GENDER)

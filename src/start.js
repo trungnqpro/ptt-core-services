@@ -7,24 +7,6 @@ const bootstrap = require('./bootstrap')
 const { ObjectId } = require('mongodb')
 
 async function run() {
-    // if (process.argv.includes('--get-otp')) {
-    //     require('./routes/auth/otp').getOtp()
-
-    //     return process.exit(0)
-    // }
-    // if (process.argv.includes('--generate-qrcode')) {
-    //     return require('./routes/auth/otp')
-    //         .generateQrcode()
-    //         .then(
-    //             () => process.exit(0),
-    //             error => process.exit(1),
-    //         )
-    // }
-    // if (process.argv.includes('--generate-secret')) {
-    //     require('./routes/auth/otp').generateSecret()
-
-    //     return process.exit(0)
-    // }
 
     try {
         await bootstrap.load()
