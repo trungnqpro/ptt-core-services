@@ -46,22 +46,6 @@ exports.resource = function (resource) {
             pushPermission('05', 'list', customName)
             return this
         },
-        updateMy: function (customName) {
-            pushPermission('06', 'updateMy', customName)
-            return this
-        },
-        viewDetailsOfMy: function (customName) {
-            pushPermission('07', 'viewDetailsOfMy', customName)
-            return this
-        },
-        deleteMy: function (customName) {
-            pushPermission('08', 'deleteMy', customName)
-            return this
-        },
-        listMy: function (customName) {
-            pushPermission('09', 'listMy', customName)
-            return this
-        },
         /**
          *
          * @param {Array<Object>} newPermissions array of objects {actionCode: String, actionName: String}
