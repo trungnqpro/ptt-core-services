@@ -69,7 +69,7 @@ const listResources = [
     'Btl86Post',
     'GovermentPost',
     'Documentary',
-    'Actifact',
+    'Artifact',
     // system config
     'ConfigBackup',
     'ConfigMenu',
