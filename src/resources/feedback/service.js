@@ -1,19 +1,19 @@
 /**
- * @fileoverview Module xử lý nghiệp vụ cho phân quyền tài khoản (Media)
+ * @fileoverview Module xử lý nghiệp vụ cho phân quyền tài khoản (Feedback)
  *
  * @module resources/announcement/service
  */
 
 const _ = require('lodash')
 const { errors } = require('../../libs')
-const MediaModel = require('./model')
+const FeedbackModel = require('./model')
 const permissionCodes = require('../../configs/permissions').permissionCodes
 
 const { ValidationError } = errors
 
 /**
  * Lấy danh sách tất cả các role
- * @returns {Media}
+ * @returns {Feedback}
  */
 exports.fetch = async (skip = 0, limit = 20, filter, sort) => {
     const _filter = { ...filter }
@@ -24,8 +24,8 @@ exports.fetch = async (skip = 0, limit = 20, filter, sort) => {
     }
 
     const [departments, total] = await Promise.all([
-        MediaModel.fetch(skip, limit, _filter, sort),
-        MediaModel.getTotalNumber(_filter),
+        FeedbackModel.fetch(skip, limit, _filter, sort),
+        FeedbackModel.getTotalNumber(_filter),
     ])
 
     return { departments, total }
@@ -34,36 +34,36 @@ exports.fetch = async (skip = 0, limit = 20, filter, sort) => {
 /**
  * Tạo mới một role
  * @param {Object} fields
- * @returns {Media}
+ * @returns {Feedback}
  */
 exports.create = async fields => {
-    return await MediaModel.create(fields)
+    return await FeedbackModel.create(fields)
 }
 
 /**
  * Get role by id
  * @param {String} id
- * @returns {Media}
+ * @returns {Feedback}
  */
 exports.getById = async id => {
-    return await MediaModel.getById(id)
+    return await FeedbackModel.getById(id)
 }
 
 /**
  * Cập nhật thông tin role bởi id
  * @param {String} id
  * @param {Object} updatedFields new value of fields
- * @returns {Media}
+ * @returns {Feedback}
  */
 exports.updateById = async (id, updatedFields) => {
-    return await MediaModel.updateById(id, updatedFields)
+    return await FeedbackModel.updateById(id, updatedFields)
 }
 
 /**
  * Xoa một role bởi id
  * @param {String} id
- * @returns {Media}
+ * @returns {Feedback}
  */
 exports.deleteById = async id => {
-    return await MediaModel.deleteById(id)
+    return await FeedbackModel.deleteById(id)
 }

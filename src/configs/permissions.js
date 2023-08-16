@@ -76,13 +76,13 @@ const listResources = [
     'ConfigLog',
     'ConfigFolder',
     'ConfigHome',
-    // statistic
-    'Statistic',
     // util
     'Feedback',
-    'Medias',
-    'ALbum',
+    'Media',
+    'Album',
     'DataImport',
+    // statistic
+    'Reaction',
 
 ]
 

@@ -1,19 +1,19 @@
 /**
- * @fileoverview Module xử lý nghiệp vụ cho phân quyền tài khoản (Media)
+ * @fileoverview Module xử lý nghiệp vụ cho phân quyền tài khoản (Album)
  *
  * @module resources/announcement/service
  */
 
 const _ = require('lodash')
 const { errors } = require('../../libs')
-const MediaModel = require('./model')
+const AlbumModel = require('./model')
 const permissionCodes = require('../../configs/permissions').permissionCodes
 
 const { ValidationError } = errors
 
 /**
  * Lấy danh sách tất cả các role
- * @returns {Media}
+ * @returns {Album}
  */
 exports.fetch = async (skip = 0, limit = 20, filter, sort) => {
     const _filter = { ...filter }
@@ -24,8 +24,8 @@ exports.fetch = async (skip = 0, limit = 20, filter, sort) => {
     }
 
     const [departments, total] = await Promise.all([
-        MediaModel.fetch(skip, limit, _filter, sort),
-        MediaModel.getTotalNumber(_filter),
+        AlbumModel.fetch(skip, limit, _filter, sort),
+        AlbumModel.getTotalNumber(_filter),
     ])
 
     return { departments, total }
@@ -34,36 +34,36 @@ exports.fetch = async (skip = 0, limit = 20, filter, sort) => {
 /**
  * Tạo mới một role
  * @param {Object} fields
- * @returns {Media}
+ * @returns {Album}
  */
 exports.create = async fields => {
-    return await MediaModel.create(fields)
+    return await AlbumModel.create(fields)
 }
 
 /**
  * Get role by id
  * @param {String} id
- * @returns {Media}
+ * @returns {Album}
  */
 exports.getById = async id => {
-    return await MediaModel.getById(id)
+    return await AlbumModel.getById(id)
 }
 
 /**
  * Cập nhật thông tin role bởi id
  * @param {String} id
  * @param {Object} updatedFields new value of fields
- * @returns {Media}
+ * @returns {Album}
  */
 exports.updateById = async (id, updatedFields) => {
-    return await MediaModel.updateById(id, updatedFields)
+    return await AlbumModel.updateById(id, updatedFields)
 }
 
 /**
  * Xoa một role bởi id
  * @param {String} id
- * @returns {Media}
+ * @returns {Album}
  */
 exports.deleteById = async id => {
-    return await MediaModel.deleteById(id)
+    return await AlbumModel.deleteById(id)
 }

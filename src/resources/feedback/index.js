@@ -1,4 +1,4 @@
-exports.Helper = require('./helper')
-exports.Service = require('./service')
-exports.Static = require('./static')
 exports.Model = require('./model')
+exports.Service = require('./service')
+exports.Helper = require('./helper')
+exports.Static = require('./static')
