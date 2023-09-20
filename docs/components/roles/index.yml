@@ -1,6 +1,6 @@
 get: # /roles
   tags:
-    - role
+    - entity
   summary: Get all roles
   description: ''
   security:
@@ -38,8 +38,8 @@ get: # /roles
 
 post: # /roles
   tags:
-    - role
-  summary: Create a role
+    - entity
+  summary: Create a entity
   description: ''
   security:
     - BearerAuth: []

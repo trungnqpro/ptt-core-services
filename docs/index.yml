@@ -41,7 +41,7 @@ tags:
     description: question in bank
   - name: retention ticket
     description: Operations about Retention Request
-  - name: role
+  - name: entity
     description: Operations about Role
   - name: student
     description: Operation about Student

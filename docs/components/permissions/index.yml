@@ -21,7 +21,7 @@ get: # /users
       description: Filter by status of user
     - in: query
       name: roleId
-      description: Filter by role id
+      description: Filter by entity id
   responses:
     '200':
       description: successful operation

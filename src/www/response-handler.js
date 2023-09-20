@@ -37,10 +37,10 @@ const responseHandler = (ctx, next) => {
                       paging: ctx.state.paging,
                   }
 
-            if (!ctx.originalUrl.includes('/media')) {
-                await moveVideoUrlToAkamai(body)
-                await convertVideoUrlInContentToAkamai(body)
-            }
+            // if (!ctx.originalUrl.includes('/media')) {
+            //     await moveVideoUrlToAkamai(body)
+            //     await convertVideoUrlInContentToAkamai(body)
+            // }
 
             ctx.body = body
 

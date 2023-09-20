@@ -25,44 +25,44 @@ exports.fetch = async (skip = 0, limit = 20, filter = {}, sort = {}) => {
 }
 
 /**
- * Tạo mới một role.
+ * Tạo mới entity.
  *
- * @param {Object} entity Thông tin role.
+ * @param {Object} entity Thông tin entity.
  * @returns {Role}
  */
-exports.create = async role => {
-    const result = await BadgeSchema.create(role)
+exports.create = async entity => {
+    const result = await BadgeSchema.create(entity)
 
     return result.toJSON()
 }
 
 /**
- * Lấy thông tin một role theo id.
- * @param {String} id Id role.
- * @returns role
+ * Lấy thông tin entity theo id.
+ * @param {String} id Id entity.
+ * @returns entity
  */
 exports.getById = async id => {
-    const role = await BadgeSchema.findOne({ _id: id }).lean()
-    return role
+    const entity = await BadgeSchema.findOne({ _id: id }).lean()
+    return entity
 }
 
 /**
- * Cập nhật thông tin role theo id.
- * @param {String} id Id role.
+ * Cập nhật thông tin entity theo id.
+ * @param {String} id Id entity.
  * @param {Object} updatedFields Các giá trị mới.
- * @returns {Role} Thông tin mới của role sau khi cập nhật.
+ * @returns {Role} Thông tin mới của entity sau khi cập nhật.
  */
 exports.updateById = async (id, updatedFields) => {
-    const role = await BadgeSchema.findByIdAndUpdate(id, updatedFields, {
+    const entity = await BadgeSchema.findByIdAndUpdate(id, updatedFields, {
         new: true,
     }).lean()
 
-    return role
+    return entity
 }
 
 /**
- * Xóa một role theo id
- * @param {string} id Id role.
+ * Xóa entity theo id
+ * @param {string} id Id entity.
  * @returns {string} 'success'
  */
 exports.deleteById = async id => {

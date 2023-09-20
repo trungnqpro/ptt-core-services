@@ -9,35 +9,35 @@ const ctrl = require('./controller')
 const schemas = require('./schema-api')
 const permissionCodes = require('../../libs/utils').getPermissionCodes(require('./permission'))
 
-const routerDataImport = new Router({ prefix: '/data-imports' })
-routerDataImport.use(auth)
+const routerFileUpload = new Router({ prefix: '/file-uploads' })
+routerFileUpload.use(auth)
 
-routerDataImport.get('/', checkPermission(permissionCodes.listDataImport), validate(schemas.get), ctrl.fetch)
+routerFileUpload.get('/', checkPermission(permissionCodes.listFileUpload), validate(schemas.get), ctrl.fetch)
 
-routerDataImport.post(
+routerFileUpload.post(
     '/',
-    checkPermission(permissionCodes.createDataImport),
+    checkPermission(permissionCodes.createFileUpload),
     validate(schemas.post),
     ctrl.create,
 )
 
-routerDataImport.get(
+routerFileUpload.get(
     '/:id',
-    checkPermission(permissionCodes.viewDetailsOfDataImport),
+    checkPermission(permissionCodes.viewDetailsOfFileUpload),
     validate(schemas.idGet),
     ctrl.get,
 )
-routerDataImport.put(
+routerFileUpload.put(
     '/:id',
-    checkPermission(permissionCodes.updateDataImport),
+    checkPermission(permissionCodes.updateFileUpload),
     validate(schemas.idPut),
     ctrl.update,
 )
-routerDataImport.del(
+routerFileUpload.del(
     '/:id',
-    checkPermission(permissionCodes.deleteDataImport),
+    checkPermission(permissionCodes.deleteFileUpload),
     validate(schemas.idDelete),
     ctrl.delete,
 )
 
-module.exports = [routerDataImport]
+module.exports = [routerFileUpload]

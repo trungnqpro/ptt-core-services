@@ -19,19 +19,19 @@ exports.fetch = async () => {
 }
 
 /**
- * Tạo mới một role.
+ * Tạo mới entity.
  *
  * @param {Object} entity Thông tin role.
  * @returns {Role}
  */
 exports.create = async role => {
-    const result = await RoleSchema.create(role)
+    const result = await RoleSchema.create(entity)
 
     return result.toJSON()
 }
 
 /**
- * Lấy thông tin một role theo id.
+ * Lấy thông tin entity theo id.
  * @param {String} id Id role.
  * @returns role
  */
@@ -64,7 +64,7 @@ exports.updateById = async (id, updatedFields) => {
 }
 
 /**
- * Xóa một role theo id
+ * Xóa entity theo id
  * @param {string} id Id role.
  * @returns {string} 'success'
  */

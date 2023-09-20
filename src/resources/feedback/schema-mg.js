@@ -6,23 +6,12 @@ const mf = require('../../libs/mongo-field')
 
 const schema = new Schema(
     {
-        _id: {
-            type: Schema.Types.ObjectId,
-            required: true,
-            auto: true,
-        },
-        name: {
-            type: String,
-            required: true,
-        },
-        description: {
-            type: String,
-        },
-        updatedBy: {
-            type: Schema.Types.ObjectId,
-            required: true,
-            ref: 'User',
-        },
+        _id: mf().id().required().auto().j(),
+        title: mf().string().required().j(),
+        comment: mf().string().j(),
+        targetId: mf().id().required().auto().j(),
+        targetType: mf().string().required().j(),
+        createdBy: mf().id().ref('User').required().j(),
     },
     { timestamps: true },
 )

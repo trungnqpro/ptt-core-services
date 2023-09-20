@@ -22,7 +22,7 @@ exports.fetch = async () => {
 }
 
 /**
- * Tạo mới một role
+ * Tạo mới entity
  * @param {Object} fields
  * @returns {Role}
  */
@@ -116,7 +116,7 @@ exports.updateById = async (id, updatedFields) => {
 }
 
 /**
- * Xoa một role bởi id
+ * Xoa entity bởi id
  * @param {String} id
  * @returns {Role}
  */

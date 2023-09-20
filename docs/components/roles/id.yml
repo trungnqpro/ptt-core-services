@@ -1,14 +1,14 @@
 get: # /roles/:id
   tags:
-    - role
-  summary: Get role details by id
+    - entity
+  summary: Get entity details by id
   description: ''
   security:
     - BearerAuth: []
   parameters:
     - in: path
       name: id
-      description: role id
+      description: entity id
       required: true
   responses:
     '200':
@@ -33,15 +33,15 @@ get: # /roles/:id
 
 put: # /roles/{id}
   tags:
-    - role
-  summary: Update role by id
+    - entity
+  summary: Update entity by id
   description: ''
   security:
     - BearerAuth: []
   parameters:
     - in: path
       name: id
-      description: role id
+      description: entity id
       required: true
   requestBody:
     required: true
@@ -72,15 +72,15 @@ put: # /roles/{id}
 
 delete: # /roles/:id
   tags:
-    - role
-  summary: Delete a role by id
+    - entity
+  summary: Delete a entity by id
   description: ''
   security:
     - BearerAuth: []
   parameters:
     - in: path
       name: id
-      description: role id
+      description: entity id
       required: true
   responses:
     '200':

@@ -9,7 +9,7 @@ const ctrl = require('./controller')
 const schemas = require('./schema-api')
 const permissionCodes = require('../../libs/utils').getPermissionCodes(require('./permission'))
 
-const routerDocumentType = new Router({ prefix: '/document-type' })
+const routerDocumentType = new Router({ prefix: '/documentary-type' })
 routerDocumentType.use(auth)
 
 routerDocumentType.get('/', checkPermission(permissionCodes.listDocumentType), validate(schemas.get), ctrl.fetch)

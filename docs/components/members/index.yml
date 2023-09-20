@@ -21,7 +21,7 @@ get: # /members
       description: Filter by status of member
     - in: query
       name: roleId
-      description: Filter by role id
+      description: Filter by entity id
     - in: query
       name: gender
       description: Filter by gender

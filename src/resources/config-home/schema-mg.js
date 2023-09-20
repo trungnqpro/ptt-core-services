@@ -6,23 +6,12 @@ const mf = require('../../libs/mongo-field')
 
 const schema = new Schema(
     {
-        _id: {
-            type: Schema.Types.ObjectId,
-            required: true,
-            auto: true,
-        },
-        name: {
-            type: String,
-            required: true,
-        },
-        description: {
-            type: String,
-        },
-        updatedBy: {
-            type: Schema.Types.ObjectId,
-            required: true,
-            ref: 'User',
-        },
+        _id: mf().id().required().auto().j(),
+        videoUrl: mf().mediaUrl().required().j(),
+        isLoop: mf().boolean(true).j(),
+        delay: mf().number(5).j(), // default delay 5s
+        createdBy: mf().id().ref('User').required().j(),
+        updatedBy: mf().id().ref('User').j(),
     },
     { timestamps: true },
 )

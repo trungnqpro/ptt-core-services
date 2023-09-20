@@ -25,29 +25,29 @@ exports.fetch = async (skip = 0, limit = 20, filter = {}, sort = {}) => {
 }
 
 /**
- * Tạo mới một role.
+ * Tạo mới entity.
  *
- * @param {Object} entity Thông tin role.
+ * @param {Object} entity Thông tin entity.
  * @returns {Role}
  */
-exports.create = async role => {
-    return await PositionSchema.create(role)
+exports.create = async entity => {
+    return await PositionSchema.create(entity)
 }
 
 /**
- * Lấy thông tin một role theo id.
- * @param {String} id Id role.
- * @returns role
+ * Lấy thông tin entity theo id.
+ * @param {String} id Id entity.
+ * @returns entity
  */
 exports.getById = async id => {
     return await PositionSchema.findOne({ _id: id }).lean()
 }
 
 /**
- * Cập nhật thông tin role theo id.
- * @param {String} id Id role.
+ * Cập nhật thông tin entity theo id.
+ * @param {String} id Id entity.
  * @param {Object} updatedFields Các giá trị mới.
- * @returns {Role} Thông tin mới của role sau khi cập nhật.
+ * @returns {Role} Thông tin mới của entity sau khi cập nhật.
  */
 exports.updateById = async (id, updatedFields) => {
     return await PositionSchema.findByIdAndUpdate(id, updatedFields, {
@@ -56,8 +56,8 @@ exports.updateById = async (id, updatedFields) => {
 }
 
 /**
- * Xóa một role theo id
- * @param {string} id Id role.
+ * Xóa entity theo id
+ * @param {string} id Id entity.
  * @returns {string} 'success'
  */
 exports.deleteById = async id => {

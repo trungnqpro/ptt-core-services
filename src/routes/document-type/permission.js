@@ -1,8 +1,8 @@
 const permissions = require('../../libs/permission')
-const { DocumentType } = require('../../configs/permissions').resources
+const { DocumentaryType } = require('../../configs/permissions').resources
 
 module.exports = permissions
-    .resource(DocumentType)
+    .resource(DocumentaryType)
     .create()
     .update()
     .viewDetailsOf()

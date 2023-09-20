@@ -1,8 +1,8 @@
 const permissions = require('../../libs/permission')
-const { DataImport } = require('../../configs/permissions').resources
+const { FileUpload } = require('../../configs/permissions').resources
 
 module.exports = permissions
-    .resource(DataImport)
+    .resource(FileUpload)
     .create()
     .update()
     .viewDetailsOf()

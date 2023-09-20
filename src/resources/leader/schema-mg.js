@@ -6,23 +6,21 @@ const mf = require('../../libs/mongo-field')
 
 const schema = new Schema(
     {
-        _id: {
-            type: Schema.Types.ObjectId,
-            required: true,
-            auto: true,
-        },
-        name: {
-            type: String,
-            required: true,
-        },
-        description: {
-            type: String,
-        },
-        updatedBy: {
-            type: Schema.Types.ObjectId,
-            required: true,
-            ref: 'User',
-        },
+        _id: mf().id().required().auto().j(),
+        name: mf().string().required().j(),
+        departmentId: mf().id().ref('Department').j(),
+        positionId: mf().id().ref('Position').j(),
+        badgeId: mf().id().ref('Badge').j(),
+        folderId: mf().id().ref('ConfigFolder').j(),
+        periodStart: mf().date().j(),
+        periodEnd: mf().date().j(),
+        caption: mf().string().j(),
+        orderNum: mf().number().j(),
+        videoUrl: mf().mediaUrl().j(),
+        imageUrl: mf().mediaUrl().j(),
+        audioUrl: mf().mediaUrl().j(),
+        createdBy: mf().id().ref('User').required().j(),
+        updatedBy: mf().id().ref('User').j(),
     },
     { timestamps: true },
 )

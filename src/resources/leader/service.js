@@ -12,7 +12,7 @@ const permissionCodes = require('../../configs/permissions').permissionCodes
 const { ValidationError } = errors
 
 /**
- * Lấy danh sách tất cả các role
+ * Lấy danh sách tất cả các entity
  * @returns {Leader}
  */
 exports.fetch = async (skip = 0, limit = 20, filter, sort) => {
@@ -32,7 +32,7 @@ exports.fetch = async (skip = 0, limit = 20, filter, sort) => {
 }
 
 /**
- * Tạo mới một role
+ * Tạo mới entity
  * @param {Object} fields
  * @returns {Leader}
  */
@@ -41,7 +41,7 @@ exports.create = async fields => {
 }
 
 /**
- * Get role by id
+ * Get entity by id
  * @param {String} id
  * @returns {Leader}
  */
@@ -50,7 +50,7 @@ exports.getById = async id => {
 }
 
 /**
- * Cập nhật thông tin role bởi id
+ * Cập nhật thông tin entity bởi id
  * @param {String} id
  * @param {Object} updatedFields new value of fields
  * @returns {Leader}
@@ -60,7 +60,7 @@ exports.updateById = async (id, updatedFields) => {
 }
 
 /**
- * Xoa một role bởi id
+ * Xoa entity bởi id
  * @param {String} id
  * @returns {Leader}
  */

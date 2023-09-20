@@ -7,7 +7,7 @@ exports.fetch = async ctx => {
     const { q } = ctx.query
     const limit = parseInt(ctx.query.limit || '20')
     const skipPage = parseInt(ctx.query.skipPage || '0')
-    const skip = parseInt(skipPage || '0') * limit
+    const skip = skipPage * limit
     const sort = utils.getSortFromQuery(ctx.query)
 
     const filter = {}

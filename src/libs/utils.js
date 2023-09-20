@@ -19,7 +19,7 @@ exports.checkAvailableByFlag = resource => resource && !resource.isDeleted
 exports.checkAvailableByStatus = resource => resource && resource.status !== 'deleted'
 
 exports.generatePaging = (skipPage = 0, limit = 1, total = 0) => {
-    const skip = parseInt(skipPage || '0') * limit
+    const skip = skipPage * limit
     const totalPage = Math.ceil(total / limit)
     let currentPage = total
 

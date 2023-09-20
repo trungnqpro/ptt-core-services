@@ -102,7 +102,7 @@ fields:
     description: user id
   roleId:
     type: string
-    description: user role id
+    description: user entity id
   email:
     type: string
     description: email of user

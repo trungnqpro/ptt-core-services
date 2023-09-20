@@ -72,6 +72,6 @@ flowchart TD
     s1("Add resource to 'src/configs/permissions.js'")
     --> s2("Create file 'permissions.js' in 'src/routes/[component]/'")
     --> s3("Call api get all permission to show new permissions")
-    --> s4("Add permission to admin role and another role if you want to test")
+    --> s4("Add permission to admin entity and another entity if you want to test")
     --> s5("add checkPermission to route (endpoint)")
 ```

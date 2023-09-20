@@ -1,6 +1,6 @@
 /**
  * @fileoverview Module này thực hiện load danh sách permissions được khai báo trong các routes.
- * Cung cấp danh sách permission trong quá trình cài đặt role. (Cho phép/không cho phép một role nào đó
+ * Cung cấp danh sách permission trong quá trình cài đặt entity. (Cho phép/không cho phép entity nào đó
  * có quyền thực hiện một hành động nhất định lên một resource nào đó)
  *
  * @module configs/permissions
@@ -63,26 +63,30 @@ const listResources = [
     'Department',
     'ArtifactType',
     'Position',
-    'DocumentType',
+    'DocumentaryType',
     'Leader',
     // document
-    'Btl86Post',
-    'GovermentPost',
+    'Btl86Memory',
+    'GovermentMemory',
     'Documentary',
     'Artifact',
+    'ObjectMore',
     // system config
-    'ConfigBackup',
-    'ConfigMenu',
-    'ConfigLog',
+    'SystemBackup',
+    'SystemRoute',
+    'SystemSetting',
+    'SystemLog',
+    'SystemBackup',
+    'SystemRestore',
     'ConfigFolder',
     'ConfigHome',
+    'ConfigExtention',
+    'IpAccess',
     // util
     'Feedback',
-    'Media',
-    'Album',
-    'DataImport',
+    'FileUpload',
     // statistic
-    'Reaction',
+    'Statistic',
 
 ]
 
