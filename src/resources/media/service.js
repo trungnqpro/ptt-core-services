@@ -1,69 +1,91 @@
-/**
- * @fileoverview Module xử lý nghiệp vụ cho phân quyền tài khoản (Media)
- *
- * @module resources/announcement/service
- */
+const mime = require('mime')
+const Jimp = require('jimp')
+const path = require('path')
+const fs = require('fs')
+const Promise = require('bluebird')
+const uuidv4 = require('uuid').v4
+const NodeCache = require('node-cache')
+const moment = require('moment')
+const { URL } = require('url')
+const crypto = require('crypto')
 
-const _ = require('lodash')
-const { errors } = require('../../libs')
-const MediaModel = require('./model')
-const permissionCodes = require('../../configs/permissions').permissionCodes
+const debug = require('../../libs/debug')()
+const s3 = require('../../connections/s3')
+const { MEDIA_TYPE } = require('./static')
+const MediaHelper = require('./helper')
 
-const { ValidationError } = errors
+exports.upload = async mediaFiles => {
+    return Promise.map(
+        mediaFiles,
+        async e => {
+            // get type
+            const mimetype = mime.getType(e.name)
+            const type = this.getType(e.name)
 
-/**
- * Lấy danh sách tất cả các entity
- * @returns {Media}
- */
-exports.fetch = async (skip = 0, limit = 20, filter, sort) => {
-    const _filter = { ...filter }
-    if (_filter.q) {
-        const q = _filter.q.toLowerCase().trim()
-        delete _filter.q
-        _filter.$or = [{ name: { $regex: q, $options: 'i' } }]
-    }
+            const filePath = e.path
+            const filename = path.basename(filePath).replace('upload_', '')
 
-    const [departments, total] = await Promise.all([
-        MediaModel.fetch(skip, limit, _filter, sort),
-        MediaModel.getTotalNumber(_filter),
-    ])
+            if (!filePath) {
+                return {}
+            }
 
-    return { departments, total }
+            let width, height
+
+            if (type === MEDIA_TYPE.IMAGE) {
+                try {
+                    const image = await Jimp.read(filePath)
+
+                    width = image.bitmap.width
+                    height = image.bitmap.height
+                } catch (error) {
+                    width = 0
+                    height = 0
+                    debug.warn(error)
+                }
+            } else if (type === MEDIA_TYPE.VIDEO) {
+                const thumbnailName = await MediaHelper.generateThumbnail(filePath, filename)
+                const thumbPath = path.join(process.env.UPLOAD_DIR, `${thumbnailName}.png`)
+                const image = await Jimp.read(thumbPath)
+                width = image.bitmap.width
+                height = image.bitmap.height
+            }
+
+            // const s3Area = `shared/${type}s`
+            // await s3.push(s3Area, filename, filePath, e.name, mimetype)
+
+            fs.unlink(filePath, err => {
+                if (err) {
+                    debug.error('Cannot remove media file', err)
+                }
+            })
+
+            return {
+                name: e.name,
+                type,
+                size: e.size,
+                width,
+                height,
+                // path: `${s3Area}/${filename}`,
+                // url: `${S3_PROTOCOL}://${
+                //     S3_ENDPOINT_MASK || S3_ENDPOINT
+                // }/${S3_BUCKET_NAME}/${s3Area}/${filename}`,
+            }
+        },
+        { concurrency: 10 },
+    )
 }
 
-/**
- * Tạo mới entity
- * @param {Object} fields
- * @returns {Media}
- */
-exports.create = async fields => {
-    return await MediaModel.create(fields)
+exports.getType = fileName => {
+    const mimetype = mime.getType(fileName)
+    let type = mimetype
+    if (/^image\/.*/.test(type)) type = MEDIA_TYPE.IMAGE
+    else if (/^video\/.*/.test(type)) type = MEDIA_TYPE.VIDEO
+    else if (/^audio\/.*/.test(type)) type = MEDIA_TYPE.AUDIO
+    else type = MEDIA_TYPE.FILE
+
+    return type
 }
 
-/**
- * Get entity by id
- * @param {String} id
- * @returns {Media}
- */
-exports.getById = async id => {
-    return await MediaModel.getById(id)
-}
-
-/**
- * Cập nhật thông tin entity bởi id
- * @param {String} id
- * @param {Object} updatedFields new value of fields
- * @returns {Media}
- */
-exports.updateById = async (id, updatedFields) => {
-    return await MediaModel.updateById(id, updatedFields)
-}
-
-/**
- * Xoa entity bởi id
- * @param {String} id
- * @returns {Media}
- */
-exports.deleteById = async id => {
-    return await MediaModel.deleteById(id)
+exports.getExt = fileName => {
+    return path.extname(fileName)
 }
