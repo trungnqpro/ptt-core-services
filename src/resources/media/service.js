@@ -24,6 +24,8 @@ exports.upload = async mediaFiles => {
             const filePath = e.path
             const filename = path.basename(filePath).replace('upload_', '')
 
+            debug.info(`Start to upload ${filename}...`)
+
             if (!filePath) {
                 return {}
             }
@@ -49,10 +51,29 @@ exports.upload = async mediaFiles => {
                 height = image.bitmap.height
             }
 
-            // const s3Area = `shared/${type}s`
-            // await s3.push(s3Area, filename, filePath, e.name, mimetype)
+            // create directory by time YYYY -> MM
+            const now = new Date()
+            const folder = `${now.getFullYear()}/${now.getMonth() + 1}`
+            const directoryPrefix = `${process.env.UPLOAD_DIR}/${folder}`
+            if (!fs.existsSync(directoryPrefix)) {
+                fs.mkdirSync(directoryPrefix, { recursive: true })
+            }
+            // move to directory
+            await fs.copyFile(
+                filePath,
+                `${directoryPrefix}/${filename}`,
+                fs.constants.COPYFILE_EXCL,
+                err => {
+                    if (err) {
+                        debug.error(`Upload ${filename} into ${directoryPrefix} failed`)
+                        return
+                    }
+                    debug.info(`Uploaded ${filename} into ${directoryPrefix} succeded!`)
+                },
+            )
 
-            fs.unlink(filePath, err => {
+            // unlink file upload from temp
+            await fs.unlink(filePath, err => {
                 if (err) {
                     debug.error('Cannot remove media file', err)
                 }

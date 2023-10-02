@@ -23,6 +23,8 @@ For each environment, make a copy file default.env and change the name to:
 
 Update configurations on the new environment file.
 
+- Create folder UPLOAD_DIR
+
 ## Running
 
 ```
