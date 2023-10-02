@@ -6,7 +6,7 @@
     "main": "src/start.js",
     "repository": {
         "type": "git",
-        "url": "git@gitlab.famtechvn.net:learning/sapp-lms/be/school-service.git"
+        "url": "git@gitlab.com:pitc_group/ptt_btl86/ptt-core-services.git"
     },
     "engines": {
         "node": ">=14.0.0"

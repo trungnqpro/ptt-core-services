@@ -10,7 +10,6 @@ const { URL } = require('url')
 const crypto = require('crypto')
 
 const debug = require('../../libs/debug')()
-const s3 = require('../../connections/s3')
 const { MEDIA_TYPE } = require('./static')
 const MediaHelper = require('./helper')
 

@@ -6,7 +6,7 @@ const { OTP_SECRET_KEY } = process.env
 
 exports.generateQrcode = () => {
     const user = 'Admin'
-    const service = 'SAPP - LMS'
+    const service = 'BTL86'
 
     const otpauth = authenticator.keyuri(user, service, OTP_SECRET_KEY)
 

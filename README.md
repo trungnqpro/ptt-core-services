@@ -1,4 +1,4 @@
-# Learning Management System - SAPP
+# BTL86
 
 Provides services about online learning management.
 
@@ -8,8 +8,6 @@ Provides services about online learning management.
 
 ```
 npm install
-// yarn install
-
 
 // Install libreoffice to convert pptx to pdf
 sudo yum install libreoffice

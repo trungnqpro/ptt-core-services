@@ -42,7 +42,7 @@ exports.sendMultipleEmailWelcome = async listUser => {
                 user.password = process.env.STUDENT_PASSWORD_DEFAULT
                 const name = [user.firstName, user.lastName].join(' ')
                 user.fullName = name || user.username
-                user.link_LMS = 'lms.sapp.edu.vn'
+                user.link_LMS = 'btl86.vn'
 
                 var templateHTML = Handlebars.compile(emailTemplate.description)
                 var templateTitle = Handlebars.compile(emailTemplate.title)
