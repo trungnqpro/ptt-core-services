@@ -124,7 +124,7 @@ dist
 # techcity-demo.env
 .DS_Store
 
-upload/
+upload
 docs/_build/
 mongo-playground/.DS_Store
 .DS_Store

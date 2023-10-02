@@ -71,7 +71,7 @@ exports.signup = async ctx => {
     utils
         .sendMail(
             user.email,
-            'Verify Your Email Address - SAPP',
+            'Verify Your Email Address - BTL86',
             null,
             HtmlTemplate.verifyEmail(user.email, user.firstName || ''),
         )
@@ -151,7 +151,7 @@ exports.resendVerifyingEmail = async ctx => {
     utils
         .sendMail(
             email,
-            'Verify Your Email Address - SAPP LMS',
+            'Verify Your Email Address - BTL86',
             null,
             HtmlTemplate.verifyEmail(email, user.firstName || ''),
         )
@@ -198,7 +198,7 @@ exports.forgotPassword = async ctx => {
     utils
         .sendMail(
             email,
-            'Đặt lại mật khẩu - SAPP LMS',
+            'Đặt lại mật khẩu - BTL86',
             null,
             HtmlTemplate.resetPassword(email, callbackUrl),
         )

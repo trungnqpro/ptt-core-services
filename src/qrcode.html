@@ -1,14 +1,16 @@
 <html>
-  <body>
+
+<body>
     <canvas id="canvas"></canvas>
     <script src="/node_modules/qrcode/build/qrcode.js"></script>
     <script>
-      QRCode.toCanvas(document.getElementById('canvas'), 'https://lms.sapp.edu.vn/auth/checkin', {
+        QRCode.toCanvas(document.getElementById('canvas'), 'https://btl86.vn/auth/checkin', {
             width: 1000
-        }, function (error) {
-        if (error) console.error(error)
-        console.log('success!');
-      })
+        }, function(error) {
+            if (error) console.error(error)
+            console.log('success!');
+        })
     </script>
-  </body>
+</body>
+
 </html>
