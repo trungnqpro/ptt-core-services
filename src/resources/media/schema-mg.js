@@ -8,7 +8,7 @@ const schema = new Schema(
     {
         _id: mf().id().required().auto().j(),
         name: mf().string().required().j(),
-        type: mf().string().required().j(),
+        type: mf().string().required().valid(),
         url: mf().mediaUrl().j(),
         createdBy: mf().id().ref('User').required().j(),
     },

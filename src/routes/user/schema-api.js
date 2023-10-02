@@ -20,7 +20,6 @@ const model = {
     avatarUrl: Joi.string().regex(mediaUrl),
     fullAddress: Joi.string().max(500),
     birthday: Joi.date().format('YYYY-MM-DD'),
-    imgBackIdentityCardUrl: Joi.string().regex(mediaUrl),
     roleId: Joi.objectId(),
     status: Joi.string().valid(...statuses),
 }
