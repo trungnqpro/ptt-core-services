@@ -7,7 +7,6 @@ exports.format = email => {
     obj.id = email._id
     delete obj._id
     delete obj.__v
-    delete obj.isDeleted
 
     return obj
 }

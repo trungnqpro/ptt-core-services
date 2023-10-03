@@ -7,7 +7,6 @@ exports.format = note => {
     obj.id = note._id
     delete obj._id
     delete obj.__v
-    delete obj.isDeleted
 
     return obj
 }
@@ -21,7 +20,6 @@ exports.formatList = note => {
     obj.id = note._id
     delete obj._id
     delete obj.__v
-    delete obj.isDeleted
 
     return obj
 }

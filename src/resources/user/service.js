@@ -149,7 +149,7 @@ exports.updateById = async (id, updatedFields) => {
 
 /**
  * Xoá tài khoản user
- * Cập nhật isDeleted của fields là status = deleted
+ * Cập nhật status là status = deleted
  * @param {*} id
  * @returns {String} Success
  */

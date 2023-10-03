@@ -10,7 +10,7 @@ const schema = new Schema(
         _id: mf().id().required().auto().j(),
         description: mf().string().j(),
         title: mf().string().j(),
-        isDeleted: mf().boolean(false).j(),
+        status: mf().string().j(),
         type: mf().string(types),
         emailDeliveryTime: mf().number().j(),
     },

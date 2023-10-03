@@ -15,7 +15,6 @@ exports.verifyPassword = function compareHash(password, hashPassword) {
     return bcrypt.compareSync(password, hashPassword)
 }
 
-exports.checkAvailableByFlag = resource => resource && !resource.isDeleted
 exports.checkAvailableByStatus = resource => resource && resource.status !== 'deleted'
 
 exports.generatePaging = (skipPage = 0, limit = 1, total = 0) => {
