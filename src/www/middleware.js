@@ -9,7 +9,7 @@ const { errors, utils } = require('../libs')
 const { ValidationError, PermissionError, NotFoundError } = errors
 const RoleCache = require('../resources').Role.Cache
 
-const { ROLE_STUDENT_ID, ROLE_ADMIN_FORUM_ID } = process.env
+const { ROLE_CBLT_ID, ROLE_QTHT_ID } = process.env
 
 /**
  * Validate tham số truyền vào api. Nếu không đúng với cấu hình sẽ trả về lỗi.
@@ -131,45 +131,59 @@ exports.checkPermission = permission => async (ctx, next) => {
 }
 
 /**
- * Chỉ cho phép học viên thực hiện truy cập api
+ * Chỉ cho phép QTHT thực hiện truy cập api
  * @param {Object} ctx koa ctx
  * @param {Function} next koa next function
  */
-exports.onlyAllowStudent = (ctx, next) => {
+exports.onlyAllowQtht = (ctx, next) => {
     const roleId = ctx.state?.user?.roleId
-    if (roleId === ROLE_STUDENT_ID) {
+    if (roleId === ROLE_QTHT_ID) {
         return next()
     }
 
-    throw new PermissionError('Only students have permission to perform this action')
+    throw new PermissionError('Only QTHT have permission to perform this action')
 }
 
 /**
- * Chỉ cho phép member thực hiện truy cập api trong forum
+ * Chỉ cho phép CBLT thực hiện truy cập api
  * @param {Object} ctx koa ctx
  * @param {Function} next koa next function
  */
-exports.onlyAllowAdminForum = (ctx, next) => {
+exports.onlyAllowCblt = (ctx, next) => {
     const roleId = ctx.state?.user?.roleId
-    if (roleId === ROLE_ADMIN_FORUM_ID) {
+    if (roleId === ROLE_CBLT_ID) {
         return next()
     }
 
-    throw new PermissionError('Only admin forum have permission to perform this action')
+    throw new PermissionError('Only CBLT have permission to perform this action')
 }
 
 /**
- * Không cho phép học viên thực thiện api.
+ * Chỉ cho phép CBLT thực hiện truy cập api
  * @param {Object} ctx koa ctx
  * @param {Function} next koa next function
  */
-exports.notAllowStudent = (ctx, next) => {
+exports.onlyAllowCbltAndQtht = (ctx, next) => {
     const roleId = ctx.state?.user?.roleId
-    if (roleId !== ROLE_STUDENT_ID) {
+    if ([ROLE_CBLT_ID, ROLE_QTHT_ID].includes(roleId)) {
         return next()
     }
 
-    throw new PermissionError("Students haven't permission to perform this action")
+    throw new PermissionError('Only CBLT and QTHT have permission to perform this action')
+}
+
+/**
+ * Không cho phép guest thực thiện api.
+ * @param {Object} ctx koa ctx
+ * @param {Function} next koa next function
+ */
+exports.notAllowGuest = (ctx, next) => {
+    const roleId = ctx.state?.user?.roleId
+    if (!roleId) {
+        throw new PermissionError("Guest haven't permission to perform this action")
+    }
+
+    return next()
 }
 
 exports.checkAvailable = (resourceName, parameterName, getResourceById, checkFunc) => async (

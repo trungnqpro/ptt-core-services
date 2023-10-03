@@ -59,8 +59,8 @@ exports.getById = async id => {
  */
 exports.updateById = async (id, updatedFields) => {
     // TODO: fix student role
-    // make sure supper admin never miss critical permissions
-    if (id === process.env.ROLE_SUPER_ADMIN_ID && updatedFields?.permissions) {
+    // only QTHT can update role
+    if (id === process.env.ROLE_QTHT_ID && updatedFields?.permissions) {
         updatedFields?.permissions.push(
             'createUser',
             'updateUser',
@@ -77,26 +77,6 @@ exports.updateById = async (id, updatedFields) => {
             'updateStudent',
             'deleteStudent',
             'listStudent',
-            'viewDetailsOfStudent',
-            'createStudent',
-            'updateStudent',
-            'deleteStudent',
-            'setPasswordOfStudent',
-            'listMember',
-            'createMember',
-            'viewDetailsOfMember',
-            'updateMember',
-            'deleteMember',
-            'setPasswordOfMember',
-            'createGroupTopic',
-            'updateGroupTopic',
-            'deleteGroupTopic',
-            'createTopic',
-            'updateTopic',
-            'deleteTopic',
-            'createTopicReply',
-            'updateTopicReply',
-            'deleteTopicReply',
         )
     }
 
@@ -121,24 +101,8 @@ exports.updateById = async (id, updatedFields) => {
  * @returns {Role}
  */
 exports.deleteById = async id => {
-    const {
-        ROLE_STUDENT_ID,
-        ROLE_TEACHER_ID,
-        ROLE_SUPER_ADMIN_ID,
-        ROLE_RD_SUPPORT_ID,
-        ROLE_CX_SUPPORT_ID,
-        ROLE_ADMIN_FORUM_ID,
-    } = process.env
-    if (
-        [
-            ROLE_STUDENT_ID,
-            ROLE_TEACHER_ID,
-            ROLE_SUPER_ADMIN_ID,
-            ROLE_RD_SUPPORT_ID,
-            ROLE_CX_SUPPORT_ID,
-            ROLE_ADMIN_FORUM_ID,
-        ].includes(id)
-    ) {
+    const { ROLE_QTHT_ID } = process.env
+    if (![ROLE_QTHT_ID].includes(id)) {
         throw new ValidationError('Cannot delete role of system. Please contact administrator')
     }
 

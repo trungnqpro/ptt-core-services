@@ -9,6 +9,7 @@ const _ = require('lodash')
 const UserModel = require('./model')
 const UserCache = require('./cache')
 const UserSchema = require('./schema-mg')
+const UserStatic = require('./static')
 const { hashPassword, verifyPassword } = require('../../libs/utils')
 const { DataError, ValidationError, NotFoundError } = require('../../libs/errors')
 const debug = require('../../libs/debug')()
@@ -77,10 +78,11 @@ exports.findByAccount = async account => {
  */
 
 exports.create = async fields => {
+    debug.info(`Create User with fields ${JSON.stringify(fields)}`)
     let user = { ...fields, hashPassword: hashPassword(fields.password) }
 
     delete user.password
-    // user.status = user.status || UserStatic.STATUS.PENDING
+    user.status = user.status || UserStatic.STATUS.PENDING
 
     // let result = await UserCache.lockInsert()
     // let retryNumber = 0
@@ -152,20 +154,21 @@ exports.updateById = async (id, updatedFields) => {
  * @returns {String} Success
  */
 
-exports.deleteById = async id => {
+exports.deleteById = async (id, deletedByUserId) => {
     const { DELETED } = Static.STATUS
     const user = await UserModel.getById(id)
     if (!user) {
         throw new NotFoundError(`Not found User id ${id}`)
     }
     if (user.status === DELETED) {
-        throw new Error(`User id ${id} has been ${DELETED}`)
+        throw new Error(`User id ${id} already has been ${DELETED}`)
     }
 
     const updatedFields = {}
     updatedFields.email = `DeletedUser_${user.code}_${user.email || ''}`
     updatedFields.username = `DeletedUser_${user.code}_${user.username || ''}`
     updatedFields.status = DELETED
+    updatedFields.updatedBy = deletedByUserId
 
     const result = await UserModel.updateById(id, updatedFields)
 
@@ -236,26 +239,6 @@ exports.setMyPassword = async (id, password, currentPassword) => {
     }
 
     return exports.updatePasswordById(id, password)
-}
-
-/**
- * Lấy chuỗi đăng kí thông báo của tài khoản
- * @param {String} id
- * @param {Object} updatedFields Giá trị mới của user
- * @returns {User}
- */
-
-exports.getNotiSubscriptionById = async userId => {
-    const user = await UserModel.getById(userId)
-
-    return user?.notiSubscriptionString
-}
-
-exports.setNotiSubscriptionById = async (userId, notiSubscriptionString) => {
-    const user = await UserModel.updateById(userId, { notiSubscriptionString })
-    UserCache.removeNotiSubscriptionById(userId)
-
-    return user
 }
 
 /**
@@ -340,48 +323,4 @@ exports.batchCreate = async students => {
     UserCache.unLockAndSetMaxCode(newMaxCode).catch(error => debug.error(error))
 
     return users
-}
-
-exports.getMyGuide = async userId => {
-    const user = await UserModel.getById(userId)
-    return user.guide
-}
-
-exports.setMyGuide = async (userId, newStatuses) => {
-    const updatedFields = {}
-    Object.keys(newStatuses).map(key => {
-        updatedFields[`guide.${key}`] = newStatuses[key]
-    })
-    const user = await UserModel.updateById(userId, updatedFields)
-
-    return user.guide
-}
-
-exports.updateDevice = async (userId, deviceId, userAgent) => {
-    const user = await UserSchema.findById(userId)
-    let isExisted = false
-
-    if (!user.devices) {
-        user.devices = []
-    }
-
-    for (const device of user.devices) {
-        if (device.deviceId == deviceId) {
-            device.lastLoggedIn = new Date()
-            device.userAgent = userAgent
-            isExisted = true
-        }
-    }
-
-    if (!isExisted) {
-        user.devices.push({
-            deviceId,
-            lastLoggedIn: new Date(),
-            userAgent,
-        })
-    }
-
-    await user.save()
-
-    return _.cloneDeep(user.toJSON().devices)
 }

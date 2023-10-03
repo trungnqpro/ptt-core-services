@@ -1,7 +1,7 @@
 exports.STATUS = {
     ACTIVE: 'active',
     PENDING: 'pending', // chờ verify email
-    INACTIVE: 'inactive', // hết thời gian bảo lưu
+    INACTIVE: 'inactive', // hết thời gian expire
     BLOCKED: 'blocked', // vì lý do nào đó không cho hoạt động nữa - tạm thời không sử dụng, vì chưa có nhu cầu
     DELETED: 'deleted',
 }
