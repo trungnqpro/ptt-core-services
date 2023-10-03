@@ -31,7 +31,8 @@ exports.fetch = async (skip = 0, limit = 20, filter = {}, sort = {}) => {
  * @returns {Role}
  */
 exports.create = async entity => {
-    return await LeaderSchema.create(entity)
+    const result = await LeaderSchema.create(entity)
+    return result.toJSON()
 }
 
 /**

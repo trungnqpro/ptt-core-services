@@ -31,7 +31,8 @@ exports.fetch = async (skip = 0, limit = 20, filter = {}, sort = {}) => {
  * @returns {Role}
  */
 exports.create = async entity => {
-    return await MediaSchema.create(entity)
+    const result = await MediaSchema.create(entity)
+    return result.toJSON()
 }
 
 /**

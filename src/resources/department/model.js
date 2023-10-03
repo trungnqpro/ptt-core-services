@@ -21,7 +21,11 @@ exports.fetch = async (skip = 0, limit = 20, filter = {}, sort = {}) => {
         sort._id = -1
     }
 
-    return await DepartmentSchema.find(filter).sort(sort).skip(skip).limit(limit).lean({ getters: true })
+    return await DepartmentSchema.find(filter)
+        .sort(sort)
+        .skip(skip)
+        .limit(limit)
+        .lean({ getters: true })
 }
 
 /**
@@ -31,7 +35,8 @@ exports.fetch = async (skip = 0, limit = 20, filter = {}, sort = {}) => {
  * @returns {Role}
  */
 exports.create = async entity => {
-    return await DepartmentSchema.create(entity)
+    const result = await DepartmentSchema.create(entity)
+    return result.toJSON()
 }
 
 /**

@@ -31,7 +31,8 @@ exports.fetch = async (skip = 0, limit = 20, filter = {}, sort = {}) => {
  * @returns {Role}
  */
 exports.create = async entity => {
-    return await ConfigHomeSchema.create(entity)
+    const result = await ConfigHomeSchema.create(entity)
+    return result.toJSON()
 }
 
 /**

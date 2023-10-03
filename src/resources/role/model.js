@@ -24,7 +24,7 @@ exports.fetch = async () => {
  * @param {Object} entity Thông tin role.
  * @returns {Role}
  */
-exports.create = async role => {
+exports.create = async entity => {
     const result = await RoleSchema.create(entity)
 
     return result.toJSON()

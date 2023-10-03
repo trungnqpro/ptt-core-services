@@ -31,7 +31,8 @@ exports.fetch = async (skip = 0, limit = 20, filter = {}, sort = {}) => {
  * @returns {Role}
  */
 exports.create = async entity => {
-    return await Btl86PostSchema.create(entity)
+    const result = await Btl86PostSchema.create(entity)
+    return result.toJSON()
 }
 
 /**
