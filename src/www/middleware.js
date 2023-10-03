@@ -10,6 +10,7 @@ const { ValidationError, PermissionError, NotFoundError } = errors
 const RoleCache = require('../resources').Role.Cache
 
 const { ROLE_CBLT_ID, ROLE_QTHT_ID } = process.env
+const debug = require('../libs/debug')()
 
 /**
  * Validate tham số truyền vào api. Nếu không đúng với cấu hình sẽ trả về lỗi.
@@ -99,6 +100,7 @@ exports.validateAccessToken = async function (ctx, next) {
  * @param {String | Object} permission exp: 'createUser' or {or: ['createUser', 'updateUser']}
  */
 exports.checkPermission = permission => async (ctx, next) => {
+    debug.info('[checkPermission]', permission)
     if (!permission) {
         throw new Error('Permission must be not null')
     }
@@ -123,7 +125,9 @@ exports.checkPermission = permission => async (ctx, next) => {
         }
     }
 
+
     if (!isGranted) {
+        debug.error(`Not allow at roleId ${role?.id} with permission ${permission}`)
         throw new PermissionError("You don't have permission to perform this action")
     }
 

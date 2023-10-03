@@ -21,4 +21,5 @@ const schema = new Schema(
     { timestamps: true },
 )
 
+schema.index({ name: 1 }, { unique: true })
 module.exports = DefaultDB.model('Artifact', schema, 'artifacts')
