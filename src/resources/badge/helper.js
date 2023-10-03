@@ -23,3 +23,17 @@ exports.formatList = note => {
 
     return obj
 }
+
+exports.protect = record => {
+    if (!record || typeof record !== 'object') {
+        return record
+    }
+
+    const protectedRecord = { ...record }
+    protectedRecord.id = record._id
+
+    delete protectedRecord._id
+    delete protectedRecord.__v
+
+    return protectedRecord
+}
