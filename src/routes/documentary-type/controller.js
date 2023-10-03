@@ -15,9 +15,14 @@ exports.fetch = async ctx => {
         filter.q = q
     }
 
-    const { documentTypes = [], total } = await DocumentaryType.Service.fetch(skip, limit, filter, sort)
+    const { documentaryTypes = [], total } = await DocumentaryType.Service.fetch(
+        skip,
+        limit,
+        filter,
+        sort,
+    )
 
-    ctx.body = documentTypes.map(DocumentaryType.Helper.formatList)
+    ctx.body = documentaryTypes.map(DocumentaryType.Helper.formatList)
     ctx.state.paging = utils.generatePaging(skipPage, limit, total)
 }
 
@@ -25,6 +30,7 @@ exports.create = async ctx => {
     const fields = ctx.request.body
     const record = await DocumentaryType.Service.create({
         ...fields,
+        createdBy: ctx.state?.user?.id,
     })
 
     ctx.body = DocumentaryType.Helper.protect(record)
@@ -44,7 +50,10 @@ exports.get = async ctx => {
 exports.update = async ctx => {
     const { id } = ctx.params
     const updatedFields = ctx.request.body
-    const record = await DocumentaryType.Service.updateById(id, updatedFields)
+    const record = await DocumentaryType.Service.updateById(id, {
+        ...updatedFields,
+        updatedBy: ctx.state?.user?.id,
+    })
 
     ctx.body = DocumentaryType.Helper.protect(record)
 }

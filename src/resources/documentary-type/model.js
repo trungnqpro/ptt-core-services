@@ -3,7 +3,7 @@
  *
  * @module resources/announcement/module
  */
-const DocumentTypeSchema = require('./schema-mg')
+const DocumentaryTypeSchema = require('./schema-mg')
 const debug = require('../../libs').Debug()
 
 /**
@@ -21,7 +21,7 @@ exports.fetch = async (skip = 0, limit = 20, filter = {}, sort = {}) => {
         sort._id = -1
     }
 
-    return await DocumentTypeSchema.find(filter).sort(sort).skip(skip).limit(limit).lean({ getters: true })
+    return await DocumentaryTypeSchema.find(filter).sort(sort).skip(skip).limit(limit).lean({ getters: true })
 }
 
 /**
@@ -31,7 +31,7 @@ exports.fetch = async (skip = 0, limit = 20, filter = {}, sort = {}) => {
  * @returns {Role}
  */
 exports.create = async entity => {
-    const result = await DocumentTypeSchema.create(entity)
+    const result = await DocumentaryTypeSchema.create(entity)
     return result.toJSON()
 }
 
@@ -41,7 +41,7 @@ exports.create = async entity => {
  * @returns entity
  */
 exports.getById = async id => {
-    return await DocumentTypeSchema.findOne({ _id: id }).lean()
+    return await DocumentaryTypeSchema.findOne({ _id: id }).lean()
 }
 
 /**
@@ -51,7 +51,7 @@ exports.getById = async id => {
  * @returns {Role} Thông tin mới của entity sau khi cập nhật.
  */
 exports.updateById = async (id, updatedFields) => {
-    return await DocumentTypeSchema.findByIdAndUpdate(id, updatedFields, {
+    return await DocumentaryTypeSchema.findByIdAndUpdate(id, updatedFields, {
         new: true,
     }).lean()
 }
@@ -62,9 +62,9 @@ exports.updateById = async (id, updatedFields) => {
  * @returns {string} 'success'
  */
 exports.deleteById = async id => {
-    return await DocumentTypeSchema.deleteOne({ _id: id })
+    return await DocumentaryTypeSchema.deleteOne({ _id: id })
 }
 
 exports.getTotalNumber = async (filter = {}) => {
-    return await DocumentTypeSchema.countDocuments(filter)
+    return await DocumentaryTypeSchema.countDocuments(filter)
 }

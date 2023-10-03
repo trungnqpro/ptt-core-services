@@ -6,7 +6,7 @@
 
 const _ = require('lodash')
 const { errors } = require('../../libs')
-const DocumentTypeModel = require('./model')
+const DocumentaryTypeModel = require('./model')
 const permissionCodes = require('../../configs/permissions').permissionCodes
 
 const { ValidationError } = errors
@@ -23,12 +23,12 @@ exports.fetch = async (skip = 0, limit = 20, filter, sort) => {
         _filter.$or = [{ name: { $regex: q, $options: 'i' } }]
     }
 
-    const [documentTypes, total] = await Promise.all([
-        DocumentTypeModel.fetch(skip, limit, _filter, sort),
-        DocumentTypeModel.getTotalNumber(_filter),
+    const [documentaryTypes, total] = await Promise.all([
+        DocumentaryTypeModel.fetch(skip, limit, _filter, sort),
+        DocumentaryTypeModel.getTotalNumber(_filter),
     ])
 
-    return { documentTypes, total }
+    return { documentaryTypes, total }
 }
 
 /**
@@ -37,7 +37,7 @@ exports.fetch = async (skip = 0, limit = 20, filter, sort) => {
  * @returns {DocumentaryType}
  */
 exports.create = async fields => {
-    return await DocumentTypeModel.create(fields)
+    return await DocumentaryTypeModel.create(fields)
 }
 
 /**
@@ -46,7 +46,7 @@ exports.create = async fields => {
  * @returns {DocumentaryType}
  */
 exports.getById = async id => {
-    return await DocumentTypeModel.getById(id)
+    return await DocumentaryTypeModel.getById(id)
 }
 
 /**
@@ -56,7 +56,7 @@ exports.getById = async id => {
  * @returns {DocumentaryType}
  */
 exports.updateById = async (id, updatedFields) => {
-    return await DocumentTypeModel.updateById(id, updatedFields)
+    return await DocumentaryTypeModel.updateById(id, updatedFields)
 }
 
 /**
@@ -65,5 +65,5 @@ exports.updateById = async (id, updatedFields) => {
  * @returns {DocumentaryType}
  */
 exports.deleteById = async id => {
-    return await DocumentTypeModel.deleteById(id)
+    return await DocumentaryTypeModel.deleteById(id)
 }
