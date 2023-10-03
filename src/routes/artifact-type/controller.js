@@ -15,7 +15,12 @@ exports.fetch = async ctx => {
         filter.q = q
     }
 
-    const { artifactTypes = [], total } = await ArtifactType.Service.fetch(skip, limit, filter, sort)
+    const { artifactTypes = [], total } = await ArtifactType.Service.fetch(
+        skip,
+        limit,
+        filter,
+        sort,
+    )
 
     ctx.body = artifactTypes.map(ArtifactType.Helper.formatList)
     ctx.state.paging = utils.generatePaging(skipPage, limit, total)
@@ -25,6 +30,7 @@ exports.create = async ctx => {
     const fields = ctx.request.body
     const record = await ArtifactType.Service.create({
         ...fields,
+        createdBy: ctx.state?.user?.id,
     })
 
     ctx.body = ArtifactType.Helper.protect(record)
@@ -44,7 +50,10 @@ exports.get = async ctx => {
 exports.update = async ctx => {
     const { id } = ctx.params
     const updatedFields = ctx.request.body
-    const record = await ArtifactType.Service.updateById(id, updatedFields)
+    const record = await ArtifactType.Service.updateById(id, {
+        ...updatedFields,
+        updatedBy: ctx.state?.user?.id,
+    })
 
     ctx.body = ArtifactType.Helper.protect(record)
 }
