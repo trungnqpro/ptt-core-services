@@ -25,6 +25,7 @@ exports.create = async ctx => {
     const fields = ctx.request.body
     const record = await Position.Service.create({
         ...fields,
+        createdBy: ctx.state?.user?.id,
     })
 
     ctx.body = Position.Helper.protect(record)
@@ -44,7 +45,10 @@ exports.get = async ctx => {
 exports.update = async ctx => {
     const { id } = ctx.params
     const updatedFields = ctx.request.body
-    const record = await Position.Service.updateById(id, updatedFields)
+    const record = await Position.Service.updateById(id, {
+        ...updatedFields,
+        updatedBy: ctx.state?.user?.id,
+    })
 
     ctx.body = Position.Helper.protect(record)
 }

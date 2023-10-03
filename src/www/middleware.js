@@ -127,7 +127,7 @@ exports.checkPermission = permission => async (ctx, next) => {
 
 
     if (!isGranted) {
-        debug.error(`Not allow at roleId ${role?.id} with permission ${permission}`)
+        debug.error(`Not allow at roleId ${roleId?.id || role?.id} with permission ${permission}`)
         throw new PermissionError("You don't have permission to perform this action")
     }
 
