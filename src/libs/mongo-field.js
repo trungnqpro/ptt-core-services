@@ -6,7 +6,7 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
-const { S3_PROTOCOL, S3_ENDPOINT, S3_BUCKET_NAME, S3_ENDPOINT_MASK, S3_CDN_URL } = process.env
+const { STATIC_BASE_URL } = process.env
 function MongoField() {
     return this
 }
@@ -121,7 +121,7 @@ MongoField.prototype.mediaUrl = function () {
     this.get = path =>
         !path || /(data|http|https):.*/.test(path)
             ? path
-            : `${S3_PROTOCOL}://${S3_ENDPOINT_MASK || S3_ENDPOINT}/${S3_BUCKET_NAME}/${path}`
+            : `${STATIC_BASE_URL}/${path}`
 
     this.set = path => {
         if (!path) {
@@ -129,9 +129,7 @@ MongoField.prototype.mediaUrl = function () {
         }
         let val = path
         val = val
-            .replace(`${S3_PROTOCOL}://${S3_ENDPOINT_MASK}/${S3_BUCKET_NAME}/`, '')
-            .replace(`${S3_PROTOCOL}://${S3_ENDPOINT}/${S3_BUCKET_NAME}/`, '')
-            .replace(`${S3_PROTOCOL}://${S3_CDN_URL}/${S3_BUCKET_NAME}/`, '')
+            .replace(`${STATIC_BASE_URL}/`, '')
             .replace(/\?.*/, '')
         return val
     }

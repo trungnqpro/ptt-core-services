@@ -4,32 +4,25 @@ const Schema = mongoose.Schema
 
 const { DefaultDB } = require('../../connections/mongodb')
 const mf = require('../../libs').mongoField
-const { ACTIVE } = require('./static').STATUS
-
-const initStateSchema = new Schema(
-    {
-        curriculumId: mf().id().ref('Curriculum').j(),
-    },
-    { _id: false },
-)
+const { ACTIVE, PENDING } = require('./static').STATUS
 
 const schema = new Schema(
     {
         _id: mf().id().required().auto().j(),
-        roleId: mf().id().ref('Role').j(),
-        type: String,
+        roleId: mf().id().required().ref('Role').j(),
         email: mf().string().trim().j(),
-        phoneNumber: String,
-        username: mf().string().trim().j(),
-        hashPassword: String,
+        phoneNumber: mf().string().trim().j(),
+        username: mf().string().required().trim().j(),
+        hashPassword: mf().string().required().trim().j(),
         firstName: String,
         lastName: String,
         birthday: Date,
         avatarUrl: mf().mediaUrl().j(),
         fullAddress: String,
         gender: String,
-        status: mf().string(ACTIVE).j(),
-        // initState: initStateSchema,
+        status: mf().string(PENDING).j(),
+        createdBy: mf().id().required().ref('User').j(),
+        updatedBy: mf().id().ref('User').j(),
     },
     { timestamps: true },
 )

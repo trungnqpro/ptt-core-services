@@ -43,7 +43,8 @@ exports.create = async ctx => {
     const fields = ctx.request.body
     const user = await User.Service.create({
         ...fields,
-        status: User.Static.STATUS.ACTIVE,
+        status: User.Static.STATUS.PENDING,
+        createdBy: ctx.state?.user?.id,
     })
 
     ctx.body = User.Helper.protect(user)
@@ -63,14 +64,17 @@ exports.get = async ctx => {
 exports.update = async ctx => {
     const { id } = ctx.params
     const updatedFields = ctx.request.body
-    const user = await User.Service.updateById(id, updatedFields)
+    const user = await User.Service.updateById(id, {
+        ...updatedFields,
+        updatedBy: ctx.state?.user?.id,
+    })
 
     ctx.body = User.Helper.protect(user)
 }
 
 exports.delete = async ctx => {
     const { id } = ctx.params
-    await User.Service.deleteById(id)
+    await User.Service.deleteById(id, ctx.state?.user?.id)
 
     ctx.body = 'success'
 }
