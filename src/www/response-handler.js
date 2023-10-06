@@ -33,6 +33,7 @@ const responseHandler = (ctx, next) => {
             const body = ctx.state.originalResponse
                 ? ctx.body
                 : {
+                      code: 1, // success
                       data: ctx.body,
                       paging: ctx.state.paging,
                   }

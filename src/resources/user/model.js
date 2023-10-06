@@ -48,8 +48,6 @@ exports.getAll = async (filter = {}, sort = {}) => {
         _filter.$or = [
             { username: { $regex: q, $options: 'i' } },
             { email: { $regex: q, $options: 'i' } },
-            { firstName: { $regex: q, $options: 'i' } },
-            { lastName: { $regex: q, $options: 'i' } },
             { phoneNumber: { $regex: q, $options: 'i' } },
             { code: { $regex: q, $options: 'i' } },
         ]
