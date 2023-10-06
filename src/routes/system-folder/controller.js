@@ -1,5 +1,5 @@
 const { utils, errors } = require('../../libs')
-const { ConfigHome } = require('../../resources')
+const { SystemFolder } = require('../../resources')
 
 const { NotFoundError } = errors
 
@@ -15,43 +15,52 @@ exports.fetch = async ctx => {
         filter.q = q
     }
 
-    const { configBackups = [], total } = await ConfigHome.Service.fetch(skip, limit, filter, sort)
+    const { configBackups = [], total } = await SystemFolder.Service.fetch(
+        skip,
+        limit,
+        filter,
+        sort,
+    )
 
-    ctx.body = configBackups.map(ConfigHome.Helper.formatList)
+    ctx.body = configBackups.map(SystemFolder.Helper.formatList)
     ctx.state.paging = utils.generatePaging(skipPage, limit, total)
 }
 
 exports.create = async ctx => {
     const fields = ctx.request.body
-    const record = await ConfigHome.Service.create({
+    const record = await SystemFolder.Service.create({
         ...fields,
+        createdBy: ctx.state.user.id,
     })
 
-    ctx.body = ConfigHome.Helper.protect(record)
+    ctx.body = SystemFolder.Helper.protect(record)
 }
 
 exports.get = async ctx => {
     const { id } = ctx.params
-    const record = await ConfigHome.Service.getById(id)
+    const record = await SystemFolder.Service.getById(id)
 
     if (!record) {
         throw new NotFoundError(`Not found record by id ${id}`)
     }
 
-    ctx.body = ConfigHome.Helper.protect(record)
+    ctx.body = SystemFolder.Helper.protect(record)
 }
 
 exports.update = async ctx => {
     const { id } = ctx.params
     const updatedFields = ctx.request.body
-    const record = await ConfigHome.Service.updateById(id, updatedFields)
+    const record = await SystemFolder.Service.updateById(id, {
+        ...updatedFields,
+        updatedBy: ctx.state.user.id,
+    })
 
-    ctx.body = ConfigHome.Helper.protect(record)
+    ctx.body = SystemFolder.Helper.protect(record)
 }
 
 exports.delete = async ctx => {
     const { id } = ctx.params
-    await ConfigHome.Service.deleteById(id)
+    await SystemFolder.Service.deleteById(id)
 
     ctx.body = 'success'
 }

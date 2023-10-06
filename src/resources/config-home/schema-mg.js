@@ -16,4 +16,4 @@ const schema = new Schema(
     { timestamps: true },
 )
 
-module.exports = DefaultDB.model('ConfigHome', schema, 'configHome')
+module.exports = DefaultDB.model('Model', schema, 'configHome')

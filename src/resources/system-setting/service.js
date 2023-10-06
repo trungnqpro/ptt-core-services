@@ -6,7 +6,7 @@
 
 const _ = require('lodash')
 const { errors } = require('../../libs')
-const ConfigHomeModel = require('./model')
+const SystemSettingModel = require('./model')
 const permissionCodes = require('../../configs/permissions').permissionCodes
 
 const { ValidationError } = errors
@@ -24,8 +24,8 @@ exports.fetch = async (skip = 0, limit = 20, filter, sort) => {
     }
 
     const [configBackups, total] = await Promise.all([
-        ConfigHomeModel.fetch(skip, limit, _filter, sort),
-        ConfigHomeModel.getTotalNumber(_filter),
+        SystemSettingModel.fetch(skip, limit, _filter, sort),
+        SystemSettingModel.getTotalNumber(_filter),
     ])
 
     return { configBackups, total }
@@ -37,7 +37,7 @@ exports.fetch = async (skip = 0, limit = 20, filter, sort) => {
  * @returns {ConfigHome}
  */
 exports.create = async fields => {
-    return await ConfigHomeModel.create(fields)
+    return await SystemSettingModel.create(fields)
 }
 
 /**
@@ -46,7 +46,7 @@ exports.create = async fields => {
  * @returns {ConfigHome}
  */
 exports.getById = async id => {
-    return await ConfigHomeModel.getById(id)
+    return await SystemSettingModel.getById(id)
 }
 
 /**
@@ -56,7 +56,7 @@ exports.getById = async id => {
  * @returns {ConfigHome}
  */
 exports.updateById = async (id, updatedFields) => {
-    return await ConfigHomeModel.updateById(id, updatedFields)
+    return await SystemSettingModel.updateById(id, updatedFields)
 }
 
 /**
@@ -65,5 +65,5 @@ exports.updateById = async (id, updatedFields) => {
  * @returns {ConfigHome}
  */
 exports.deleteById = async id => {
-    return await ConfigHomeModel.deleteById(id)
+    return await SystemSettingModel.deleteById(id)
 }

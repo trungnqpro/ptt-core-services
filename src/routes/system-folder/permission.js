@@ -1,8 +1,8 @@
 const permissions = require('../../libs/permission')
-const { ConfigFolder } = require('../../configs/permissions').resources
+const { SystemFolder } = require('../../configs/permissions').resources
 
 module.exports = permissions
-    .resource(ConfigFolder)
+    .resource(SystemFolder)
     .create()
     .update()
     .viewDetailsOf()

@@ -10,7 +10,7 @@ const schema = new Schema(
         title: mf().string().required().j(),
         periodStart: mf().date().j(),
         periodEnd: mf().date().j(),
-        folderId: mf().id().ref('ConfigFolder').j(),
+        folderId: mf().id().ref('SystemFolder').j(),
         caption: mf().string().j(),
         orderNum: mf().number().j(),
         videoUrl: mf().mediaUrl().j(),

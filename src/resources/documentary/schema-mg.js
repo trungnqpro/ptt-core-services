@@ -9,7 +9,7 @@ const schema = new Schema(
         _id: mf().id().required().auto().j(),
         name: mf().string().required().j(),
         type: mf().id().ref('DocumentaryType').required().j(),
-        folderId: mf().id().ref('ConfigFolder').required().j(),
+        folderId: mf().id().ref('SystemFolder').required().j(),
         orderNum: mf().number().j(),
         caption: mf().string().j(),
         videoUrl: mf().mediaUrl().j(),

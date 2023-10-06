@@ -15,4 +15,4 @@ const schema = new Schema(
     { timestamps: true },
 )
 
-module.exports = DefaultDB.model('ConfigFolder', schema, 'configFolder')
+module.exports = DefaultDB.model('SystemFolder', schema, 'SystemFolder')

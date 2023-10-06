@@ -9,35 +9,35 @@ const ctrl = require('./controller')
 const schemas = require('./schema-api')
 const permissionCodes = require('../../libs/utils').getPermissionCodes(require('./permission'))
 
-const routerConfigHome = new Router({ prefix: '/config-folder' })
-routerConfigHome.use(auth)
+const routerSystemFolder = new Router({ prefix: '/system-folders' })
+routerSystemFolder.use(auth)
 
-routerConfigHome.get('/', checkPermission(permissionCodes.listConfigHome), validate(schemas.get), ctrl.fetch)
+routerSystemFolder.get('/', checkPermission(permissionCodes.listSystemFolder), validate(schemas.get), ctrl.fetch)
 
-routerConfigHome.post(
+routerSystemFolder.post(
     '/',
-    checkPermission(permissionCodes.createConfigHome),
+    checkPermission(permissionCodes.createSystemFolder),
     validate(schemas.post),
     ctrl.create,
 )
 
-routerConfigHome.get(
+routerSystemFolder.get(
     '/:id',
-    checkPermission(permissionCodes.viewDetailsOfConfigHome),
+    checkPermission(permissionCodes.viewDetailsOfSystemFolder),
     validate(schemas.idGet),
     ctrl.get,
 )
-routerConfigHome.put(
+routerSystemFolder.put(
     '/:id',
-    checkPermission(permissionCodes.updateConfigHome),
+    checkPermission(permissionCodes.updateSystemFolder),
     validate(schemas.idPut),
     ctrl.update,
 )
-routerConfigHome.del(
+routerSystemFolder.del(
     '/:id',
-    checkPermission(permissionCodes.deleteConfigHome),
+    checkPermission(permissionCodes.deleteSystemFolder),
     validate(schemas.idDelete),
     ctrl.delete,
 )
 
-module.exports = [routerConfigHome]
+module.exports = [routerSystemFolder]

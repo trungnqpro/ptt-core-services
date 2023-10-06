@@ -1,19 +1,19 @@
 /**
- * @fileoverview Module xử lý nghiệp vụ cho phân quyền tài khoản (ConfigHome)
+ * @fileoverview Module xử lý nghiệp vụ cho phân quyền tài khoản (Model)
  *
  * @module resources/announcement/service
  */
 
 const _ = require('lodash')
 const { errors } = require('../../libs')
-const ConfigHomeModel = require('./model')
+const ModelModel = require('./model')
 const permissionCodes = require('../../configs/permissions').permissionCodes
 
 const { ValidationError } = errors
 
 /**
  * Lấy danh sách tất cả các entity
- * @returns {ConfigHome}
+ * @returns {Model}
  */
 exports.fetch = async (skip = 0, limit = 20, filter, sort) => {
     const _filter = { ...filter }
@@ -24,8 +24,8 @@ exports.fetch = async (skip = 0, limit = 20, filter, sort) => {
     }
 
     const [configBackups, total] = await Promise.all([
-        ConfigHomeModel.fetch(skip, limit, _filter, sort),
-        ConfigHomeModel.getTotalNumber(_filter),
+        ModelModel.fetch(skip, limit, _filter, sort),
+        ModelModel.getTotalNumber(_filter),
     ])
 
     return { configBackups, total }
@@ -34,36 +34,36 @@ exports.fetch = async (skip = 0, limit = 20, filter, sort) => {
 /**
  * Tạo mới entity
  * @param {Object} fields
- * @returns {ConfigHome}
+ * @returns {Model}
  */
 exports.create = async fields => {
-    return await ConfigHomeModel.create(fields)
+    return await ModelModel.create(fields)
 }
 
 /**
  * Get entity by id
  * @param {String} id
- * @returns {ConfigHome}
+ * @returns {Model}
  */
 exports.getById = async id => {
-    return await ConfigHomeModel.getById(id)
+    return await ModelModel.getById(id)
 }
 
 /**
  * Cập nhật thông tin entity bởi id
  * @param {String} id
  * @param {Object} updatedFields new value of fields
- * @returns {ConfigHome}
+ * @returns {Model}
  */
 exports.updateById = async (id, updatedFields) => {
-    return await ConfigHomeModel.updateById(id, updatedFields)
+    return await ModelModel.updateById(id, updatedFields)
 }
 
 /**
  * Xoa entity bởi id
  * @param {String} id
- * @returns {ConfigHome}
+ * @returns {Model}
  */
 exports.deleteById = async id => {
-    return await ConfigHomeModel.deleteById(id)
+    return await ModelModel.deleteById(id)
 }

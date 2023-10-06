@@ -11,7 +11,7 @@ const schema = new Schema(
         departmentId: mf().id().ref('Department').j(),
         positionId: mf().id().ref('Position').j(),
         badgeId: mf().id().ref('Badge').j(),
-        folderId: mf().id().ref('ConfigFolder').j(),
+        folderId: mf().id().ref('SystemFolder').j(),
         periodStart: mf().date().j(),
         periodEnd: mf().date().j(),
         caption: mf().string().j(),

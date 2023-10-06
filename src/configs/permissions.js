@@ -78,7 +78,7 @@ const listResources = [
     'SystemLog',
     'SystemBackup',
     'SystemRestore',
-    'ConfigFolder',
+    'SystemFolder',
     'ConfigHome',
     'ConfigExtention',
     'IpAccess',
