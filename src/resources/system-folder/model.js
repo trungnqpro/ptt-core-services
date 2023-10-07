@@ -21,7 +21,12 @@ exports.fetch = async (skip = 0, limit = 20, filter = {}, sort = {}) => {
         sort._id = -1
     }
 
-    return await ModelSchema.find(filter).sort(sort).skip(skip).limit(limit).lean({ getters: true })
+    return await ModelSchema.find(filter)
+        .sort(sort)
+        .skip(skip)
+        .limit(limit)
+        .populate('parentId')
+        .lean({ getters: true })
 }
 
 /**
@@ -31,7 +36,7 @@ exports.fetch = async (skip = 0, limit = 20, filter = {}, sort = {}) => {
  * @returns {Role}
  */
 exports.create = async entity => {
-    const result = await ModelSchema.create(entity)
+    const result = await ModelSchema.create(entity);
     return result.toJSON()
 }
 
@@ -41,7 +46,7 @@ exports.create = async entity => {
  * @returns entity
  */
 exports.getById = async id => {
-    return await ModelSchema.findOne({ _id: id }).lean()
+    return await ModelSchema.findOne({ _id: id }).populate('parentId').lean({ getters: true })
 }
 
 /**
