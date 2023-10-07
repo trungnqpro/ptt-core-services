@@ -9,7 +9,7 @@ const ctrl = require('./controller')
 const schemas = require('./schema-api')
 const permissionCodes = require('../../libs/utils').getPermissionCodes(require('./permission'))
 
-const routerArtifactType = new Router({ prefix: '/artifact-type' })
+const routerArtifactType = new Router({ prefix: '/artifact-types' })
 routerArtifactType.use(auth)
 
 routerArtifactType.get('/', checkPermission(permissionCodes.listArtifactType), validate(schemas.get), ctrl.fetch)
