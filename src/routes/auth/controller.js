@@ -34,8 +34,7 @@ exports.login = async ctx => {
     profile = {
         id: profile._id,
         roleId: profile.roleId,
-        firstName: profile.firstName,
-        lastName: profile.lastName,
+        username: profile.username,
         avatarUrl: profile.avatarUrl,
         intro: profile.intro,
         loggedAt: new Date().getTime(),

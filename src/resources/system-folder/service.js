@@ -6,7 +6,7 @@
 
 const _ = require('lodash')
 const { errors } = require('../../libs')
-const ModelModel = require('./model')
+const FolderModel = require('./model')
 const permissionCodes = require('../../configs/permissions').permissionCodes
 
 const { ValidationError } = errors
@@ -24,8 +24,8 @@ exports.fetch = async (skip = 0, limit = 20, filter, sort) => {
     }
 
     const [configBackups, total] = await Promise.all([
-        ModelModel.fetch(skip, limit, _filter, sort),
-        ModelModel.getTotalNumber(_filter),
+        FolderModel.fetch(skip, limit, _filter, sort),
+        FolderModel.getTotalNumber(_filter),
     ])
 
     return { configBackups, total }
@@ -37,7 +37,7 @@ exports.fetch = async (skip = 0, limit = 20, filter, sort) => {
  * @returns {Model}
  */
 exports.create = async fields => {
-    return await ModelModel.create(fields)
+    return await FolderModel.create(fields)
 }
 
 /**
@@ -46,7 +46,7 @@ exports.create = async fields => {
  * @returns {Model}
  */
 exports.getById = async id => {
-    return await ModelModel.getById(id)
+    return await FolderModel.getById(id)
 }
 
 /**
@@ -56,7 +56,7 @@ exports.getById = async id => {
  * @returns {Model}
  */
 exports.updateById = async (id, updatedFields) => {
-    return await ModelModel.updateById(id, updatedFields)
+    return await FolderModel.updateById(id, updatedFields)
 }
 
 /**
@@ -65,5 +65,5 @@ exports.updateById = async (id, updatedFields) => {
  * @returns {Model}
  */
 exports.deleteById = async id => {
-    return await ModelModel.deleteById(id)
+    return await FolderModel.deleteById(id)
 }

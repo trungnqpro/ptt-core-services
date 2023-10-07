@@ -9,6 +9,7 @@ const model = {
 
 const updateBody = Joi.object({
     name: Joi.string().max(256),
+    parentId: Joi.string(),
     description: Joi.string().max(1000),
 })
 
