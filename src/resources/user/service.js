@@ -14,6 +14,7 @@ const { hashPassword, verifyPassword } = require('../../libs/utils')
 const { DataError, ValidationError, NotFoundError } = require('../../libs/errors')
 const debug = require('../../libs/debug')()
 const Static = require('./static')
+const { ROLE_NAME } = require('../role/static')
 
 /**
  * Lấy danh sách tài khoản theo tiêu chí truyền vào.
@@ -28,14 +29,19 @@ exports.fetch = async (skip = 0, limit = 20, filter, sort) => {
     if (_filter.q) {
         const q = _filter.q.toLowerCase().trim()
         delete _filter.q
+
+        // find by roleId
         _filter.$or = [
             { username: { $regex: q, $options: 'i' } },
             { email: { $regex: q, $options: 'i' } },
-            { firstName: { $regex: q, $options: 'i' } },
-            { lastName: { $regex: q, $options: 'i' } },
             { phoneNumber: { $regex: q, $options: 'i' } },
-            { code: { $regex: q, $options: 'i' } },
         ]
+    }
+
+    // find system/writer (roleId=process.env.ROLE_CBLT_ID)
+    if (_filter.roleName) {
+        const roleId = _filter.roleName == ROLE_NAME.CBLT ? process.env.ROLE_CBLT_ID : null
+        _filter.$or = [..._filter.$or, { roleId }]
     }
 
     const [users, total] = await Promise.all([

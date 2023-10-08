@@ -14,8 +14,6 @@ const schema = new Schema(
         phoneNumber: mf().string().trim().j(),
         username: mf().string().required().trim().j(),
         hashPassword: mf().string().required().trim().j(),
-        firstName: String,
-        lastName: String,
         birthday: Date,
         avatarUrl: mf().mediaUrl().j(),
         fullAddress: String,
