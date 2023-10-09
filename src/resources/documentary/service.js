@@ -23,12 +23,12 @@ exports.fetch = async (skip = 0, limit = 20, filter, sort) => {
         _filter.$or = [{ name: { $regex: q, $options: 'i' } }]
     }
 
-    const [departments, total] = await Promise.all([
+    const [documentaries, total] = await Promise.all([
         DocumentaryModel.fetch(skip, limit, _filter, sort),
         DocumentaryModel.getTotalNumber(_filter),
     ])
 
-    return { departments, total }
+    return { documentaries, total }
 }
 
 /**

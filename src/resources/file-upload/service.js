@@ -23,12 +23,12 @@ exports.fetch = async (skip = 0, limit = 20, filter, sort) => {
         _filter.$or = [{ name: { $regex: q, $options: 'i' } }]
     }
 
-    const [departments, total] = await Promise.all([
+    const [fileUploads, total] = await Promise.all([
         FileUploadModel.fetch(skip, limit, _filter, sort),
         FileUploadModel.getTotalNumber(_filter),
     ])
 
-    return { departments, total }
+    return { fileUploads, total }
 }
 
 /**

@@ -23,12 +23,12 @@ exports.fetch = async (skip = 0, limit = 20, filter, sort) => {
         _filter.$or = [{ name: { $regex: q, $options: 'i' } }]
     }
 
-    const [departments, total] = await Promise.all([
+    const [btlMemories, total] = await Promise.all([
         Btl86PostModel.fetch(skip, limit, _filter, sort),
         Btl86PostModel.getTotalNumber(_filter),
     ])
 
-    return { departments, total }
+    return { btlMemories, total }
 }
 
 /**

@@ -23,12 +23,12 @@ exports.fetch = async (skip = 0, limit = 20, filter, sort) => {
         _filter.$or = [{ name: { $regex: q, $options: 'i' } }]
     }
 
-    const [departments, total] = await Promise.all([
+    const [feedbacks, total] = await Promise.all([
         FeedbackModel.fetch(skip, limit, _filter, sort),
         FeedbackModel.getTotalNumber(_filter),
     ])
 
-    return { departments, total }
+    return { feedbacks, total }
 }
 
 /**
