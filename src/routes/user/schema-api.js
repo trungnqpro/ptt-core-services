@@ -2,10 +2,13 @@ const Joi = require('joi').extend(require('@joi/date'))
 Joi.objectId = require('joi-objectid')(Joi)
 const { mediaUrl } = require('../../libs/utils')
 
-const { STATUS, GENDER} = require('../../resources').User.Static
+const { STATUS, GENDER } = require('../../resources').User.Static
+const { ROLE_NAME } = require('../../resources').Role.Static
 
 const statuses = Object.values(STATUS)
 const arrGender = Object.values(GENDER)
+const arrRoleName = Object.values(ROLE_NAME)
+
 const regexUsername = /[a-zA-Z0-9-_.]/
 const regexPassword = /[a-zA-Z0-9#?!@$%^&*-]/
 
@@ -20,7 +23,7 @@ const model = {
     avatarUrl: Joi.string().regex(mediaUrl),
     fullAddress: Joi.string().max(500),
     birthday: Joi.date().format('YYYY-MM-DD'),
-    roleId: Joi.objectId(),
+    roleName: Joi.string().valid(...arrRoleName),
     status: Joi.string().valid(...statuses),
 }
 
@@ -33,16 +36,14 @@ const updateBody = Joi.object({
     avatarUrl: model.avatarUrl,
     fullAddress: model.fullAddress,
     birthday: model.birthday,
-    roleId: model.roleId,
     status: model.status,
 })
 
 const post = {
     body: Joi.object({
-        email: model.email.required(),
-        password: model.password.required(),
         username: model.username.required(),
-        roleId: model.roleId.required(),
+        password: model.password.required(),
+        roleName: model.roleName.required(),
     }),
 }
 
@@ -51,15 +52,11 @@ const get = {
         skipPage: Joi.number(),
         limit: Joi.number().max(9999),
         status: Joi.string().valid(...statuses),
-        gender: Joi.string().valid(...arrGender),
         'sort.id': Joi.number().valid(1, -1, '1', '-1'),
         'sort.username': Joi.number().valid(1, -1, '1', '-1'),
-        'sort.firstName': Joi.number().valid(1, -1, '1', '-1'),
-        'sort.lastName': Joi.number().valid(1, -1, '1', '-1'),
         'sort.status': Joi.number().valid(1, -1, '1', '-1'),
-        'sort.email': Joi.number().valid(1, -1, '1', '-1'),
         q: Joi.string(),
-        roleId: Joi.objectId(),
+        roleName: Joi.string(),
     }),
 }
 
@@ -87,7 +84,7 @@ const resetPassword = {
         id: Joi.objectId().required(),
     }),
     body: Joi.object({
-        value: model.password.required(),
+        password: model.password.required(),
     }),
 }
 
@@ -98,7 +95,7 @@ const updateProfile = {
 const setMyPassword = {
     body: Joi.object({
         currentPassword: model.password.required(),
-        value: model.password.required(),
+        password: model.password.required(),
     }),
 }
 

@@ -28,7 +28,7 @@ const schema = new Schema(
 schema.plugin(mongooseLeanGetters)
 
 schema.index({ username: 1 }, { unique: true })
-schema.index({ email: 1 }, { unique: true })
+// schema.index({ email: 1 }, { unique: true })
 schema.index({ code: -1 }, { unique: true })
 
 module.exports = DefaultDB.model('User', schema, 'users')

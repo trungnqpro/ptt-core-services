@@ -10,11 +10,11 @@ const UserModel = require('./model')
 const UserCache = require('./cache')
 const UserSchema = require('./schema-mg')
 const UserStatic = require('./static')
+const RoleStatic = require('../role/static')
 const { hashPassword, verifyPassword } = require('../../libs/utils')
 const { DataError, ValidationError, NotFoundError } = require('../../libs/errors')
 const debug = require('../../libs/debug')()
 const Static = require('./static')
-const { ROLE_NAME } = require('../role/static')
 
 /**
  * Lấy danh sách tài khoản theo tiêu chí truyền vào.
@@ -26,12 +26,12 @@ const { ROLE_NAME } = require('../role/static')
  */
 exports.fetch = async (skip = 0, limit = 20, filter, sort) => {
     const _filter = { ...filter }
+    let filterOr = new Array()
     if (_filter.q) {
         const q = _filter.q.toLowerCase().trim()
         delete _filter.q
 
-        // find by roleId
-        _filter.$or = [
+        filterOr = [
             { username: { $regex: q, $options: 'i' } },
             { email: { $regex: q, $options: 'i' } },
             { phoneNumber: { $regex: q, $options: 'i' } },
@@ -40,9 +40,12 @@ exports.fetch = async (skip = 0, limit = 20, filter, sort) => {
 
     // find system/writer (roleId=process.env.ROLE_CBLT_ID)
     if (_filter.roleName) {
-        const roleId = _filter.roleName == ROLE_NAME.CBLT ? process.env.ROLE_CBLT_ID : null
-        _filter.$or = [..._filter.$or, { roleId }]
+        const roleId =
+            _filter.roleName == RoleStatic.ROLE_NAME.CBLT ? process.env.ROLE_CBLT_ID : null
+        filterOr = [...filterOr, { roleId }]
+        delete _filter.roleName
     }
+    _filter.$or = filterOr
 
     const [users, total] = await Promise.all([
         UserModel.fetch(skip, limit, _filter, sort),
@@ -87,8 +90,13 @@ exports.create = async fields => {
     debug.info(`Create User with fields ${JSON.stringify(fields)}`)
     let user = { ...fields, hashPassword: hashPassword(fields.password) }
 
+    // set roleId
+    const roleId = fields.roleName == RoleStatic.ROLE_NAME.CBLT ? process.env.ROLE_CBLT_ID : null
+
     delete user.password
+    delete user.roleName
     user.status = user.status || UserStatic.STATUS.PENDING
+    user = { ...user, roleId }
 
     // let result = await UserCache.lockInsert()
     // let retryNumber = 0

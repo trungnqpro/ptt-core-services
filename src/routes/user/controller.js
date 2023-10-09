@@ -5,7 +5,7 @@ const { DELETED } = User.Static.STATUS
 const { NotFoundError } = errors
 
 exports.fetch = async ctx => {
-    const { status, roleId, gender, q } = ctx.query
+    const { status, roleName, q } = ctx.query
     const limit = parseInt(ctx.query.limit || '20')
     const skipPage = parseInt(ctx.query.skipPage || '0')
     const skip = skipPage * limit
@@ -14,23 +14,12 @@ exports.fetch = async ctx => {
     const filter = {}
     if (status) {
         filter.status = status
-    } else {
-        filter.status = { $ne: DELETED }
     }
-    if (gender) {
-        filter.gender = gender
-    }
-    if (roleId) {
-        filter.roleId = roleId
+    if (roleName) {
+        filter.roleName = roleName
     }
     if (q) {
         filter.q = q
-    }
-
-    if (ctx.routerPath === '/users/teachers') {
-        filter.roleId = process.env.ROLE_TEACHER_ID
-    } else if (ctx.routerPath === '/users/supporters') {
-        filter.roleId = { $in: [process.env.ROLE_RD_SUPPORT_ID, process.env.ROLE_CX_SUPPORT_ID] }
     }
 
     const { users = [], total } = await User.Service.fetch(skip, limit, filter, sort)
@@ -81,7 +70,7 @@ exports.delete = async ctx => {
 
 exports.resetPassword = async ctx => {
     const { id } = ctx.params
-    const { value: password } = ctx.request.body
+    const { password } = ctx.request.body
 
     const user = await User.Service.updatePasswordById(id, password)
     if (!user) {
