@@ -33,7 +33,9 @@ exports.create = async ctx => {
         createdBy: ctx.state.user.id,
     })
 
-    ctx.body = SystemFolder.Helper.protect(record)
+
+    const body = SystemFolder.Helper.protect(record)
+    ctx.body = body
 }
 
 exports.get = async ctx => {

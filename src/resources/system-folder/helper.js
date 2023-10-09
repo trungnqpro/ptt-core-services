@@ -1,3 +1,5 @@
+const ObjectId = require('mongoose').Types.ObjectId
+
 exports.format = note => {
     if (!note || typeof note !== 'object') {
         return note
@@ -47,7 +49,7 @@ exports.protect = record => {
     delete protectedRecord.__v
 
     // parent
-    if(protectedRecord.parentId) {
+    if( !(protectedRecord.parentId instanceof ObjectId) && protectedRecord.parentId) {
         protectedRecord.parentId.id = record.parentId._id
         delete protectedRecord.createdBy
         delete protectedRecord.parentId._id
