@@ -10,6 +10,7 @@ exports.format = note => {
     delete obj.createdBy
     delete obj._id
     delete obj.__v
+    delete obj.createdBy
 
     return obj
 }
@@ -24,6 +25,7 @@ exports.formatList = note => {
     delete obj.createdBy
     delete obj._id
     delete obj.__v
+    delete obj.createdBy
 
     // parent
     if(obj.parentId) {
@@ -31,6 +33,7 @@ exports.formatList = note => {
         delete obj.createdBy
         delete obj.parentId._id
         delete obj.parentId.__v
+        delete obj.parentId.createdBy
     }
 
     return obj
@@ -47,6 +50,7 @@ exports.protect = record => {
     delete protectedRecord.createdBy
     delete protectedRecord._id
     delete protectedRecord.__v
+    delete protectedRecord.createdBy
 
     // parent
     if( !(protectedRecord.parentId instanceof ObjectId) && protectedRecord.parentId) {
@@ -54,6 +58,7 @@ exports.protect = record => {
         delete protectedRecord.createdBy
         delete protectedRecord.parentId._id
         delete protectedRecord.parentId.__v
+        delete protectedRecord.parentId.createdBy
     }
 
     return protectedRecord

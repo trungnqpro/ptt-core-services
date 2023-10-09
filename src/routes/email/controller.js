@@ -10,7 +10,7 @@ exports.fetch = async ctx => {
 exports.create = async ctx => {
     const fields = ctx.request.body
 
-    const email = await Email.Model.create(fields)
+    const email = await Email.Model.create({ ...fields, createdBy: ctx.state?.user?.id })
 
     ctx.body = Email.Helper.format(email)
 }

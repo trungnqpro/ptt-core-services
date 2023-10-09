@@ -7,6 +7,7 @@ exports.format = note => {
     obj.id = note._id
     delete obj._id
     delete obj.__v
+    delete obj.createdBy
 
     return obj
 }
@@ -20,6 +21,7 @@ exports.formatList = note => {
     obj.id = note._id
     delete obj._id
     delete obj.__v
+    delete obj.createdBy
 
     return obj
 }
@@ -34,6 +36,7 @@ exports.protect = record => {
 
     delete protectedRecord._id
     delete protectedRecord.__v
+    delete protectedRecord.createdBy
 
     return protectedRecord
 }

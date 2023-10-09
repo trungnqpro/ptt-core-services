@@ -19,7 +19,7 @@ exports.create = async ctx => {
     const fields = ctx.request.body
     const role = await Role.Service.create({
         ...fields,
-        updatedBy: ctx.state.user.id,
+        createdBy: ctx.state.user.id,
     })
 
     ctx.body = Role.Helper.format(role)

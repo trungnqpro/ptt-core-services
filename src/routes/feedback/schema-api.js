@@ -1,8 +1,13 @@
 const Joi = require('joi').extend(require('@joi/date'))
 Joi.objectId = require('joi-objectid')(Joi)
+const { TARGET_TYPE } = require('../../resources').Feedback.Static
+
+const targetTypes = Object.values(TARGET_TYPE)
 
 const model = {
     name: Joi.string().max(256),
+    targetId: Joi.objectId(),
+    targetType: Joi.string().valid(...targetTypes),
     description: Joi.string().max(1000),
 }
 
@@ -14,6 +19,8 @@ const updateBody = Joi.object({
 const post = {
     body: Joi.object({
         name: model.name.required(),
+        targetId: model.targetId.required(),
+        targetType: model.targetType.required(),
         description: model.description,
     }),
 }

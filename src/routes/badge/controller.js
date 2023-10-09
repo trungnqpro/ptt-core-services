@@ -47,7 +47,7 @@ exports.update = async ctx => {
     const updatedFields = ctx.request.body
     const record = await Badge.Service.updateById(id, {
         ...updatedFields,
-        createdBy: ctx.state?.user?.id,
+        updatedBy: ctx.state?.user?.id,
     })
 
     ctx.body = Badge.Helper.protect(record)

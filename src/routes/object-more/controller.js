@@ -25,6 +25,7 @@ exports.create = async ctx => {
     const fields = ctx.request.body
     const record = await Artifact.Service.create({
         ...fields,
+        createdBy: ctx.state?.user?.id,
     })
 
     ctx.body = Artifact.Helper.protect(record)
@@ -44,7 +45,10 @@ exports.get = async ctx => {
 exports.update = async ctx => {
     const { id } = ctx.params
     const updatedFields = ctx.request.body
-    const record = await Artifact.Service.updateById(id, updatedFields)
+    const record = await Artifact.Service.updateById(id, {
+        ...updatedFields,
+        updatedBy: ctx.state?.user?.id,
+    })
 
     ctx.body = Artifact.Helper.protect(record)
 }

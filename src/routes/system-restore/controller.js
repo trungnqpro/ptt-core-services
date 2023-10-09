@@ -15,7 +15,12 @@ exports.fetch = async ctx => {
         filter.q = q
     }
 
-    const { configBackups = [], total } = await SystemBackup.Service.fetch(skip, limit, filter, sort)
+    const { configBackups = [], total } = await SystemBackup.Service.fetch(
+        skip,
+        limit,
+        filter,
+        sort,
+    )
 
     ctx.body = configBackups.map(SystemBackup.Helper.formatList)
     ctx.state.paging = utils.generatePaging(skipPage, limit, total)
@@ -25,6 +30,7 @@ exports.create = async ctx => {
     const fields = ctx.request.body
     const record = await SystemBackup.Service.create({
         ...fields,
+        createdBy: ctx.state?.user?.id,
     })
 
     ctx.body = SystemBackup.Helper.protect(record)
@@ -44,7 +50,10 @@ exports.get = async ctx => {
 exports.update = async ctx => {
     const { id } = ctx.params
     const updatedFields = ctx.request.body
-    const record = await SystemBackup.Service.updateById(id, updatedFields)
+    const record = await SystemBackup.Service.updateById(id, {
+        ...updatedFields,
+        updatedBy: ctx.state?.user?.id,
+    })
 
     ctx.body = SystemBackup.Helper.protect(record)
 }

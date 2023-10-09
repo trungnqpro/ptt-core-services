@@ -7,6 +7,7 @@ exports.format = role => {
     newRole.id = role._id
     delete newRole._id
     delete newRole.__v
+    delete newRole.createdBy
 
     return newRole
 }
@@ -21,6 +22,7 @@ exports.protect = record => {
 
     delete protectedRecord._id
     delete protectedRecord.__v
+    delete protectedRecord.createdBy
 
     return protectedRecord
 }
