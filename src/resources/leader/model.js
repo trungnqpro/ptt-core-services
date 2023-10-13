@@ -21,7 +21,15 @@ exports.fetch = async (skip = 0, limit = 20, filter = {}, sort = {}) => {
         sort._id = -1
     }
 
-    return await LeaderSchema.find(filter).sort(sort).skip(skip).limit(limit).lean({ getters: true })
+    return await LeaderSchema.find(filter)
+        .sort(sort)
+        .skip(skip)
+        .limit(limit)
+        .populate('departmentId')
+        .populate('positionId')
+        .populate('badgeId')
+        .populate('folderId')
+        .lean({ getters: true })
 }
 
 /**
