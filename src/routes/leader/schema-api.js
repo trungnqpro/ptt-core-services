@@ -11,10 +11,10 @@ const model = {
     periodStart: Joi.date(),
     periodEnd: Joi.date(),
     orderNum: Joi.number(),
-    transcript: Joi.string().max(10000),
-    videoUrl: Joi.string(),
-    imageUrl: Joi.string(),
-    audioUrl: Joi.string(),
+    transcript: Joi.string().optional().allow('').max(10000),
+    videoUrl: Joi.string().optional().allow(''),
+    imageUrl: Joi.string().optional().allow(''),
+    audioUrl: Joi.string().optional().allow(''),
 }
 
 const updateBody = Joi.object({
@@ -45,8 +45,8 @@ const post = {
         caption: model.caption,
         orderNum: model.orderNum,
         transcript: model.transcript,
-        videoUrl: model.videoUrl,
         imageUrl: model.imageUrl.required(),
+        videoUrl: model.videoUrl,
         audioUrl: model.audioUrl,
     }),
 }

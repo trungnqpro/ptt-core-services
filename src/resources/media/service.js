@@ -49,34 +49,33 @@ exports.upload = async mediaFiles => {
                 const image = await Jimp.read(thumbPath)
                 width = image.bitmap.width
                 height = image.bitmap.height
+            } else if (type === MEDIA_TYPE.AUDIO) {
+                // do st
             }
 
             // create directory by time YYYY -> MM
             const now = new Date()
-            const folder = `${now.getFullYear()}/${now.getMonth() + 1}`
+            const folder = `${now.getFullYear()}/${type}`
             const directoryPrefix = `${process.env.UPLOAD_DIR}/${folder}`
             if (!fs.existsSync(directoryPrefix)) {
                 fs.mkdirSync(directoryPrefix, { recursive: true })
             }
-            // move to directory
-            await fs.copyFile(
-                filePath,
-                `${directoryPrefix}/${filename}`,
-                fs.constants.COPYFILE_EXCL,
-                err => {
-                    if (err) {
-                        debug.error(`Upload ${filename} into ${directoryPrefix} failed`)
-                        return
-                    }
-                    debug.info(`Uploaded ${filename} into ${directoryPrefix} succeded!`)
-                },
-            )
 
-            // unlink file upload from temp
-            await fs.unlink(filePath, err => {
+            // move to directory
+            const savedFilename = `${directoryPrefix}/${filename}`
+            fs.copyFile(filePath, savedFilename, fs.constants.COPYFILE_EXCL, err => {
+                // unlink file upload from temp
+                fs.unlink(filePath, err => {
+                    if (err) {
+                        debug.error('Cannot remove media file', err)
+                    }
+                })
+
                 if (err) {
-                    debug.error('Cannot remove media file', err)
+                    debug.error(`Upload ${filename} into ${directoryPrefix} failed: ${err}`)
+                    return
                 }
+                debug.info(`Uploaded ${filename} into ${directoryPrefix} succeded!`)
             })
 
             return {
@@ -85,10 +84,7 @@ exports.upload = async mediaFiles => {
                 size: e.size,
                 width,
                 height,
-                // path: `${s3Area}/${filename}`,
-                // url: `${S3_PROTOCOL}://${
-                //     S3_ENDPOINT_MASK || S3_ENDPOINT
-                // }/${S3_BUCKET_NAME}/${s3Area}/${filename}`,
+                url: `${process.env.BASE_URL}/${savedFilename}`,
             }
         },
         { concurrency: 10 },

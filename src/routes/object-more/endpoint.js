@@ -9,35 +9,48 @@ const ctrl = require('./controller')
 const schemas = require('./schema-api')
 const permissionCodes = require('../../libs/utils').getPermissionCodes(require('./permission'))
 
-const routerArtifact = new Router({ prefix: '/object-mores' })
-routerArtifact.use(auth)
+const routerObjectMore = new Router({ prefix: '/object-mores' })
+routerObjectMore.use(auth)
 
-routerArtifact.get('/', checkPermission(permissionCodes.listArtifact), validate(schemas.get), ctrl.fetch)
-
-routerArtifact.post(
+routerObjectMore.get(
     '/',
-    checkPermission(permissionCodes.createArtifact),
+    checkPermission(permissionCodes.listObjectMore),
+    validate(schemas.get),
+    ctrl.fetch,
+)
+
+routerObjectMore.post(
+    '/',
+    checkPermission(permissionCodes.createObjectMore),
     validate(schemas.post),
     ctrl.create,
 )
 
-routerArtifact.get(
+routerObjectMore.get(
     '/:id',
-    checkPermission(permissionCodes.viewDetailsOfArtifact),
+    checkPermission(permissionCodes.viewDetailsOfObjectMore),
     validate(schemas.idGet),
     ctrl.get,
 )
-routerArtifact.put(
+
+routerObjectMore.get(
+    '/source/:id',
+    checkPermission(permissionCodes.listObjectMore),
+    validate(schemas.idGet),
+    ctrl.fetchBySourceId,
+)
+
+routerObjectMore.put(
     '/:id',
-    checkPermission(permissionCodes.updateArtifact),
+    checkPermission(permissionCodes.updateObjectMore),
     validate(schemas.idPut),
     ctrl.update,
 )
-routerArtifact.del(
+routerObjectMore.del(
     '/:id',
-    checkPermission(permissionCodes.deleteArtifact),
+    checkPermission(permissionCodes.deleteObjectMore),
     validate(schemas.idDelete),
     ctrl.delete,
 )
 
-module.exports = [routerArtifact]
+module.exports = [routerObjectMore]

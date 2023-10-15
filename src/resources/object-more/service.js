@@ -1,19 +1,19 @@
 /**
- * @fileoverview Module xử lý nghiệp vụ cho phân quyền tài khoản (Artifact)
+ * @fileoverview Module xử lý nghiệp vụ cho phân quyền tài khoản (ObjectMore)
  *
  * @module resources/announcement/service
  */
 
 const _ = require('lodash')
 const { errors } = require('../../libs')
-const ArtifactModel = require('./model')
+const ObjectMoreModel = require('./model')
 const permissionCodes = require('../../configs/permissions').permissionCodes
 
 const { ValidationError } = errors
 
 /**
  * Lấy danh sách tất cả các entity
- * @returns {Artifact}
+ * @returns {ObjectMore}
  */
 exports.fetch = async (skip = 0, limit = 20, filter, sort) => {
     const _filter = { ...filter }
@@ -24,8 +24,8 @@ exports.fetch = async (skip = 0, limit = 20, filter, sort) => {
     }
 
     const [objectMores, total] = await Promise.all([
-        ArtifactModel.fetch(skip, limit, _filter, sort),
-        ArtifactModel.getTotalNumber(_filter),
+        ObjectMoreModel.fetch(skip, limit, _filter, sort),
+        ObjectMoreModel.getTotalNumber(_filter),
     ])
 
     return { objectMores, total }
@@ -34,36 +34,45 @@ exports.fetch = async (skip = 0, limit = 20, filter, sort) => {
 /**
  * Tạo mới entity
  * @param {Object} fields
- * @returns {Artifact}
+ * @returns {ObjectMore}
  */
 exports.create = async fields => {
-    return await ArtifactModel.create(fields)
+    return await ObjectMoreModel.create(fields)
 }
 
 /**
  * Get entity by id
  * @param {String} id
- * @returns {Artifact}
+ * @returns {ObjectMore}
+ */
+exports.getBySourceId = async id => {
+    return await ObjectMoreModel.getBySourceId(id)
+}
+
+/**
+ * Get entity by id
+ * @param {String} id
+ * @returns {ObjectMore}
  */
 exports.getById = async id => {
-    return await ArtifactModel.getById(id)
+    return await ObjectMoreModel.getById(id)
 }
 
 /**
  * Cập nhật thông tin entity bởi id
  * @param {String} id
  * @param {Object} updatedFields new value of fields
- * @returns {Artifact}
+ * @returns {ObjectMore}
  */
 exports.updateById = async (id, updatedFields) => {
-    return await ArtifactModel.updateById(id, updatedFields)
+    return await ObjectMoreModel.updateById(id, updatedFields)
 }
 
 /**
  * Xoa entity bởi id
  * @param {String} id
- * @returns {Artifact}
+ * @returns {ObjectMore}
  */
 exports.deleteById = async id => {
-    return await ArtifactModel.deleteById(id)
+    return await ObjectMoreModel.deleteById(id)
 }
