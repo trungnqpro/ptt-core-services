@@ -30,6 +30,7 @@ const updateBody = Joi.object({
     name: model.name,
     gender: model.gender,
     email: model.email,
+    status: model.status,
     phoneNumber: model.phoneNumber,
     avatarUrl: model.avatarUrl,
     address: model.address,
