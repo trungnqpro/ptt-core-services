@@ -16,27 +16,24 @@ const model = {
     email: Joi.string().email().max(500),
     username: Joi.string().regex(regexUsername).min(3).max(60),
     password: Joi.string().regex(regexPassword).min(6).max(256),
-    firstName: Joi.string().max(256),
-    lastName: Joi.string().max(256),
+    name: Joi.string().max(256),
     gender: Joi.string().valid(...arrGender),
     phoneNumber: Joi.string().max(256),
     avatarUrl: Joi.string().regex(mediaUrl),
-    fullAddress: Joi.string().max(500),
+    address: Joi.string().max(500),
     birthday: Joi.date().format('YYYY-MM-DD'),
     roleName: Joi.string().valid(...arrRoleName),
     status: Joi.string().valid(...statuses),
 }
 
 const updateBody = Joi.object({
-    firstName: model.firstName,
-    lastName: model.lastName,
+    name: model.name,
     gender: model.gender,
     email: model.email,
     phoneNumber: model.phoneNumber,
     avatarUrl: model.avatarUrl,
-    fullAddress: model.fullAddress,
+    address: model.address,
     birthday: model.birthday,
-    status: model.status,
 })
 
 const post = {
@@ -44,6 +41,13 @@ const post = {
         username: model.username.required(),
         password: model.password.required(),
         roleName: model.roleName.required(),
+        email: model.email,
+        name: model.name,
+        gender: model.gender,
+        phoneNumber: model.phoneNumber,
+        avatarUrl: model.avatarUrl,
+        address: model.address,
+        birthday: model.birthday,
     }),
 }
 
@@ -52,9 +56,6 @@ const get = {
         skipPage: Joi.number(),
         limit: Joi.number().max(9999),
         status: Joi.string().valid(...statuses),
-        'sort.id': Joi.number().valid(1, -1, '1', '-1'),
-        'sort.username': Joi.number().valid(1, -1, '1', '-1'),
-        'sort.status': Joi.number().valid(1, -1, '1', '-1'),
         q: Joi.string(),
         roleName: Joi.string(),
     }),

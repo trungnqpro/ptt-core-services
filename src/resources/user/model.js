@@ -75,23 +75,6 @@ exports.findByAccount = async account => {
 }
 
 /**
- * Tìm kiếm học viên bởi nhiều code user
- * hàm sẽ không trả về các user đã bị xoá hoặc user không phải là học viên
- * @param {Array<String>}  account account is username or email
- * @returns {User}
- */
-
-exports.getListStudentByCodes = async studentsCode => {
-    const users = await UserSchema.find({
-        code: { $in: studentsCode },
-        status: { $ne: DELETED },
-        // roleId: studentRoleId,
-    }).lean()
-
-    return users
-}
-
-/**
  * Tạo mới một học viên.
  *
  * @param {Object} entity Thông tin học viên học.
@@ -145,22 +128,6 @@ exports.getByIds = async (ids, includesDeleted = false) => {
 }
 
 /**
- * Tìm kiếm user theo nhiều id
- * @param {String} id
- * @returns {User}
- */
-
-exports.checkListUser = async Ids => {
-    const findUsersByIds = await UserSchema.find().where('_id').in(Ids)
-
-    var listUser = findUsersByIds.map(function (item) {
-        return item._id
-    })
-
-    return listUser
-}
-
-/**
  * Cập nhật thông tin user theo id
  * @param {String} id
  * @param {Object} updatedFields Giá trị mới của user
@@ -178,8 +145,7 @@ exports.updateById = async (id, updatedFields) => {
 
         const user = await UserSchema.findByIdAndUpdate(id, updatedFields, {
             new: true,
-        })
-            .lean({ getters: true })
+        }).lean({ getters: true })
         UserEvent.update.emit(user._id)
         return user
     } catch (error) {
@@ -267,18 +233,10 @@ exports.getByRoleId = async roleId => {
 }
 
 /**
- * Tìm kiếm list user inactivate theo id
- * @param {String} roleId
- * @returns {User}
+ * Xóa entity theo id
+ * @param {string} id Id entity.
+ * @returns {string} 'success'
  */
-exports.getUserInactivateByDay = async day => {
-    const startTime = moment().startOf('day').toDate()
-    const endTime = moment().endOf('day').toDate()
-    const user = await UserSchema.find({
-        createdAt: { $gte: startTime, $lte: endTime },
-        status: ACTIVE,
-        isFirstLearning: true,
-    }).lean({ getters: true })
-
-    return user
+exports.deleteById = async id => {
+    return await UserSchema.deleteOne({ _id: id })
 }

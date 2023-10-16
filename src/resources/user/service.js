@@ -174,17 +174,8 @@ exports.deleteById = async (id, deletedByUserId) => {
     if (!user) {
         throw new NotFoundError(`Not found User id ${id}`)
     }
-    if (user.status === DELETED) {
-        throw new Error(`User id ${id} already has been ${DELETED}`)
-    }
 
-    const updatedFields = {}
-    updatedFields.email = `DeletedUser_${user.code}_${user.email || ''}`
-    updatedFields.username = `DeletedUser_${user.code}_${user.username || ''}`
-    updatedFields.status = DELETED
-    updatedFields.updatedBy = deletedByUserId
-
-    const result = await UserModel.updateById(id, updatedFields)
+    const result = await UserModel.deleteById(id)
 
     return result
 }

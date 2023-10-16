@@ -4,8 +4,7 @@ const { utils, errors, Debug } = require('../../libs')
 const HtmlTemplate = require('./html-template')
 const { User } = require('../../resources')
 const debug = Debug()
-// const ROLE_STUDENT_ID = process.env.ROLE_STUDENT_ID
-// const WEB_BASE_URL = process.env.WEB_BASE_URL
+const { verifyPassword } = utils
 const {
     NotFoundError,
     DataError,
@@ -29,7 +28,9 @@ exports.login = async ctx => {
         throw new ForbiddenError('User is not active')
     }
 
-    const user = profile
+    if (!verifyPassword(password, profile.hashPassword)) {
+        throw new ValidationError('Password is incorrect')
+    }
 
     profile = {
         id: profile._id,
