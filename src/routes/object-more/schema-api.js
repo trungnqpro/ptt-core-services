@@ -2,19 +2,18 @@ const Joi = require('joi').extend(require('@joi/date'))
 Joi.objectId = require('joi-objectid')(Joi)
 
 const model = {
-    name: Joi.string().max(256),
-    description: Joi.string().max(1000),
+    sourceId: Joi.string(),
+    urls: Joi.array().items(Joi.string()),
 }
 
 const updateBody = Joi.object({
-    name: Joi.string().max(256),
-    description: Joi.string().max(1000),
+    sourceId: Joi.string(),
 })
 
 const post = {
     body: Joi.object({
-        name: model.name.required(),
-        description: model.description,
+        sourceId: model.sourceId.required(),
+        urls: model.urls.required(),
     }),
 }
 
