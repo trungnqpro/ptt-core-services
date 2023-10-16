@@ -20,6 +20,10 @@ const schema = new Schema(
         videoUrl: mf().mediaUrl().j(),
         imageUrl: mf().mediaUrl().j(),
         audioUrl: mf().mediaUrl().j(),
+        moreUrls: {
+            type: [mf().mediaUrl().j()],
+            default: () => null,
+        },
         createdBy: mf().id().ref('User').required().j(),
         updatedBy: mf().id().ref('User').j(),
     },

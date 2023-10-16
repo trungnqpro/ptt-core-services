@@ -1,5 +1,5 @@
 const { utils, errors } = require('../../libs')
-const { Artifact } = require('../../resources')
+const { ObjectMore } = require('../../resources')
 
 const { NotFoundError } = errors
 
@@ -15,47 +15,54 @@ exports.fetch = async ctx => {
         filter.q = q
     }
 
-    const { departments = [], total } = await Artifact.Service.fetch(skip, limit, filter, sort)
+    const { mores = [], total } = await ObjectMore.Service.fetch(skip, limit, filter, sort)
 
-    ctx.body = departments.map(Artifact.Helper.formatList)
+    ctx.body = mores.map(ObjectMore.Helper.formatList)
     ctx.state.paging = utils.generatePaging(skipPage, limit, total)
 }
 
 exports.create = async ctx => {
     const fields = ctx.request.body
-    const record = await Artifact.Service.create({
+    const record = await ObjectMore.Service.create({
         ...fields,
         createdBy: ctx.state?.user?.id,
     })
 
-    ctx.body = Artifact.Helper.protect(record)
+    ctx.body = ObjectMore.Helper.protect(record)
 }
 
 exports.get = async ctx => {
     const { id } = ctx.params
-    const record = await Artifact.Service.getById(id)
+    const record = await ObjectMore.Service.getById(id)
 
     if (!record) {
         throw new NotFoundError(`Not found record by id ${id}`)
     }
 
-    ctx.body = Artifact.Helper.protect(record)
+    ctx.body = ObjectMore.Helper.protect(record)
+}
+
+exports.fetchBySourceId = async ctx => {
+    const { id } = ctx.params
+    const { mores = [] } = await ObjectMore.Service.getBySourceId(id)
+
+    ctx.body = mores.map(ObjectMore.Helper.formatList)
 }
 
 exports.update = async ctx => {
     const { id } = ctx.params
     const updatedFields = ctx.request.body
-    const record = await Artifact.Service.updateById(id, {
+    const record = await ObjectMore.Service.updateById(id, {
         ...updatedFields,
         updatedBy: ctx.state?.user?.id,
     })
 
-    ctx.body = Artifact.Helper.protect(record)
+    ctx.body = ObjectMore.Helper.protect(record)
 }
 
 exports.delete = async ctx => {
     const { id } = ctx.params
-    await Artifact.Service.deleteById(id)
+    await ObjectMore.Service.deleteById(id)
 
     ctx.body = 'success'
 }

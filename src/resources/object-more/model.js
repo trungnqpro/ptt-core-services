@@ -3,7 +3,7 @@
  *
  * @module resources/announcement/module
  */
-const ArtifactSchema = require('./schema-mg')
+const ObjectMoreSchema = require('./schema-mg')
 const debug = require('../../libs').Debug()
 
 /**
@@ -12,7 +12,7 @@ const debug = require('../../libs').Debug()
  * @param {number} [limit=20] Số lượng phần tử muốn lấy.
  * @param {Object} [filter={}] Các tiêu chí lọc.
  * @param {Object} [sort={}] Các tiêu chí sắp xếp.
- * @returns {Array<Artifact>} Mảng các tài khoản
+ * @returns {Array<ObjectMore>} Mảng các tài khoản
  */
 
 exports.fetch = async (skip = 0, limit = 20, filter = {}, sort = {}) => {
@@ -21,7 +21,11 @@ exports.fetch = async (skip = 0, limit = 20, filter = {}, sort = {}) => {
         sort._id = -1
     }
 
-    return await ArtifactSchema.find(filter).sort(sort).skip(skip).limit(limit).lean({ getters: true })
+    return await ObjectMoreSchema.find(filter)
+        .sort(sort)
+        .skip(skip)
+        .limit(limit)
+        .lean({ getters: true })
 }
 
 /**
@@ -31,7 +35,7 @@ exports.fetch = async (skip = 0, limit = 20, filter = {}, sort = {}) => {
  * @returns {Role}
  */
 exports.create = async entity => {
-    const result = await ArtifactSchema.create(entity)
+    const result = await ObjectMoreSchema.create(entity)
     return result.toJSON()
 }
 
@@ -41,7 +45,16 @@ exports.create = async entity => {
  * @returns entity
  */
 exports.getById = async id => {
-    return await ArtifactSchema.findOne({ _id: id }).lean()
+    return await ObjectMoreSchema.findOne({ _id: id }).lean()
+}
+
+/**
+ * Lấy thông tin entity theo sourceId.
+ * @param {String} id Id entity.
+ * @returns entity
+ */
+exports.getBySourceId = async id => {
+    return await ObjectMoreSchema.find({ sourceId: id }).lean()
 }
 
 /**
@@ -51,7 +64,7 @@ exports.getById = async id => {
  * @returns {Role} Thông tin mới của entity sau khi cập nhật.
  */
 exports.updateById = async (id, updatedFields) => {
-    return await ArtifactSchema.findByIdAndUpdate(id, updatedFields, {
+    return await ObjectMoreSchema.findByIdAndUpdate(id, updatedFields, {
         new: true,
     }).lean()
 }
@@ -62,9 +75,9 @@ exports.updateById = async (id, updatedFields) => {
  * @returns {string} 'success'
  */
 exports.deleteById = async id => {
-    return await ArtifactSchema.deleteOne({ _id: id })
+    return await ObjectMoreSchema.deleteOne({ _id: id })
 }
 
 exports.getTotalNumber = async (filter = {}) => {
-    return await ArtifactSchema.countDocuments(filter)
+    return await ObjectMoreSchema.countDocuments(filter)
 }
