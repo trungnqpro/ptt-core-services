@@ -21,12 +21,15 @@ routerUser.post(
     ctrl.create,
 )
 
+routerUser.get('/info', checkPermission(permissionCodes.viewDetailsOfUser), ctrl.info)
+
 routerUser.get(
     '/:id',
     checkPermission(permissionCodes.viewDetailsOfUser),
     validate(schemas.idGet),
     ctrl.get,
 )
+
 routerUser.put(
     '/:id',
     checkPermission(permissionCodes.updateUser),

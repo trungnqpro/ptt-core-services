@@ -50,6 +50,17 @@ exports.get = async ctx => {
     ctx.body = User.Helper.protect(user)
 }
 
+exports.info = async ctx => {
+    const { id } = ctx.state.user || {}
+    const user = await User.Service.getById(id)
+
+    if (!user) {
+        throw new NotFoundError(`Not found user by id ${id}`)
+    }
+
+    ctx.body = User.Helper.protect(user)
+}
+
 exports.update = async ctx => {
     const { id } = ctx.params
     const updatedFields = ctx.request.body
