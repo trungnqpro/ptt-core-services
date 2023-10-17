@@ -15,14 +15,14 @@ exports.fetch = async ctx => {
         filter.q = q
     }
 
-    const { configBackups = [], total } = await SystemBackup.Service.fetch(
+    const { items = [], total } = await SystemBackup.Service.fetch(
         skip,
         limit,
         filter,
         sort,
     )
 
-    ctx.body = configBackups.map(SystemBackup.Helper.formatList)
+    ctx.body = items.map(SystemBackup.Helper.formatList)
     ctx.state.paging = utils.generatePaging(skipPage, limit, total)
 }
 

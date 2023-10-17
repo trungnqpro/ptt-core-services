@@ -1,5 +1,5 @@
 const { utils, errors } = require('../../libs')
-const { ConfigHome } = require('../../resources')
+const { SystemSetting } = require('../../resources')
 
 const { NotFoundError } = errors
 
@@ -15,47 +15,47 @@ exports.fetch = async ctx => {
         filter.q = q
     }
 
-    const { configBackups = [], total } = await ConfigHome.Service.fetch(skip, limit, filter, sort)
+    const { items = [], total } = await SystemSetting.Service.fetch(skip, limit, filter, sort)
 
-    ctx.body = configBackups.map(ConfigHome.Helper.formatList)
+    ctx.body = items.map(SystemSetting.Helper.formatList)
     ctx.state.paging = utils.generatePaging(skipPage, limit, total)
 }
 
 exports.create = async ctx => {
     const fields = ctx.request.body
-    const record = await ConfigHome.Service.create({
+    const record = await SystemSetting.Service.create({
         ...fields,
         createdBy: ctx.state?.user?.id,
     })
 
-    ctx.body = ConfigHome.Helper.protect(record)
+    ctx.body = SystemSetting.Helper.protect(record)
 }
 
 exports.get = async ctx => {
     const { id } = ctx.params
-    const record = await ConfigHome.Service.getById(id)
+    const record = await SystemSetting.Service.getById(id)
 
     if (!record) {
         throw new NotFoundError(`Not found record by id ${id}`)
     }
 
-    ctx.body = ConfigHome.Helper.protect(record)
+    ctx.body = SystemSetting.Helper.protect(record)
 }
 
 exports.update = async ctx => {
     const { id } = ctx.params
     const updatedFields = ctx.request.body
-    const record = await ConfigHome.Service.updateById(id, {
+    const record = await SystemSetting.Service.updateById(id, {
         ...updatedFields,
         updatedBy: ctx.state?.user?.id,
     })
 
-    ctx.body = ConfigHome.Helper.protect(record)
+    ctx.body = SystemSetting.Helper.protect(record)
 }
 
 exports.delete = async ctx => {
     const { id } = ctx.params
-    await ConfigHome.Service.deleteById(id)
+    await SystemSetting.Service.deleteById(id)
 
     ctx.body = 'success'
 }

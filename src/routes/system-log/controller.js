@@ -1,5 +1,5 @@
 const { utils, errors } = require('../../libs')
-const { SystemFolder } = require('../../resources')
+const { SystemLog } = require('../../resources')
 
 const { NotFoundError } = errors
 
@@ -15,54 +15,47 @@ exports.fetch = async ctx => {
         filter.q = q
     }
 
-    const { items = [], total } = await SystemFolder.Service.fetch(
-        skip,
-        limit,
-        filter,
-        sort,
-    )
+    const { items = [], total } = await SystemLog.Service.fetch(skip, limit, filter, sort)
 
-    ctx.body = items.map(SystemFolder.Helper.formatList)
+    ctx.body = items.map(SystemLog.Helper.formatList)
     ctx.state.paging = utils.generatePaging(skipPage, limit, total)
 }
 
 exports.create = async ctx => {
     const fields = ctx.request.body
-    const record = await SystemFolder.Service.create({
+    const record = await SystemLog.Service.create({
         ...fields,
-        createdBy: ctx.state.user.id,
+        createdBy: ctx.state?.user?.id,
     })
 
-
-    const body = SystemFolder.Helper.protect(record)
-    ctx.body = body
+    ctx.body = SystemLog.Helper.protect(record)
 }
 
 exports.get = async ctx => {
     const { id } = ctx.params
-    const record = await SystemFolder.Service.getById(id)
+    const record = await SystemLog.Service.getById(id)
 
     if (!record) {
         throw new NotFoundError(`Not found record by id ${id}`)
     }
 
-    ctx.body = SystemFolder.Helper.protect(record)
+    ctx.body = SystemLog.Helper.protect(record)
 }
 
 exports.update = async ctx => {
     const { id } = ctx.params
     const updatedFields = ctx.request.body
-    const record = await SystemFolder.Service.updateById(id, {
+    const record = await SystemLog.Service.updateById(id, {
         ...updatedFields,
-        updatedBy: ctx.state.user.id,
+        updatedBy: ctx.state?.user?.id,
     })
 
-    ctx.body = SystemFolder.Helper.protect(record)
+    ctx.body = SystemLog.Helper.protect(record)
 }
 
 exports.delete = async ctx => {
     const { id } = ctx.params
-    await SystemFolder.Service.deleteById(id)
+    await SystemLog.Service.deleteById(id)
 
     ctx.body = 'success'
 }

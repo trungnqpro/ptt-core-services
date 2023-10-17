@@ -9,33 +9,33 @@ const ctrl = require('./controller')
 const schemas = require('./schema-api')
 const permissionCodes = require('../../libs/utils').getPermissionCodes(require('./permission'))
 
-const router = new Router({ prefix: '/system/folders' })
+const router = new Router({ prefix: '/system/logs' })
 router.use(auth)
 
-router.get('/', checkPermission(permissionCodes.listSystemFolder), validate(schemas.get), ctrl.fetch)
+router.get('/', checkPermission(permissionCodes.listSystemLog), validate(schemas.get), ctrl.fetch)
 
 router.post(
     '/',
-    checkPermission(permissionCodes.createSystemFolder),
+    checkPermission(permissionCodes.createSystemLog),
     validate(schemas.post),
     ctrl.create,
 )
 
 router.get(
     '/:id',
-    checkPermission(permissionCodes.viewDetailsOfSystemFolder),
+    checkPermission(permissionCodes.viewDetailsOfSystemLog),
     validate(schemas.idGet),
     ctrl.get,
 )
 router.put(
     '/:id',
-    checkPermission(permissionCodes.updateSystemFolder),
+    checkPermission(permissionCodes.updateSystemLog),
     validate(schemas.idPut),
     ctrl.update,
 )
 router.del(
     '/:id',
-    checkPermission(permissionCodes.deleteSystemFolder),
+    checkPermission(permissionCodes.deleteSystemLog),
     validate(schemas.idDelete),
     ctrl.delete,
 )

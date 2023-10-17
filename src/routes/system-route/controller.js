@@ -15,9 +15,9 @@ exports.fetch = async ctx => {
         filter.q = q
     }
 
-    const { configBackups = [], total } = await SystemRoute.Service.fetch(skip, limit, filter, sort)
+    const { items = [], total } = await SystemRoute.Service.fetch(skip, limit, filter, sort)
 
-    ctx.body = configBackups.map(SystemRoute.Helper.formatList)
+    ctx.body = items.map(SystemRoute.Helper.formatList)
     ctx.state.paging = utils.generatePaging(skipPage, limit, total)
 }
 

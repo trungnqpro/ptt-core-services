@@ -9,35 +9,35 @@ const ctrl = require('./controller')
 const schemas = require('./schema-api')
 const permissionCodes = require('../../libs/utils').getPermissionCodes(require('./permission'))
 
-const routerConfigBackup = new Router({ prefix: '/backups' })
-routerConfigBackup.use(auth)
+const router = new Router({ prefix: '/system/backups' })
+router.use(auth)
 
-routerConfigBackup.get('/', checkPermission(permissionCodes.listConfigBackup), validate(schemas.get), ctrl.fetch)
+router.get('/', checkPermission(permissionCodes.listSystemBackup), validate(schemas.get), ctrl.fetch)
 
-routerConfigBackup.post(
+router.post(
     '/',
-    checkPermission(permissionCodes.createConfigBackup),
+    checkPermission(permissionCodes.createSystemBackup),
     validate(schemas.post),
     ctrl.create,
 )
 
-routerConfigBackup.get(
+router.get(
     '/:id',
-    checkPermission(permissionCodes.viewDetailsOfConfigBackup),
+    checkPermission(permissionCodes.viewDetailsOfSystemBackup),
     validate(schemas.idGet),
     ctrl.get,
 )
-routerConfigBackup.put(
+router.put(
     '/:id',
-    checkPermission(permissionCodes.updateConfigBackup),
+    checkPermission(permissionCodes.updateSystemBackup),
     validate(schemas.idPut),
     ctrl.update,
 )
-routerConfigBackup.del(
+router.del(
     '/:id',
-    checkPermission(permissionCodes.deleteConfigBackup),
+    checkPermission(permissionCodes.deleteSystemBackup),
     validate(schemas.idDelete),
     ctrl.delete,
 )
 
-module.exports = [routerConfigBackup]
+module.exports = [router]

@@ -9,7 +9,7 @@ const ctrl = require('./controller')
 const schemas = require('./schema-api')
 const permissionCodes = require('../../libs/utils').getPermissionCodes(require('./permission'))
 
-const routerConfigHome = new Router({ prefix: '/system-settings' })
+const routerConfigHome = new Router({ prefix: '/system/settings' })
 routerConfigHome.use(auth)
 
 routerConfigHome.get('/', checkPermission(permissionCodes.listConfigHome), validate(schemas.get), ctrl.fetch)

@@ -7,7 +7,7 @@ const mf = require('../../libs/mongo-field')
 const schema = new Schema(
     {
         _id: mf().id().required().auto().j(),
-        fileName: mf().string().required().j(),
+        name: mf().string().required().j(),
         url: mf().string().required().j(),
         createdBy: mf().id().ref('User').required().j(),
     },

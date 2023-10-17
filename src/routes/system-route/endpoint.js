@@ -9,35 +9,35 @@ const ctrl = require('./controller')
 const schemas = require('./schema-api')
 const permissionCodes = require('../../libs/utils').getPermissionCodes(require('./permission'))
 
-const routerConfigMenu = new Router({ prefix: '/system-route' })
-routerConfigMenu.use(auth)
+const router = new Router({ prefix: '/system/routes' })
+router.use(auth)
 
-routerConfigMenu.get('/', checkPermission(permissionCodes.listConfigMenu), validate(schemas.get), ctrl.fetch)
+router.get('/', checkPermission(permissionCodes.listSystemRoute), validate(schemas.get), ctrl.fetch)
 
-routerConfigMenu.post(
+router.post(
     '/',
-    checkPermission(permissionCodes.createConfigMenu),
+    checkPermission(permissionCodes.createSystemRoute),
     validate(schemas.post),
     ctrl.create,
 )
 
-routerConfigMenu.get(
+router.get(
     '/:id',
-    checkPermission(permissionCodes.viewDetailsOfConfigMenu),
+    checkPermission(permissionCodes.viewDetailsOfSystemRoute),
     validate(schemas.idGet),
     ctrl.get,
 )
-routerConfigMenu.put(
+router.put(
     '/:id',
-    checkPermission(permissionCodes.updateConfigMenu),
+    checkPermission(permissionCodes.updateSystemRoute),
     validate(schemas.idPut),
     ctrl.update,
 )
-routerConfigMenu.del(
+router.del(
     '/:id',
-    checkPermission(permissionCodes.deleteConfigMenu),
+    checkPermission(permissionCodes.deleteSystemRoute),
     validate(schemas.idDelete),
     ctrl.delete,
 )
 
-module.exports = [routerConfigMenu]
+module.exports = [router]

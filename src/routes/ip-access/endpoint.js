@@ -9,35 +9,35 @@ const ctrl = require('./controller')
 const schemas = require('./schema-api')
 const permissionCodes = require('../../libs/utils').getPermissionCodes(require('./permission'))
 
-const routerConfigHome = new Router({ prefix: '/ip-access' })
-routerConfigHome.use(auth)
+const router = new Router({ prefix: '/system/ips' })
+router.use(auth)
 
-routerConfigHome.get('/', checkPermission(permissionCodes.listConfigHome), validate(schemas.get), ctrl.fetch)
+router.get('/', checkPermission(permissionCodes.listIpAccess), validate(schemas.get), ctrl.fetch)
 
-routerConfigHome.post(
+router.post(
     '/',
-    checkPermission(permissionCodes.createConfigHome),
+    checkPermission(permissionCodes.createIpAccess),
     validate(schemas.post),
     ctrl.create,
 )
 
-routerConfigHome.get(
+router.get(
     '/:id',
-    checkPermission(permissionCodes.viewDetailsOfConfigHome),
+    checkPermission(permissionCodes.viewDetailsOfIpAccess),
     validate(schemas.idGet),
     ctrl.get,
 )
-routerConfigHome.put(
+router.put(
     '/:id',
-    checkPermission(permissionCodes.updateConfigHome),
+    checkPermission(permissionCodes.updateIpAccess),
     validate(schemas.idPut),
     ctrl.update,
 )
-routerConfigHome.del(
+router.del(
     '/:id',
-    checkPermission(permissionCodes.deleteConfigHome),
+    checkPermission(permissionCodes.deleteIpAccess),
     validate(schemas.idDelete),
     ctrl.delete,
 )
 
-module.exports = [routerConfigHome]
+module.exports = [router]

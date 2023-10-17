@@ -3,18 +3,18 @@ Joi.objectId = require('joi-objectid')(Joi)
 
 const model = {
     name: Joi.string().max(256),
-    url: Joi.string().max(1000),
+    description: Joi.string().max(1000),
 }
 
 const updateBody = Joi.object({
     name: Joi.string().max(256),
-    url: Joi.string().max(1000),
+    description: Joi.string().max(1000),
 })
 
 const post = {
     body: Joi.object({
         name: model.name.required(),
-        url: model.url,
+        description: model.description,
     }),
 }
 

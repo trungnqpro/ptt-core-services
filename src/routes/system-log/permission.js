@@ -1,8 +1,8 @@
 const permissions = require('../../libs/permission')
-const { IpAccess } = require('../../configs/permissions').resources
+const { SystemLog } = require('../../configs/permissions').resources
 
 module.exports = permissions
-    .resource(IpAccess)
+    .resource(SystemLog)
     .create()
     .update()
     .viewDetailsOf()
