@@ -1,7 +1,7 @@
 FROM node:14-alpine as builder
 
 RUN apk update \
-    && apk add --no-cache python \
+    && apk add --no-cache python3 \
     g++ \
     build-base
 
