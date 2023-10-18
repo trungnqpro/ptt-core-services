@@ -17,10 +17,6 @@
         "staging": "NODE_ENV=staging node src/start.js",
         "start": "NODE_ENV=production node src/start.js",
         "debug": "NODE_ENV=development nodemon --inspect src/start.js",
-        "dev:otp": "NODE_ENV=development node src/start.js --get-otp",
-        "otp:token": "NODE_ENV=development node src/start.js --get-otp",
-        "otp:qr": "NODE_ENV=development node src/start.js --generate-qrcode",
-        "otp:secret": "NODE_ENV=development node src/start.js --generate-secret",
         "nodemon:dev": "NODE_ENV=development nodemon --inspect src/start.js",
         "nodemon:staging": "NODE_ENV=staging nodemon src/start.js",
         "nodemon:start": "NODE_ENV=production nodemon src/start.js",
@@ -80,8 +76,6 @@
         "node-cache": "5.1.2",
         "nodejs-pptx": "1.0.1",
         "nodemailer": "6.6.3",
-        "office-to-pdf": "^4.0.0",
-        "otplib": "12.0.1",
         "path": "0.12.7",
         "qrcode": "^1.5.1",
         "request": "2.83.0",
@@ -96,9 +90,7 @@
         "winston": "3.3.3",
         "winston-daily-rotate-file": "4.5.5",
         "xlsx": "0.17.4",
-        "xml-js": "1.5.2",
-        "xml2js": "0.4.19",
-        "xmlbuilder": "~09.0.1"
+        "xml2js": "0.4.19"
     },
     "devDependencies": {
         "docdash": "1.2.0",

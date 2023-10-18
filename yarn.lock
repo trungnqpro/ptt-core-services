@@ -526,44 +526,6 @@
   resolved "https://registry.npmjs.org/@nodelib/fs.stat/-/fs.stat-1.1.3.tgz"
   integrity sha512-shAmDyaQC4H92APFoIaVDHCx5bStIocgvbwQyxPRrbUY20V1EYTbSDchWbuwlMG3V17cprZhA6+78JfB+3DTPw==
 
-"@otplib/core@^12.0.1":
-  version "12.0.1"
-  resolved "https://registry.npmjs.org/@otplib/core/-/core-12.0.1.tgz"
-  integrity sha512-4sGntwbA/AC+SbPhbsziRiD+jNDdIzsZ3JUyfZwjtKyc/wufl1pnSIaG4Uqx8ymPagujub0o92kgBnB89cuAMA==
-
-"@otplib/plugin-crypto@^12.0.1":
-  version "12.0.1"
-  resolved "https://registry.npmjs.org/@otplib/plugin-crypto/-/plugin-crypto-12.0.1.tgz"
-  integrity sha512-qPuhN3QrT7ZZLcLCyKOSNhuijUi9G5guMRVrxq63r9YNOxxQjPm59gVxLM+7xGnHnM6cimY57tuKsjK7y9LM1g==
-  dependencies:
-    "@otplib/core" "^12.0.1"
-
-"@otplib/plugin-thirty-two@^12.0.1":
-  version "12.0.1"
-  resolved "https://registry.npmjs.org/@otplib/plugin-thirty-two/-/plugin-thirty-two-12.0.1.tgz"
-  integrity sha512-MtT+uqRso909UkbrrYpJ6XFjj9D+x2Py7KjTO9JDPhL0bJUYVu5kFP4TFZW4NFAywrAtFRxOVY261u0qwb93gA==
-  dependencies:
-    "@otplib/core" "^12.0.1"
-    thirty-two "^1.0.2"
-
-"@otplib/preset-default@^12.0.1":
-  version "12.0.1"
-  resolved "https://registry.npmjs.org/@otplib/preset-default/-/preset-default-12.0.1.tgz"
-  integrity sha512-xf1v9oOJRyXfluBhMdpOkr+bsE+Irt+0D5uHtvg6x1eosfmHCsCC6ej/m7FXiWqdo0+ZUI6xSKDhJwc8yfiOPQ==
-  dependencies:
-    "@otplib/core" "^12.0.1"
-    "@otplib/plugin-crypto" "^12.0.1"
-    "@otplib/plugin-thirty-two" "^12.0.1"
-
-"@otplib/preset-v11@^12.0.1":
-  version "12.0.1"
-  resolved "https://registry.npmjs.org/@otplib/preset-v11/-/preset-v11-12.0.1.tgz"
-  integrity sha512-9hSetMI7ECqbFiKICrNa4w70deTUfArtwXykPUvSHWOdzOlfa9ajglu7mNCntlvxycTiOAXkQGwjQCzzDEMRMg==
-  dependencies:
-    "@otplib/core" "^12.0.1"
-    "@otplib/plugin-crypto" "^12.0.1"
-    "@otplib/plugin-thirty-two" "^12.0.1"
-
 "@samverschueren/stream-to-observable@^0.3.0":
   version "0.3.1"
   resolved "https://registry.npmjs.org/@samverschueren/stream-to-observable/-/stream-to-observable-0.3.1.tgz"
@@ -8461,14 +8423,6 @@ object.pick@^1.1.2, object.pick@^1.2.0, object.pick@^1.3.0:
   dependencies:
     isobject "^3.0.1"
 
-office-to-pdf@^4.0.0:
-  version "4.0.0"
-  resolved "https://registry.npmjs.org/office-to-pdf/-/office-to-pdf-4.0.0.tgz"
-  integrity sha512-uNq/vZnTsjYG3iI/Njn44sDEApkHYFkn5qnVbI72hsM++s0jpAqFASjcsUv0zTCz4AmpaYDFjjx8z0wL+DIYsA==
-  dependencies:
-    temporary "^0.0.8"
-    tmp "^0.0.31"
-
 omggif@^1.0.10, omggif@^1.0.9:
   version "1.0.10"
   resolved "https://registry.npmjs.org/omggif/-/omggif-1.0.10.tgz"
@@ -8616,20 +8570,6 @@ os-homedir@^1.0.1:
   resolved "https://registry.npmjs.org/os-homedir/-/os-homedir-1.0.2.tgz"
   integrity sha512-B5JU3cabzk8c67mRRd3ECmROafjYMXbuzlwtqdM8IbS8ktlTix8aFGb2bAGKrSRIlnfKwovGUUr72JUPyOb6kQ==
 
-os-tmpdir@~1.0.1:
-  version "1.0.2"
-  resolved "https://registry.npmjs.org/os-tmpdir/-/os-tmpdir-1.0.2.tgz"
-  integrity sha512-D2FR03Vir7FIu45XBY20mTb+/ZSWB00sjU9jdQXt83gDrI4Ztz5Fs7/yy74g2N5SVQY4xY1qDr4rNddwYRVX0g==
-
-otplib@12.0.1:
-  version "12.0.1"
-  resolved "https://registry.npmjs.org/otplib/-/otplib-12.0.1.tgz"
-  integrity sha512-xDGvUOQjop7RDgxTQ+o4pOol0/3xSZzawTiPKRrHnQWAy0WjhNs/5HdIDJCrqC4MBynmjXgULc6YfioaxZeFgg==
-  dependencies:
-    "@otplib/core" "^12.0.1"
-    "@otplib/preset-default" "^12.0.1"
-    "@otplib/preset-v11" "^12.0.1"
-
 p-cancelable@^1.0.0:
   version "1.1.0"
   resolved "https://registry.npmjs.org/p-cancelable/-/p-cancelable-1.1.0.tgz"
@@ -8688,11 +8628,6 @@ package-json@^6.3.0:
     registry-auth-token "^4.0.0"
     registry-url "^5.0.0"
     semver "^6.2.0"
-
-"package@>= 1.0.0 < 1.2.0":
-  version "1.0.1"
-  resolved "https://registry.npmjs.org/package/-/package-1.0.1.tgz"
-  integrity sha512-g6xZR6CO7okjie83sIRJodgGvaXqymfE5GLhN8N2TmZGShmHc/V23hO/vWbdnuy3D81As3pfovw72gGi42l9qA==
 
 pad-right@^0.2.2:
   version "0.2.2"
@@ -10924,13 +10859,6 @@ templates@^1.2.6:
     vinyl-item "^1.0.0"
     vinyl-view "^2.0.0"
 
-temporary@^0.0.8:
-  version "0.0.8"
-  resolved "https://registry.npmjs.org/temporary/-/temporary-0.0.8.tgz"
-  integrity sha512-NbWqVhmH2arfC/I7upx4VWYJEhp9SSpqjZwzt4LmCuT/7luiAUSt2L3/h9y/3crPnuIdMxg8GsxL9LvEHckdtw==
-  dependencies:
-    package ">= 1.0.0 < 1.2.0"
-
 term-size@^1.2.0:
   version "1.2.0"
   resolved "https://registry.npmjs.org/term-size/-/term-size-1.2.0.tgz"
@@ -10952,11 +10880,6 @@ textextensions@~1.0.0:
   version "1.0.2"
   resolved "https://registry.npmjs.org/textextensions/-/textextensions-1.0.2.tgz"
   integrity sha512-jm9KjEWiDmtGLBrTqXEduGzlYTTlPaoDKdq5YRQhD0rYjo61ZNTYKZ/x5J4ajPSBH9wIYY5qm9GNG5otIKjtOA==
-
-thirty-two@^1.0.2:
-  version "1.0.2"
-  resolved "https://registry.npmjs.org/thirty-two/-/thirty-two-1.0.2.tgz"
-  integrity sha512-OEI0IWCe+Dw46019YLl6V10Us5bi574EvlJEOcAkB29IzQ/mYD1A6RyNHLjZPiHCmuodxvgF6U+vZO1L15lxVA==
 
 through2-filter@^2.0.0:
   version "2.0.0"
@@ -11029,13 +10952,6 @@ titlecase@^1.1.2:
   version "1.1.3"
   resolved "https://registry.npmjs.org/titlecase/-/titlecase-1.1.3.tgz"
   integrity sha512-pQX4oiemzjBEELPqgK4WE+q0yhAqjp/yzusGtlSJsOuiDys0RQxggepYmo0BuegIDppYS3b3cpdegRwkpyN3hw==
-
-tmp@^0.0.31:
-  version "0.0.31"
-  resolved "https://registry.npmjs.org/tmp/-/tmp-0.0.31.tgz"
-  integrity sha512-lfyEfOppKvWNeId5CArFLwgwef+iCnbEIy0JWYf1httIEXnx4ndL4Dr1adw7hPgeQfSlTbc/gqn6iaKcROpw5Q==
-  dependencies:
-    os-tmpdir "~1.0.1"
 
 to-absolute-glob@^0.1.1:
   version "0.1.1"
@@ -11881,7 +11797,7 @@ xlsx@0.17.4:
     wmf "~1.0.1"
     word "~0.3.0"
 
-xml-js@1.5.2, xml-js@^1.5.2:
+xml-js@^1.5.2:
   version "1.5.2"
   resolved "https://registry.npmjs.org/xml-js/-/xml-js-1.5.2.tgz"
   integrity sha512-vcEkOCqlbPJExLSFgjpQ/nwrsPdjb/ElKqzCTGBB1aGpmfvj4mjdoLBarVFzUHg3ZT6pVrPDrRooE6wHuycaSg==

@@ -1,21 +1,11 @@
 FROM node:14-alpine as builder
 
-RUN apk update && apk add libreoffice \
-    && apk add --no-cache msttcorefonts-installer fontconfig && update-ms-fonts \
+RUN apk update \
     && apk add --no-cache \
     python \
     g++ \
-    build-base \
-    cairo-dev \
-    jpeg-dev \
-    pango-dev \
-    musl-dev \
-    giflib-dev \
-    pixman-dev \
-    pangomm-dev \
-    libjpeg-turbo-dev \
-    freetype-dev
-    
+    build-base
+
 WORKDIR /app
 COPY package.json ./
 COPY yarn.lock ./
