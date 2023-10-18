@@ -9,10 +9,10 @@ WORKDIR /app
 COPY package.json ./
 COPY yarn.lock ./
 
-RUN yarn install --production \
+RUN yarn install \
     && yarn global add pm2 \
-    && mkdir /home/node/upload \
-    && chown -R node:node /home/node
+    && mkdir /node/upload \
+    && chown -R node:node /node
 
 COPY . /app
 
